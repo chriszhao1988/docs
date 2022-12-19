@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'Treasurenet Documentation',
-    tagline: 'Treasurenet is best.',
+    tagline: 'Treasurenet Built on Real-World Rare Assets.',
     url: 'https://docs.treasurenet.io',
     baseUrl: '/',
     onBrokenLinks: 'throw',
@@ -37,17 +37,17 @@ const config = {
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
                     editUrl:
-                        'https://gitlab.trustslink.com/AOPROJS/nyl/docs',
+                        'https://github.com/treasurenetprotocol/docs/blob/master',
                 },
                 blog: {
                     showReadingTime: false,
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
                     editUrl:
-                        'https://gitlab.trustslink.com/AOPROJS/nyl/docs',
+                        'https://github.com/treasurenetprotocol/docs/blob/master',
                     feedOptions: {
                         type: 'rss',
-                        copyright: `Copyright © ${new Date().getFullYear()} Facebook, Inc.`,
+                        copyright: `Copyright © ${new Date().getFullYear()} Treasurenet Foundation, Inc.`,
                     },
                 },
                 theme: {
@@ -168,7 +168,7 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright © ${new Date().getFullYear()} treasurenet foundation, Inc.`,
+                copyright: `Copyright © ${new Date().getFullYear()} Treasurenet Foundation, Inc.`,
             },
             prism: {
                 theme: lightCodeTheme,
