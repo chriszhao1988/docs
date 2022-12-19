@@ -1,0 +1,126 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.docs.category.About TN": {
+    "message": "About TN",
+    "description": "The label for category About TN in sidebar docs"
+  },
+  "sidebar.docs.category.Users": {
+    "message": "Users",
+    "description": "The label for category Users in sidebar docs"
+  },
+  "sidebar.docs.category.Basic Concepts": {
+    "message": "Basic Concepts",
+    "description": "The label for category Basic Concepts in sidebar docs"
+  },
+  "sidebar.docs.category.Digital Wallets": {
+    "message": "Digital Wallets",
+    "description": "The label for category Digital Wallets in sidebar docs"
+  },
+  "sidebar.docs.category.TN Governance": {
+    "message": "TN Governance",
+    "description": "The label for category TN Governance in sidebar docs"
+  },
+  "sidebar.docs.category.Producers": {
+    "message": "Producers",
+    "description": "The label for category Producers in sidebar docs"
+  },
+  "sidebar.docs.category.Stakers": {
+    "message": "Stakers",
+    "description": "The label for category Stakers in sidebar docs"
+  },
+  "sidebar.docs.category.Validators": {
+    "message": "Validators",
+    "description": "The label for category Validators in sidebar docs"
+  },
+  "sidebar.docs.category.Dapp Devs": {
+    "message": "Dapp Devs",
+    "description": "The label for category Dapp Devs in sidebar docs"
+  },
+  "sidebar.docs.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category Guides in sidebar docs"
+  },
+  "sidebar.docs.category.Protocol Devs": {
+    "message": "Protocol Devs",
+    "description": "The label for category Protocol Devs in sidebar docs"
+  },
+  "sidebar.docs.doc.About TreasureNet": {
+    "message": "About TreasureNet",
+    "description": "The label for the doc item About TreasureNet in sidebar docs, linking to the doc about/introduction"
+  },
+  "sidebar.api.category.Official Contracts": {
+    "message": "Official Contracts",
+    "description": "The label for category Official Contracts in sidebar api"
+  },
+  "sidebar.api.category.USTN": {
+    "message": "USTN",
+    "description": "The label for category USTN in sidebar api"
+  },
+  "sidebar.api.category.Tools": {
+    "message": "Tools",
+    "description": "The label for category Tools in sidebar api"
+  },
+  "sidebar.api.category.Cosmos": {
+    "message": "Cosmos",
+    "description": "The label for category Cosmos in sidebar api"
+  },
+  "sidebar.docs.category.Quick Start": {
+    "message": "Quick Start",
+    "description": "The label for category Quick Start in sidebar docs"
+  },
+  "sidebar.docs.category.Block Explorers": {
+    "message": "Block Explorers",
+    "description": "The label for category Block Explorers in sidebar docs"
+  },
+  "sidebar.docs.link.EVM Explorer": {
+    "message": "EVM Explorer",
+    "description": "The label for link EVM Explorer in sidebar docs, linking to https://blockscout.treasurenet.io"
+  },
+  "sidebar.docs.link.COSMOS Explorer": {
+    "message": "COSMOS Explorer",
+    "description": "The label for link COSMOS Explorer in sidebar docs, linking to https://explorer.treasurenet.io"
+  },
+  "sidebar.docs.category.USTN Finance Sys.": {
+    "message": "USTN Finance Sys.",
+    "description": "The label for category USTN Finance Sys. in sidebar docs"
+  },
+  "sidebar.docs.category.Production Data": {
+    "message": "Production Data",
+    "description": "The label for category Production Data in sidebar docs"
+  },
+  "sidebar.docs.category.Setup & Configuration": {
+    "message": "Setup & Configuration",
+    "description": "The label for category Setup & Configuration in sidebar docs"
+  },
+  "sidebar.docs.category.Localnet": {
+    "message": "Localnet",
+    "description": "The label for category Localnet in sidebar docs"
+  },
+  "sidebar.docs.category.Testnet": {
+    "message": "Testnet",
+    "description": "The label for category Testnet in sidebar docs"
+  },
+  "sidebar.docs.category.Client Libraries": {
+    "message": "Client Libraries",
+    "description": "The label for category Client Libraries in sidebar docs"
+  },
+  "sidebar.docs.category.Ethereum JSON-RPC": {
+    "message": "Ethereum JSON-RPC",
+    "description": "The label for category Ethereum JSON-RPC in sidebar docs"
+  },
+  "sidebar.docs.link.Cosmos gRPC & REST": {
+    "message": "Cosmos gRPC & REST",
+    "description": "The label for link Cosmos gRPC & REST in sidebar docs, linking to https://www.google.com"
+  },
+  "sidebar.api.category.Ethereum JSON-RPC Methods": {
+    "message": "Ethereum JSON-RPC Methods",
+    "description": "The label for category Ethereum JSON-RPC Methods in sidebar api"
+  },
+  "sidebar.api.link.Cosmos gRPC & REST": {
+    "message": "Cosmos gRPC & REST",
+    "description": "The label for link Cosmos gRPC & REST in sidebar api, linking to https://www.google.com"
+  }
+}

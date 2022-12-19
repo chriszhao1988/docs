@@ -8,8 +8,9 @@
 .docusaurus
 .cache-loader
 
-# i18n
-/i18n
+# IDEs
+.idea
+*.zip
 
 # Misc
 .DS_Store
