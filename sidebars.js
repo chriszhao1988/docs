@@ -113,6 +113,7 @@ const sidebars = {
                 'stakers/basic-concepts',
                 'stakers/rule',
                 'stakers/operation-guide',
+                'stakers/qa',
             ]
         },
         {
@@ -186,6 +187,15 @@ const sidebars = {
                     label: 'Testnet',
                     items: [
                         'developers/testnet/faucet',
+                    ]
+                },
+                {
+                    type: 'category',
+                    label: 'Ethereum Tooling ',
+                    items: [
+                        'developers/ethereum-tooling/remix',
+                        'developers/ethereum-tooling/hardhat',
+                        'developers/ethereum-tooling/truffle',
                     ]
                 },
                 {

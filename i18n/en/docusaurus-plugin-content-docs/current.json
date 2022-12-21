@@ -122,5 +122,9 @@
   "sidebar.api.link.Cosmos gRPC & REST": {
     "message": "Cosmos gRPC & REST",
     "description": "The label for link Cosmos gRPC & REST in sidebar api, linking to https://www.google.com"
+  },
+  "sidebar.docs.category.Ethereum Tooling ": {
+    "message": "Ethereum Tooling ",
+    "description": "The label for category Ethereum Tooling  in sidebar docs"
   }
 }

@@ -7,6 +7,9 @@ sidebar_position: 1
 
 Staking 是TreasureNet ecosystem的其中一环，任何拥有任何数量UNIT token的用户都可以帮助保护网络并在此过程中获得奖励，这些用户被成为staker。
 
+:::caution
+  Staked UNIT 永远不会离开您 。 即使不能自由交易，抵押的UNIT也永远不会为Validator所有。
+:::
 
 ## What is stake?
 
