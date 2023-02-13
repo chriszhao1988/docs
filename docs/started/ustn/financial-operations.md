@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# USTN Financial Operations
+# Operation Guide
 
 :::info
   🚧 Documentation is in progress.

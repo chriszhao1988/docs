@@ -61,54 +61,51 @@ const sidebars = {
                     items: [
                         'assets/ecosystem/ustn-finance',
                         'assets/ecosystem/tat',
-                        'assets/ecosystem/stake',
                     ]
                 },
             ]
         },
         {
             type: 'category',
-            label: 'Users',
+            label: 'Getting Started',
             items: [
                 {
                     type: 'category',
                     label: 'Basic Concepts',
                     items: [
-                        'users/concepts/transactions',
-                        'users/concepts/tokens',
-                        'users/concepts/gas-and-fees',
-                        'users/concepts/smart-contract'
+                        'started/concepts/transactions',
+                        'started/concepts/tokens',
+                        'started/concepts/gas-and-fees',
+                        'started/concepts/smart-contract'
                     ]
                 },
                 {
                     type: 'category',
                     label: 'Digital Wallets',
                     items: [
-                        'users/wallets/metamask',
-                        'users/wallets/coinbase',
-                        'users/wallets/keplr',
-                        'users/wallets/ledger',
+                        'started/wallets/metamask',
+                        'started/wallets/coinbase',
+                        'started/wallets/keplr',
+                        'started/wallets/ledger',
                     ]
                 },
-                'users/accounts',
+                'started/accounts',
                 {
                     type: 'category',
                     label: 'TN Governance',
                     items: [
-                        'users/governance/overview',
-                        'users/governance/dao-website',
-                        'users/governance/chain-parameters',
-                        'users/governance/community-pool',
+                        'started/governance/overview',
+                        'started/governance/dao-website',
+                        'started/governance/community-pool',
                     ]
                 },
                 {
                     type: 'category',
-                    label: 'USTN Finance Sys.',
+                    label: 'USTN Finance Platform',
                     items: [
-                        'users/ustn/overview',
-                        'users/ustn/financial-operations',
-                        'users/ustn/financial-logic',
-                        'users/ustn/qa'
+                        'started/ustn/overview',
+                        'started/ustn/financial-operations',
+                        'started/ustn/qa'
                     ]
                 },
 
@@ -116,7 +113,7 @@ const sidebars = {
         },
         {
             type: 'category',
-            label: 'Producers',
+            label: 'Producer & TAT',
             items: [
                 'producers/basic-concepts',
                 'producers/producer-registration',
@@ -131,19 +128,10 @@ const sidebars = {
                 'producers/producer-tools',
             ]
         },
+
         {
             type: 'category',
-            label: 'Stakers',
-            items: [
-                'stakers/basic-concepts',
-                'stakers/rule',
-                'stakers/operation-guide',
-                'stakers/qa',
-            ]
-        },
-        {
-            type: 'category',
-            label: 'Validators',
+            label: 'For Validators',
             items: [
                 'validators/overview',
                 {
@@ -176,12 +164,21 @@ const sidebars = {
                 },
                 'validators/join-testnet',
                 'validators/join-mainnet',
-                'validators/about-bonus-stake',
+                {
+                    type: 'category',
+                    label: 'Staking',
+                    items: [
+                        'validators/staking/basic-concepts',
+                        'validators/staking/rule',
+                        'validators/staking/operation-guide',
+                        'validators/staking/qa',
+                    ]
+                },
             ]
         },
         {
             type: 'category',
-            label: 'Dapp Devs',
+            label: 'For Dapp Devs',
             items: [
                 'developers/overview',
                 'developers/quick-connect',
@@ -246,7 +243,7 @@ const sidebars = {
         },
         {
             type: 'category',
-            label: 'Protocol Devs',
+            label: 'For Protocol Devs',
             items: [
                 'protocolDevelopers/overview',
             ]

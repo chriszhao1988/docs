@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# USTN Financial Q&A
+# Q&A
 
 :::info
   🚧 Documentation is in progress.
