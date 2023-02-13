@@ -43,6 +43,31 @@ const sidebars = {
         },
         {
             type: 'category',
+            label: 'Assets',
+            items: [
+                {
+                    type: 'category',
+                    label: 'Basic Concepts',
+                    items: [
+                        'assets/basic-concepts/token',
+                        'assets/basic-concepts/producer',
+                        'assets/basic-concepts/stake',
+                    ]
+                },
+                'assets/tngateway',
+                {
+                    type: 'category',
+                    label: 'Ecosystem',
+                    items: [
+                        'assets/ecosystem/ustn-finance',
+                        'assets/ecosystem/tat',
+                        'assets/ecosystem/stake',
+                    ]
+                },
+            ]
+        },
+        {
+            type: 'category',
             label: 'Users',
             items: [
                 {
