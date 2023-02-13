@@ -92,15 +92,6 @@ const sidebars = {
                 'started/accounts',
                 {
                     type: 'category',
-                    label: 'TN Governance',
-                    items: [
-                        'started/governance/overview',
-                        'started/governance/dao-website',
-                        'started/governance/community-pool',
-                    ]
-                },
-                {
-                    type: 'category',
                     label: 'USTN Finance Platform',
                     items: [
                         'started/ustn/overview',
@@ -109,6 +100,15 @@ const sidebars = {
                     ]
                 },
 
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Governance',
+            items: [
+                'governance/overview',
+                'governance/dao-website',
+                'governance/community-pool',
             ]
         },
         {

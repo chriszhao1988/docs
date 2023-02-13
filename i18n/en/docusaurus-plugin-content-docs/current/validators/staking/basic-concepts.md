@@ -23,3 +23,6 @@ Stake 是 depositing 158 UNIT token 来activate自己的validator node的过程�
   - 随着更多的UNIT token被质押，网络对供给的抵抗力变得更强，因为他需要更多的UNIT来控制大部分网络。要成为有效的安全威胁，意味着您需要控制系统中的大部分UNIT token。
 
 
+## Community Resources
+
+- Provide links to community resources, such as forums, chat groups, and other support channels, to assist users with any questions or issues they may encounter while staking.
