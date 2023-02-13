@@ -246,16 +246,22 @@ const sidebars = {
             label: 'For Protocol Devs',
             items: [
                 'protocolDevelopers/overview',
-                'protocolDevelopers/modules/overview',
-                'protocolDevelopers/modules/auth',
-                'protocolDevelopers/modules/authz',
-                'protocolDevelopers/modules/bank',
-                'protocolDevelopers/modules/mint',
-                'protocolDevelopers/modules/staking',
-                'protocolDevelopers/modules/slashing',
-                'protocolDevelopers/modules/gov',
-                'protocolDevelopers/modules/distribution'
+                {
+                    type: 'category',
+                    label: 'Modules',
+                    items: [
+                        'protocolDevelopers/modules/overview',
+                        'protocolDevelopers/modules/auth',
+                        'protocolDevelopers/modules/authz',
+                        'protocolDevelopers/modules/bank',
+                        'protocolDevelopers/modules/mint',
+                        'protocolDevelopers/modules/staking',
+                        'protocolDevelopers/modules/slashing',
+                        'protocolDevelopers/modules/gov',
+                        'protocolDevelopers/modules/distribution'
 
+                    ]
+                },
             ]
         },
         {
