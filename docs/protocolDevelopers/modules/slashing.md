@@ -55,227 +55,65 @@ Commit结构体中的bitArray根据CommitSig中的BlockIDFlag的值，以bit的�
 ## 网络参数
 以下是用于配置验证者惩罚行为的所有网络参数。所有这些参数的详细信息及其对验证者惩罚行为的影响将在本文档后面讨论。
 
+```json
 signed_blocks_window：为正常运行时间跟踪计算活跃度的块数；
 min_signed_per_window：最后一个帐户允许的错误/错过验证的块的最大百分比；signed_blocks_window在停用之前阻塞；
 downtime_jail_duration:监禁时间；
 slash_fraction_double_sign：当验证者出现拜占庭错误时被削减的资金百分比;
 slash_fraction_downtime：当验证者不活跃时被削减的资金百分比。
+```
 
 ## Transactions and Queries
 
 ### Transactions
 
-   > treasurenetd tx staking create-validator - Create new validator initialized with a self-delegation
-
+   > treasurenetd tx slashing unjail - 释放验证器
+可以先通过treasurenetd query staking validator [validator-address] --home --output json | jq 查看validator的状态
 ```sh
-$ treasurenetd tx staking create-validator \
+$ treasurenetd query staking validator \
 --from=[name_of_your_key] \
---amount=[staking_amount] \
---pubkey=[treasurenetpub...]  \
---moniker="[moniker_id_of_your_node]" \
---security-contact="[security contact email/contact method]" \
---chain-id="[chain-id]" \
---commission-rate="[commission_rate]" \
---commission-max-rate="[maximum_commission_rate]" \
---commission-max-change-rate="[maximum_rate_of_change_of_commission]" \
---min-self-delegation="[min_self_delegation_amount]"
 --keyring-backend test
-
-## Transactions payload##
-{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgCreateValidator"...}
-confirm transaction before signing and broadcasting [y/N]: y
+--output json | jq
 ```
-
-   > treasurenetd tx staking delegate [validator-address] [amount] - Delegate liquid tokens to a validator
+```json
+{
+  "operator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
+  "consensus_pubkey": .....,
+  ......
+  "jailed": true,
+  "status": "BOND_STATUS_BONDED",
+  "tokens": "268000000000000000000",
+  "delegator_shares": "268000000000000000000.000000000000000000",
+  .......
+}
+```
+如果validator中jailed的状态为true，说明该validator处于监禁状态，监禁期过后可以进行释放
 
 ```sh
-treasurenetd tx staking delegate treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq 10unit
+treasurenetd tx slashing unjail
 --from treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg 
 --home (defaule:"/root/.treasurenet/")  
+--chain-id
 --fees 1unit 
 --gas auto
 --keyring-backend test
 
 ## Transactions payload##
-{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgDelegate","delegator_address":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","validator_address":"treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq","amount":{"denom":"aunit","amount":"10000000000000000000"}}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"214201","payer":"","granter":""}},"signatures":[]}
-
-confirm transaction before signing and broadcasting [y/N]: y
-```
-
-   >  treasurenetd tx staking unbond [validator-address] [amount] -  Unbond shares from a validator
-这里需要注意的是，在解绑委托后，不会立即生效，因为我们有个参数unbonding_time(解绑时间)，资金只有在unbonding_time通过后才能生效
-
-```sh
-treasurenetd tx staking unbond treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq 10unit 
---home (defaule:"/root/.treasurenet/")
---from treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg
---chain-id treasurenet_9000-1
---fees 1unit
---gas auto
---keyring-backend test
-
-## Transactions payload##
-{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgUnDelegate","delegator_address":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","validator_address":"treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq","amount":{"denom":"aunit","amount":"10000000000000000000"}}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"214201","payer":"","granter":""}},"signatures":[]}
-
-confirm transaction before signing and broadcasting [y/N]: y
-```
-
-   > treasurenetd tx staking redelegate [validator-address] [validator-address2] [amount] - 将代币从一个验证者重新委托给另一个验证者
-重新绑定操作需要注意几个方面:
-1. 当同意用户在解绑过程中，有重新进行了委托绑定，需要等该账户解绑结束后才能进行委托绑定
-2. 重新授权期间没有unbonding time ,所以不会错过奖励，但是每个验证者只能重新委托一次，直到unbonding time 结束才能进行新的重新委托
-3. Max_entries表示解除绑定委托活重新委托的最大条目，我们重新委托需要在这个参数范围内，如果请求量过大会报错 “too many unbonding delegation entries in this delegator/validator duo, please wait for some entries to mature”
-
-```sh
-treasurenetd tx staking redelegate treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq treasurenetvaloper2as78dmzhesjndy3v6wsdxjfqnmwnyy2gzs32qq 10unit 
---home (defaule:"/root/.treasurenet/")
---from treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg
---chain-id treasurenet_9000-1
---fees 1unit
---gas auto
---keyring-backend test
-
-## Transactions payload##
-{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgBeginRedelegate","delegator_address":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","validator_src_address":"treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq","validator_dst_address":"treasurenetvaloper2as78dmzhesjndy3v6wsdxjfqnmwnyy2gzs32qq","amount":{"denom":"aunit","amount":"10000000000000000000"}}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"214201","payer":"","granter":""}},"signatures":[]}
+{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgUnjail","delegator_address":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","validator_address":"treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq","amount":{"denom":"aunit","amount":"10000000000000000000"}}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"214201","payer":"","granter":""}},"signatures":[]}
 
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
 ### Queries
 
-   > treasurenetd query staking validators --home --output json | jq - 查询所有验证者
+   > treasurenetd query slashing params --home --output json | jq - 查询惩罚参数
 
 ```json
 {
-  "validators": [
-    {
-      "operator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
-      "consensus_pubkey": {
-        "@type": "/cosmos.crypto.ed25519.PubKey",
-        "key": "dGvx6FL1zdjKsmzZ7R/2EBfCgJcsneP0rUpMkxs9Si8="
-      },
-      "jailed": false,
-      "status": "BOND_STATUS_BONDED",
-      "tokens": "268000000000000000000",
-      "delegator_shares": "268000000000000000000.000000000000000000",
-      "description": {
-        "moniker": "localtestnet",
-        "identity": "",
-        "website": "",
-        "security_contact": "",
-        "details": ""
-      },
-      "unbonding_height": "0",
-      "unbonding_time": "1970-01-01T00:00:00Z",
-      "commission": {
-        "commission_rates": {
-          "rate": "0.100000000000000000",
-          "max_rate": "0.200000000000000000",
-          "max_change_rate": "0.010000000000000000"
-        },
-        "update_time": "2023-02-02T10:48:47.611931848Z"
-      },
-      "min_self_delegation": "158000000000000000000",
-      "tat_tokens": "0",
-      "new_tokens": "0",
-      "tat_power": "0",
-      "newunit_power": "0"
-    }
-  ],
-  "pagination": {
-    "next_key": null,
-    "total": "0"
-  }
-}
-
-```
-
-   > treasurenetd query staking validator [validator-address] --home --output json | jq - 查看质押validator的情况
-
-```json
-{
-  "operator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
-  "consensus_pubkey": {
-    "@type": "/cosmos.crypto.ed25519.PubKey",
-    "key": "dGvx6FL1zdjKsmzZ7R/2EBfCgJcsneP0rUpMkxs9Si8="
-  },
-  "jailed": false,
-  "status": "BOND_STATUS_BONDED",
-  "tokens": "268000000000000000000",
-  "delegator_shares": "268000000000000000000.000000000000000000",
-  "description": {
-    "moniker": "localtestnet",
-    "identity": "",
-    "website": "",
-    "security_contact": "",
-    "details": ""
-  },
-  "unbonding_height": "0",
-  "unbonding_time": "1970-01-01T00:00:00Z",
-  "commission": {
-    "commission_rates": {
-      "rate": "0.100000000000000000",
-      "max_rate": "0.200000000000000000",
-      "max_change_rate": "0.010000000000000000"
-    },
-    "update_time": "2023-02-02T10:48:47.611931848Z"
-  },
-  "min_self_delegation": "158000000000000000000",
-  "tat_tokens": "0",
-  "new_tokens": "0",
-  "tat_power": "0",
-  "newunit_power": "0"
-}
-
-```
-
-   > treasurenetd query staking delegations [delegator-address] --home --output json | jq - 根据地址查询委托详情
-
-```json
-{
-  "delegation_responses": [
-    {
-      "delegation": {
-        "delegator_address": "treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg",
-        "validator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
-        "shares": "268000000000000000000.000000000000000000",
-        "tat_shares": "0"
-      },
-      "balance": {
-        "denom": "aunit",
-        "amount": "268000000000000000000"
-      }
-    }
-  ],
-  "pagination": {
-    "next_key": null,
-    "total": "0"
-  }
-}
-
-```
-
-   > treasurenetd query staking delegations-to [validator-address] --home --output json | jq - 查询一个验证者的所有委托
-
-```json
-{
-  "delegation_responses": [
-    {
-      "delegation": {
-        "delegator_address": "treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg",
-        "validator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
-        "shares": "268000000000000000000.000000000000000000",
-        "tat_shares": "0"
-      },
-      "balance": {
-        "denom": "aunit",
-        "amount": "268000000000000000000"
-      }
-    }
-  ],
-  "pagination": {
-    "next_key": null,
-    "total": "0"
-  }
+  "signed_blocks_window": "100",
+  "min_signed_per_window": "0.500000000000000000",
+  "downtime_jail_duration": "600s",
+  "slash_fraction_double_sign": "0.050000000000000000",
+  "slash_fraction_downtime": "0.010000000000000000"
 }
 ```
