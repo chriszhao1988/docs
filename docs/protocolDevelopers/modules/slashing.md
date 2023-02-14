@@ -6,100 +6,60 @@ sidebar_position: 8
 
 ## Introduction
 
-slashing 模块负责链上资产抵押、委托等操作的处理，这些操作通过消息MsgCreateValidator、MsgEditValidator、MsgDelegate、MsgBeginRedelegate完成。
+slashing 是惩罚模块分为主动作恶处罚和被动作恶处罚。验证者负责在每一轮共识中签署或提议一个区块。应该对验证者的不当行为施加惩罚以强化这一点
 
-* MsgCreateValidator: 抵押链上资产并创建验证者。
-* MsgEditValidator: 修改验证者的参数。
-* MsgDelegate: 将链上资产委托给某个验证者。
-* MsgBeginRedelegate: 重新委托。
-* MsgUndelegate: 撤回委托。
+具体来说，slashing旨在抑制网络可观察行为（例如错误验证）的功能。处罚可能包括失去一定数量的股份、在一段时间内失去执行网络功能的能力、获得奖励等。
 
-staking模块的Keeper为上述5个消息分别定义了相应的处理函数。而staking模块的所有逻辑都围绕验证者结构体Validator和委托结构体Delegation展开。前者记录验证者信息，后者记录委托操作信息。
+被动作恶是指活跃验证者节点的可用性差，具体来说是指在一定的时间窗口内，活跃验证者签署的区块个数低于某个阈值。
+主动作恶则是指活跃验证者偏离共识协议规定，比如在同一个区块高度违反共识协议对不同的区块进行投票(签名)。
 
+### 被动惩罚
+Tendermint构建的区块中的Commit类型的指针包含对上一个区块的投票信息
 ```golang
-type Validator struct {
-	OperatorAddress string                                  //验证者节点地址
-	ConsensusPubkey *types1.Any                             //验证者的共识公钥
-	Jailed bool                                             //验证者是否处于监禁惩罚
-	Status BondStatus                                       //验证者状态
-	Tokens github_com_cosmos_cosmos_sdk_types.Int           //质押链上资产数量
-	DelegatorShares github_com_cosmos_cosmos_sdk_types.Dec  //分配给验证者的委托人份额总量
-	Description Description                                 //验证者描述信息
-	UnbondingHeight int64                                   //验证者开始解绑周期的区块高度
-	UnbondingTime time.Time                                 //验证者完成解绑周期的最早时间
-	Commission Commission                                   //验证者的佣金
-	MinSelfDelegation github_com_cosmos_cosmos_sdk_types.Int//验证者声明的最小自抵押量
-	TatTokens github_com_cosmos_cosmos_sdk_types.Int        //质押TAT的链上资产
-	NewTokens github_com_cosmos_cosmos_sdk_types.Int        //验证者TAT和UNIT的资产总量
-	TatPower github_com_cosmos_cosmos_sdk_types.Int         //分配给验证者TAT的委托人份额总量
-	NewUnitPower github_com_cosmos_cosmos_sdk_types.Int     //分配给验证者(TAT+UNIT)的委托人份额总量
+type Commit struct {
+	Height     int64       `json:"height"`     //去块高度
+	Round      int32       `json:"round"`      //表示第几轮达成的共识
+	BlockID    BlockID     `json:"block_id"`   //区块标识
+	Signatures []CommitSig `json:"signatures"` //活跃验证者集合的投票信息包含在signatures
+	hash     tmbytes.HexBytes
+	bitArray *bits.BitArray
 }
 ```
+由于可能存在网络延时等问题，可能造成某个活跃验证者未能及时收到标识为BlockID的区块，或者构建该区块的提案者没有收集到针对该区块的所有投票，共识协议允许活跃验证者对空值而非对某个具体的区块投票，因此需要区分活跃验证者投票给真正的区块，投票给空值以及没有投票3中情况。
 
 ```golang
-type Delegation struct {
-	DelegatorAddress string                                 //委托者的地址
-	ValidatorAddress string                                 //验证者的地址
-	Shares github_com_cosmos_cosmos_sdk_types.Dec           //收到的委托份额(UNIT)
-	TatShares github_com_cosmos_cosmos_sdk_types.Dec        //收到的委托份额(TAT)
+type CommitSig struct {
+	BlockIDFlag      BlockIDFlag `json:"block_id_flag"`
+	ValidatorAddress Address     `json:"validator_address"`
+	Timestamp        time.Time   `json:"timestamp"`
+	Signature        []byte      `json:"signature"`
 }
 ```
+CommitSig中通过BlockIDFlag字段对情况进行区分。
+Commit结构体中的bitArray根据CommitSig中的BlockIDFlag的值，以bit的形式标记了有哪些活跃验证者在参与对上一个区块投票的过程中被打包到了区块中:只要Signature中包含一个活跃验证者的投票，bitArray中对应的位就被设置。
 
-根据Cosmos Hub中POS机制，链上资产委托人与验证者节点运营方共同承担收益和风险。收益分发与提取的逻辑有distribution模块处理(参见[distribution模块](./distribution.md)),以链上资产的具体数量为指标进行计算;而链上惩罚是直接扣除固定比例的抵押链上资产。由此验证者代理的链上资产总量以及相关的委托操作涉及的链上资产数量会随着惩罚事件的发生而减少。
+当前的TreasureNet网络中阈值设定为5%，也就是说再固定的时间窗口内只要错过的区块不超过95%就不会被slashing模块惩罚
+
+在监狱禁闭时间结束以后，需要验证者主动申请释放易重新参与活跃验证者的竞争，这是因为当出现被动作恶可能是由于节点运营出现了问题，修复时间是不可知的，如果主动释放后节点运营没有得到解决会继续被动惩罚，导致因同样的问题遭受多次惩罚。
+
+### 主动作恶
+
+活跃验证者可以通过多种方式进行主动作恶，如恶意偏离共识协议约定并发送多种消息，双签作恶的监狱禁闭时间为永久，由于validator的信息不会在链上删除，因此关于该恶意验证者的永久监狱禁闭记录会一直留存在链上，所以该validator的地址会永久作废。所以运营方只能通过重新创建新的验证者(使用新的共识秘钥对和地址)才可以重新参与投票权重竞争。在此之前需要等待一个完整的解绑周期才能取回自己在作恶验证者处抵押的链上资产。主动惩罚比例由参数slash_fraction_double_sign指定，默认为5%。
 
 
-## 重新委托与撤回奖励
+3中主动作恶的情况
+1. 执行BeginBlocker()时，发现验证者的可用性差，会罚掉一小部分的链上资产，将validator的jailed字段设置为true。
+2. 执行BeginBlocker()时，发现验证者的有效双签举证信息，罚掉客观比例的链上资产，将validator的Jailed字段设置为true。
+3. 验证者运营方发起的撤回委托或者重新委托操作导致自抵押链上资产数量不足。
 
-重新委托操作会涉及三方: 委托人(delegator)、源验证者(source validator)和目标验证者(destination validator)。
-撤回委托操作涉及两方: 委托人和验证者
+## 网络参数
+以下是用于配置验证者惩罚行为的所有网络参数。所有这些参数的详细信息及其对验证者惩罚行为的影响将在本文档后面讨论。
 
-这两项操作不是立即完成的，都需要时间。撤回委托操作涉及的链上资产在等待成熟期间没有任何收益，而重新委托所涉及的链上资产即使相应操作没有成熟也可以参与目标验证者的收益分成，目标验证者的投票权重会立即增加，委托人也会立即有收益。
-之所以需要时间，原因在于作恶行为发生与执行链上惩罚之间存在时间差。如果允许两个操作立即完成，并且该操作发生在验证者作恶和惩罚之前，则这些曾经赋予作恶验证者投票权重的抵押链上资产可以逃避惩罚。(参见[slashing模块](./slashing.md))
-
-撤回委托操作的成熟时间与验证者的状态无关，无论验证者处于什么状态，撤回委托操作都需要等待完整的解绑周期才可以成熟。如果重新委托操作正在等待成熟，则不允许将相关的链上资产再次委托。重新委托操作的成熟时间与原验证者的状态有关。
-
-* 对Bonded状态的源验证者发起重新委托，成熟时间为完整的解绑周期。
-* 对Unbonding状态的源验证者发起重新委托，成熟时间为源验证者的解绑周期结束时间。
-* 对Unbonded状态的源验证者发起重新委托，无需等待立即成熟。
-
-## 验证者状态切换
-
-Treasurenetd中的Validator可以有三种状态Unbonded、Unbonding和Bonded。
-通过Msg-CreateValidator消息创建的新验证者被初始化成Unbonded状态，并被设置份额以及投票权重。staking模块的EndBlocker()会统计本区块验证者状态的变化
-
-* 新创建的Validator的投票权重排名进入前100名:状态从Unbonded变成Bonded。
-* 新创建的Validator的投票权重排名没有进入前100名:Unbonded状态维持不变。
-* 投票权重增加且投票权重排名进入前100名时的状态切换
-  - Unbonded --> Bonded: 初次成为活跃验证者。
-  - Unbonding --> Bonded: 再次成为活跃验证者。
-  - Bonded维持不变: 已经是活跃验证者。
-
-```sequence
-节点->Unbonded: 发送交易创建验证者
-Unbonded->Bonded: 投票权重排名上升
-Bonded->Unbonding: 投票权重排名下降
-Unbonding->Unbonded: 解绑周期结束
-Bonded->UnbondingJailed: 可用性差或者自抵押链上资产太少
-UnbondingJailed->Bonded: 禁闭时间结束或具有足量自抵押的链上资产
-Unbonding->UnbongdingJailed: 可用性差或者自抵押的链上资产太少
-UnbongdingJailed->Unbonding: 禁闭时间结束或具有足量的自抵押链上资产
-```
-
-## parameter
-
-* unbonding_time: 解绑的持续时间;
-* max_validators: 验证者的最大数量;
-* max_entries: 解除绑定委托或重新委托的最大条目数;
-* historical_entries: 保留的历史条目数;
-* bond_denom: 质押硬币的面额。
-
-## Validator
-Validators are responsible for signing or proposing a block at each consensus round. It is important that the validators maintain excellent availability and network connectivity to perform their tasks. To incentivise the validator nodes to run the network, rewards are distributed to the validators according to their performance and amount of staked tokens (see [distribution](./distribution.md) and [mint](./mint.md)). On the other hand, a penalty should be imposed on validators' misbehaviour (see [slashing](./slashing.md)).
-
-## Delegator
-The staking module enables CRO owners to delegate their tokens to active validators and share part of the reward obtained by the validator during the proof of stake protocol(see [distribution module](./distribution.md)). Specifically, it allows token owners to take part in the consensus process without running a validator themselves.
-
-It is important to point out that the delegator and the validator are on the same boat: they share the reward and the risk. In particular, part of their delegated token could be slashed due to validator's misbehaviour (see [slashing](./slashing.md)). Therefore, it is very important to choose a reliable validator to delegate to. Kindly refer to this link for detailed specification and state transitions of delegation.
+signed_blocks_window：为正常运行时间跟踪计算活跃度的块数；
+min_signed_per_window：最后一个帐户允许的错误/错过验证的块的最大百分比；signed_blocks_window在停用之前阻塞；
+downtime_jail_duration:监禁时间；
+slash_fraction_double_sign：当验证者出现拜占庭错误时被削减的资金百分比;
+slash_fraction_downtime：当验证者不活跃时被削减的资金百分比。
 
 ## Transactions and Queries
 
