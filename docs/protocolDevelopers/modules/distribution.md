@@ -6,11 +6,15 @@ sidebar_position: 10
 
 ## Introduction
 
-distribution 模块负责链上资产抵押、委托等操作的处理，这些操作通过消息MsgCreateValidator、MsgEditValidator、MsgDelegate、MsgBeginRedelegate完成。
+distribution负责将奖励分配给验证者和委托者。
 
-* MsgCreateValidator: 抵押链上资产并创建验证者。
-* MsgEditValidator: 修改验证者的参数。
-* MsgDelegate: 将链上资产委托给某个验证者。
+([mint模块](./mint.md))铸造的链上资产与区块交易费一起作为区块奖励，在活跃验证者之间按照各自的投票权重按比例分发，分到奖励的验证者再根据当前每个委托人的份额将奖励分给委托人。在以太坊中区块奖励会通过一笔交易(Coinbase交易)直接转入目标账户。在TreasureNet中采取了另外一种策略，我们称为被动奖励分发，即区块奖励不会主动转入目标账户，validator运营方或者委托人想要提取奖励时，需要主动发起提现交易。
+这里需要注意的是，当我们链上某一个validator的权重发生改变的时候(重新委托或者撤回委托等操作)，区块奖励会自动的分发下去。
+
+distribution奖励分发过程:
+* 在活跃验证者之间按照投票权重分发区块奖励。
+* 从所有的区块奖励中按照参数CommunityTax(默认为2%)抽取固定比例作为社区税，存放在我们的社区池中，用于后面我们的社区建设，可以通过gov的方式来讲这部分token奖励给对社区做出过贡献的。
+* 区块提案者活的当前奖励的固定比例。
 * MsgBeginRedelegate: 重新委托。
 * MsgUndelegate: 撤回委托。
 

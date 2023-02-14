@@ -74,16 +74,7 @@ Treasurenetd中的Validator可以有三种状态Unbonded、Unbonding和Bonded。
   - Unbonding --> Bonded: 再次成为活跃验证者。
   - Bonded维持不变: 已经是活跃验证者。
 
-```sequence
-节点->Unbonded: 发送交易创建验证者
-Unbonded->Bonded: 投票权重排名上升
-Bonded->Unbonding: 投票权重排名下降
-Unbonding->Unbonded: 解绑周期结束
-Bonded->UnbondingJailed: 可用性差或者自抵押链上资产太少
-UnbondingJailed->Bonded: 禁闭时间结束或具有足量自抵押的链上资产
-Unbonding->UnbongdingJailed: 可用性差或者自抵押的链上资产太少
-UnbongdingJailed->Unbonding: 禁闭时间结束或具有足量的自抵押链上资产
-```
+![Validator status 变化流程](/img/docs/validator_status.jpg)
 
 ## parameter
 
