@@ -1,20 +1,90 @@
 ---
-sidebar_position: 9
+sidebar_position: 8
 ---
 
 # Gov
 
 ## Introduction
 
-gov 模块负责链上资产抵押、委托等操作的处理，这些操作通过消息MsgCreateValidator、MsgEditValidator、MsgDelegate、MsgBeginRedelegate完成。
+gov 模块负责链上治理
 
-* MsgCreateValidator: 抵押链上资产并创建验证者。
-* MsgEditValidator: 修改验证者的参数。
-* MsgDelegate: 将链上资产委托给某个验证者。
-* MsgBeginRedelegate: 重新委托。
-* MsgUndelegate: 撤回委托。
+区块链应用的升级需要在全网就升级内容达成社区共识，而社区共识通常很难达成，为了应对达成社区共识的挑战，gov模块实现了这一链上治理的功能
+
+任何人都可以通过发起链上提案来修改某一个参数，或者对代码进行升级，链上资产持有人可以通过对提案投票的方式来表达对提案的支持或者反对,只有通过抵押参与了共识投票的链上资产所代表的投票才算有效投票，当有足够多的投票支持提案时，提案生效。
+
+## parameters
+Below are all the network parameters for the gov module:
+
+* deposit_params - Deposit related parameters:
+  - min_deposit: 最小抵押资金;
+  - max_deposit_period: 提案存款的最长期限。
+* voting_params - Voting related parameters
+  - voting_period: 投票期
+* tally_params - Tally related parameters
+  - quorum: 为使提案有效需要投票权的最低百分比;
+  - threshold: 提案被选中的最低票数比例包括赞同、弃权投票类型的占比;
+  - veto: 否决提案的最低票数比例，包括反对、强烈反对投票类型。
+
+## 提案的创建与投票
+
+任何人都可以通过MsgSubmitProposql结构体类型的消息发起链上提案。
+```golang
+type MsgSubmitProposal struct {
+	Content        *types.Any                               // 提案内容
+	InitialDeposit github_com_cosmos_cosmos_sdk_types.Coins // 初始抵押资金
+	Proposer       string                                   // 提案者
+}
+```
+为了防止发起垃圾提案，要求每个提案者为其发起的提案抵押一定的链上资产作为初始抵押资金，gov模块要求初始抵押资金不为零。
+如果提案者的初始抵押资金不满足最小抵押要求，链上资产持有人可以通过发送MsgDeposit消息为自己支持的提案追加抵押资金。
+```golang
+type MsgDeposit struct {
+	ProposalId uint64                                  // 提案标识
+	Depositor  string                                  // 存款人
+	Amount     github_com_cosmos_cosmos_sdk_types.Coins// 存款金额
+}
+```
+最小抵押资金数由模块参数MinDeposit指定为了防止一个提案长期处于无法投票的状态，为了防止一个提案长期处于无法投票的状态,gov模块通过参数MaxDepositPeriod指定了可以追加抵押资金的时间段，超时之后如果提案的抵押资金仍然没有达到最小抵押要求，则关闭提案并且"燃烧"相应的抵押资金。提案的抵押资金保存在Gov模块账户中。
+
+### 提案类型
+
+1. 纯文本提案: 该提案仅包含标题和描述，提案生效后并不会对链上的任何行为产生影响，只用来征求社区意见，文本提案不包含任何代码，提案一旦通过并不会直接对链造成任何更改。文本提案主要是对社区进行官方、公众民意调查的好方法，且文本提案会保留在链上并且任何人都可以查看，发起提案人可以通过文本提案来收集意见和观点，为后面的工作做准备。
+TextProposal结构体用来实现文本提案
+```golang
+type TextProposal struct {
+	Title       string   // 标题
+	Description string   // 描述
+}
+```
+2. 参数修改提案,每个模块都有自己的一组参数，这些参数中的任何一个都可以使用参数更改提案进行更新，目前这些模块中的参数可以通过治理提案进行更改，后期还会加入新的模块。
+   - [auth](./auth.md) - 账户和交易认证模块
+   - [bank](./bank.md) - token传输
+   - [mint](./mint.md) - 创建新的质押代币
+   - [staking](./staking.md) - 链上资产抵押
+   - [slashing](./slashing.md) - 验证者惩罚机制
+   - [gov](./gov.md) - 链上治理提案和投票
+   - [distribution](./distribution.md) - 奖励分配
+3. 社区储备资金花费提案,部分区块奖励会作为社区储备资金用于支持社区建设，社区储备资金花费提案将部分社区储备资金转到特定的地址,用来奖励做出贡献的账户。
+4. 软件升级提案。
+
+在具体执行提案时，需要找到提案处理函数，每个模块都可以定义新的提案类型。
+
+* params模块定义了参数修改提案
+* distribution模块定义了社区储备金的花费提案。
+* upgrade模块定义了软件升级提案。
+
+遵循模块化设计理念，各个模块独自管理自己存储空间，各个提案的执行只能定义在相应模块内部。gov模块管理所有提案的投票,并在EndBlocker()中出发对应的提案处理函数
+
 
 gov模块的Keeper为上述5个消息分别定义了相应的处理函数。而staking模块的所有逻辑都围绕验证者结构体Validator和委托结构体Delegation展开。前者记录验证者信息，后者记录委托操作信息。
+
+举例：在treasurenet/app中定义了gov提案治理的路由信息
+```golang
+govRouter := govtypes.NewRouter()
+	govRouter.AddRoute(govtypes.RouterKey, govtypes.ProposalHandler).
+		AddRoute(paramproposal.RouterKey, params.NewParamChangeProposalHandler(app.ParamsKeeper)).
+```
+对应params模块中的NewParamChangeProposalHandler()该函数仅处理提案类型参数修改的提案。
 
 ```golang
 type Validator struct {

@@ -85,10 +85,15 @@ confirm transaction before signing and broadcasting [y/N]: y
 
    > treasurenetd tx distribution withdraw-rewards [validator_address] - 从给定的验证者地址提取奖励
 委托人可以从特定的验证者那里提取奖励
+
    > 验证者可以通过添加 commission flag来提取除奖励之外的佣金 --commission
+
    > treasurenetd tx distribution withdraw-rewards [validator_address] --from [name_of_your_key] --commission
+
    > 验证者可以通过添加 commission flag来提取通过质押tat来获取的奖励 --tatreward
+   
    > treasurenetd tx distribution withdraw-rewards [validator_address] --from [name_of_your_key] --tatreward
+
 ```sh
 treasurenetd tx distribution withdraw-rewards treasurenetvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
  --from="[name_of_your_key]" \
