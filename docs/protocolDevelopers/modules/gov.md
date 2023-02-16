@@ -56,6 +56,22 @@ type TextProposal struct {
 	Description string   // 描述
 }
 ```
+
+There are three components:
+
+  1. Title - the distinguishing name of the proposal, typically the way the that explorers list proposals
+  2. Description - the body of the proposal that further describes what is being proposed and details surrounding the proposal
+  3. Deposit - the amount that will be contributed to the deposit (in micro-ATOMs "uatom") from the account submitting the proposal
+Real example
+```json
+{
+  "title": "Test Proposal",
+  "description": "My awesome proposal",
+  "type": "Text",
+  "deposit": "10unit"
+}
+```
+
 2. 参数修改提案,每个模块都有自己的一组参数，这些参数中的任何一个都可以使用参数更改提案进行更新，目前这些模块中的参数可以通过治理提案进行更改，后期还会加入新的模块。
    - [auth](./auth.md) - 账户和交易认证模块
    - [bank](./bank.md) - token传输
@@ -64,7 +80,53 @@ type TextProposal struct {
    - [slashing](./slashing.md) - 验证者惩罚机制
    - [gov](./gov.md) - 链上治理提案和投票
    - [distribution](./distribution.md) - 奖励分配
+
+For parameter-change proposals, there are arguably seven (7) components, though three are nested beneath 'Changes':
+
+  1. Title - the distinguishing name of the proposal, typically the way the that explorers list proposals
+  2. Description - the body of the proposal that further describes what is being proposed and details surrounding the proposal
+  3. Changes - a component containing
+  4. Subspace - the Cosmos Hub module with the parameter that is being changed
+  5. Key - the parameter that will be changed
+  6. Value - the value of the parameter that will be changed by the governance mechanism
+  7. Deposit - the amount that will be contributed to the deposit (in micro-ATOMs "uatom") from the account submitting the proposal
+Real example
+```json
+{
+  "title": "Staking Param Change",
+  "description": "Update max validators",
+  "changes": [
+    {
+      "subspace": "staking",
+      "key": "MaxValidators",
+      "value": 105
+    }
+  ],
+  "deposit": "1000stake"
+}
+```
+
 3. 社区储备资金花费提案,部分区块奖励会作为社区储备资金用于支持社区建设，社区储备资金花费提案将部分社区储备资金转到特定的地址,用来奖励做出贡献的账户。
+
+There are five (5) components:
+
+  1. Title - the distinguishing name of the proposal, typically the way the that explorers list proposals
+  2. Description - the body of the proposal that further describes what is being proposed and details surrounding the proposal
+  3. Recipient - the Cosmos Hub (bech32-based) address that will receive funding from the Community Pool
+  4. Amount - the amount of funding that the recipient will receive in micro-ATOMs (uatom)
+  5. Deposit - the amount that will be contributed to the deposit (in micro-ATOMs "uatom") from the account submitting the proposal
+If the description says that a certain address will receive a certain number of ATOMs, it should also be programmed to do that, but it's possible that that's not the case (accidentally or otherwise). Check that the description aligns with teh 'recipient' address.
+Real example
+```json
+{
+  "title": "Community Pool Spend",
+  "description": "Pay me some Units!",
+  "recipient": "treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg",
+  "amount": "1000unit",
+  "deposit": "1unit"
+}
+```
+
 4. 软件升级提案。
 
 在具体执行提案时，需要找到提案处理函数，每个模块都可以定义新的提案类型。
@@ -86,120 +148,75 @@ govRouter := govtypes.NewRouter()
 ```
 对应params模块中的NewParamChangeProposalHandler()该函数仅处理提案类型参数修改的提案。
 
-```golang
-type Validator struct {
-	OperatorAddress string                                  //验证者节点地址
-	ConsensusPubkey *types1.Any                             //验证者的共识公钥
-	Jailed bool                                             //验证者是否处于监禁惩罚
-	Status BondStatus                                       //验证者状态
-	Tokens github_com_cosmos_cosmos_sdk_types.Int           //质押链上资产数量
-	DelegatorShares github_com_cosmos_cosmos_sdk_types.Dec  //分配给验证者的委托人份额总量
-	Description Description                                 //验证者描述信息
-	UnbondingHeight int64                                   //验证者开始解绑周期的区块高度
-	UnbondingTime time.Time                                 //验证者完成解绑周期的最早时间
-	Commission Commission                                   //验证者的佣金
-	MinSelfDelegation github_com_cosmos_cosmos_sdk_types.Int//验证者声明的最小自抵押量
-	TatTokens github_com_cosmos_cosmos_sdk_types.Int        //质押TAT的链上资产
-	NewTokens github_com_cosmos_cosmos_sdk_types.Int        //验证者TAT和UNIT的资产总量
-	TatPower github_com_cosmos_cosmos_sdk_types.Int         //分配给验证者TAT的委托人份额总量
-	NewUnitPower github_com_cosmos_cosmos_sdk_types.Int     //分配给验证者(TAT+UNIT)的委托人份额总量
-}
-```
+### 提案流程
 
-```golang
-type Delegation struct {
-	DelegatorAddress string                                 //委托者的地址
-	ValidatorAddress string                                 //验证者的地址
-	Shares github_com_cosmos_cosmos_sdk_types.Dec           //收到的委托份额(UNIT)
-	TatShares github_com_cosmos_cosmos_sdk_types.Dec        //收到的委托份额(TAT)
-}
-```
-
-根据Cosmos Hub中POS机制，链上资产委托人与验证者节点运营方共同承担收益和风险。收益分发与提取的逻辑有distribution模块处理(参见[distribution模块](./distribution.md)),以链上资产的具体数量为指标进行计算;而链上惩罚是直接扣除固定比例的抵押链上资产。由此验证者代理的链上资产总量以及相关的委托操作涉及的链上资产数量会随着惩罚事件的发生而减少。
-
-
-## 重新委托与撤回奖励
-
-重新委托操作会涉及三方: 委托人(delegator)、源验证者(source validator)和目标验证者(destination validator)。
-撤回委托操作涉及两方: 委托人和验证者
-
-这两项操作不是立即完成的，都需要时间。撤回委托操作涉及的链上资产在等待成熟期间没有任何收益，而重新委托所涉及的链上资产即使相应操作没有成熟也可以参与目标验证者的收益分成，目标验证者的投票权重会立即增加，委托人也会立即有收益。
-之所以需要时间，原因在于作恶行为发生与执行链上惩罚之间存在时间差。如果允许两个操作立即完成，并且该操作发生在验证者作恶和惩罚之前，则这些曾经赋予作恶验证者投票权重的抵押链上资产可以逃避惩罚。(参见[slashing模块](./slashing.md))
-
-撤回委托操作的成熟时间与验证者的状态无关，无论验证者处于什么状态，撤回委托操作都需要等待完整的解绑周期才可以成熟。如果重新委托操作正在等待成熟，则不允许将相关的链上资产再次委托。重新委托操作的成熟时间与原验证者的状态有关。
-
-* 对Bonded状态的源验证者发起重新委托，成熟时间为完整的解绑周期。
-* 对Unbonding状态的源验证者发起重新委托，成熟时间为源验证者的解绑周期结束时间。
-* 对Unbonded状态的源验证者发起重新委托，无需等待立即成熟。
-
-## 验证者状态切换
-
-Treasurenetd中的Validator可以有三种状态Unbonded、Unbonding和Bonded。
-通过Msg-CreateValidator消息创建的新验证者被初始化成Unbonded状态，并被设置份额以及投票权重。staking模块的EndBlocker()会统计本区块验证者状态的变化
-
-* 新创建的Validator的投票权重排名进入前100名:状态从Unbonded变成Bonded。
-* 新创建的Validator的投票权重排名没有进入前100名:Unbonded状态维持不变。
-* 投票权重增加且投票权重排名进入前100名时的状态切换
-  - Unbonded --> Bonded: 初次成为活跃验证者。
-  - Unbonding --> Bonded: 再次成为活跃验证者。
-  - Bonded维持不变: 已经是活跃验证者。
-
-```sequence
-节点->Unbonded: 发送交易创建验证者
-Unbonded->Bonded: 投票权重排名上升
-Bonded->Unbonding: 投票权重排名下降
-Unbonding->Unbonded: 解绑周期结束
-Bonded->UnbondingJailed: 可用性差或者自抵押链上资产太少
-UnbondingJailed->Bonded: 禁闭时间结束或具有足量自抵押的链上资产
-Unbonding->UnbongdingJailed: 可用性差或者自抵押的链上资产太少
-UnbongdingJailed->Unbonding: 禁闭时间结束或具有足量的自抵押链上资产
-```
-
-## parameter
-
-* unbonding_time: 解绑的持续时间;
-* max_validators: 验证者的最大数量;
-* max_entries: 解除绑定委托或重新委托的最大条目数;
-* historical_entries: 保留的历史条目数;
-* bond_denom: 质押硬币的面额。
-
-## Validator
-Validators are responsible for signing or proposing a block at each consensus round. It is important that the validators maintain excellent availability and network connectivity to perform their tasks. To incentivise the validator nodes to run the network, rewards are distributed to the validators according to their performance and amount of staked tokens (see [distribution](./distribution.md) and [mint](./mint.md)). On the other hand, a penalty should be imposed on validators' misbehaviour (see [slashing](./slashing.md)).
-
-## Delegator
-The staking module enables CRO owners to delegate their tokens to active validators and share part of the reward obtained by the validator during the proof of stake protocol(see [distribution module](./distribution.md)). Specifically, it allows token owners to take part in the consensus process without running a validator themselves.
-
-It is important to point out that the delegator and the validator are on the same boat: they share the reward and the risk. In particular, part of their delegated token could be slashed due to validator's misbehaviour (see [slashing](./slashing.md)). Therefore, it is very important to choose a reliable validator to delegate to. Kindly refer to this link for detailed specification and state transitions of delegation.
+![gov 流程](/img/docs/gov.jpg)
 
 ## Transactions and Queries
 
 ### Transactions
 
-   > treasurenetd tx staking create-validator - Create new validator initialized with a self-delegation
+   > treasurenetd tx gov submit-proposal - 提交提案和初始存款
+   * treasurened tx gov submit-proposal <proposal type>:
+   * proposal type 为空，则说明为文本提案
+   * proposal type 为param-change 说明我们正在提交参数修改提案
+   * proposal type 为community-pool-spend 说明正在提交社区池支出提案
+   * proposal type 为software-upgrade 说明正在提交软件升级的提案
+   * proposal type 为cancel-software-upgrade 说明正在提交取消软件升级的提案
+#### 提交文本提案
 
 ```sh
-$ treasurenetd tx staking create-validator \
---from=[name_of_your_key] \
---amount=[staking_amount] \
---pubkey=[treasurenetpub...]  \
---moniker="[moniker_id_of_your_node]" \
---security-contact="[security contact email/contact method]" \
+$ treasurenetd tx gov submit-proposal \
+--proposal="/root/proposal_text.json" \
+--from="[name_of_your_key]" \
 --chain-id="[chain-id]" \
---commission-rate="[commission_rate]" \
---commission-max-rate="[maximum_commission_rate]" \
---commission-max-change-rate="[maximum_rate_of_change_of_commission]" \
---min-self-delegation="[min_self_delegation_amount]"
+--fees="1unit" \
+--gas="auto" \
+--home="[defaule:/root/.treasurenet/]" \
 --keyring-backend test
 
 ## Transactions payload##
-{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgCreateValidator"...}
+{"body":{"messages":[{"@type":"/cosmos.gov.v1beta1.MsgSubmitProposal","content":{"@type":"/cosmos.gov.v1beta1.TextProposal","title":"Test Proposal","description":"My awesome proposal"},"initial_deposit":[{"denom":"aunit","amount":"10000000000000000000"}],"proposer":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"152151","payer":"","granter":""}},"signatures":[]}
+
+confirm transaction before signing and broadcasting [y/N]: y
+```
+#### 提交参数修改提案
+
+```sh
+$ treasurenetd tx gov submit-proposal param-change /root/proposql_param.json \
+--from="[name_of_your_key]" \
+--chain-id="[chain-id]" \
+--fees="1unit" \
+--gas="auto" \
+--home="[defaule:/root/.treasurenet/]" \
+--keyring-backend test
+
+## Transactions payload##
+{"body":{"messages":[{"@type":"/cosmos.gov.v1beta1.MsgSubmitProposal","content":{"@type":"/cosmos.params.v1beta1.ParameterChangeProposal","title":"Staking Param Change","description":"Update max validators","changes":[{"subspace":"staking","key":"MaxValidators","value":"105"}]},"initial_deposit":[{"denom":"stake","amount":"1000"}],"proposer":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"145519","payer":"","granter":""}},"signatures":[]}
+
+confirm transaction before signing and broadcasting [y/N]: y
+```
+#### 提交社区储备资金花费提案
+
+```sh
+$ treasurenetd tx gov submit-proposal community-pool-spend /root/proposal_community.json \
+--from="[name_of_your_key]" \
+--chain-id="[chain-id]" \
+--fees="1unit" \
+--gas="auto" \
+--home="[defaule:/root/.treasurenet/]" \
+--keyring-backend test
+
+## Transactions payload##
+{"body":{"messages":[{"@type":"/cosmos.gov.v1beta1.MsgSubmitProposal","content":{"@type":"/cosmos.distribution.v1beta1.CommunityPoolSpendProposal","title":"Community Pool Spend","description":"Pay me some Units!","recipient":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","amount":[{"denom":"aunit","amount":"100000000000000000000"}]},"initial_deposit":[{"denom":"aunit","amount":"1000"}],"proposer":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"163639","payer":"","granter":""}},"signatures":[]}
+
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
-   > treasurenetd tx staking delegate [validator-address] [amount] - Delegate liquid tokens to a validator
-
+   > treasurenetd tx gov deposit [proposal-id] [deposit] - 为活跃提案存入代币
+用户可以提交存款交易来资助和支持积极的提案
 ```sh
-treasurenetd tx staking delegate treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq 10unit
+treasurenetd tx tx gov deposit 2 1unit
 --from treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg 
 --home (defaule:"/root/.treasurenet/")  
 --fees 1unit 
@@ -207,16 +224,16 @@ treasurenetd tx staking delegate treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwn
 --keyring-backend test
 
 ## Transactions payload##
-{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgDelegate","delegator_address":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","validator_address":"treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq","amount":{"denom":"aunit","amount":"10000000000000000000"}}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"214201","payer":"","granter":""}},"signatures":[]}
+{"body":{"messages":[{"@type":"/cosmos.gov.v1beta1.MsgDeposit","proposal_id":"2","depositor":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","amount":[{"denom":"aunit","amount":"1000000000000000000"}]}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"125659","payer":"","granter":""}},"signatures":[]}
 
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
-   >  treasurenetd tx staking unbond [validator-address] [amount] -  Unbond shares from a validator
-这里需要注意的是，在解绑委托后，不会立即生效，因为我们有个参数unbonding_time(解绑时间)，资金只有在unbonding_time通过后才能生效
+   >  treasurenetd tx gov vote [proposal-id] [option] - 投票给一个积极的提案
+用户可以投票给一个活跃的提案。字段的有效值"option"可以是"yes"、"no"、"no_with_veto"和"abstain"
 
 ```sh
-treasurenetd tx staking unbond treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq 10unit 
+treasurenetd tx gov vote 2 yes
 --home (defaule:"/root/.treasurenet/")
 --from treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg
 --chain-id treasurenet_9000-1
@@ -225,167 +242,152 @@ treasurenetd tx staking unbond treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy
 --keyring-backend test
 
 ## Transactions payload##
-{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgUnDelegate","delegator_address":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","validator_address":"treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq","amount":{"denom":"aunit","amount":"10000000000000000000"}}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"214201","payer":"","granter":""}},"signatures":[]}
-
-confirm transaction before signing and broadcasting [y/N]: y
-```
-
-   > treasurenetd tx staking redelegate [validator-address] [validator-address2] [amount] - 将代币从一个验证者重新委托给另一个验证者
-重新绑定操作需要注意几个方面:
-1. 当同意用户在解绑过程中，有重新进行了委托绑定，需要等该账户解绑结束后才能进行委托绑定
-2. 重新授权期间没有unbonding time ,所以不会错过奖励，但是每个验证者只能重新委托一次，直到unbonding time 结束才能进行新的重新委托
-3. Max_entries表示解除绑定委托活重新委托的最大条目，我们重新委托需要在这个参数范围内，如果请求量过大会报错 “too many unbonding delegation entries in this delegator/validator duo, please wait for some entries to mature”
-
-```sh
-treasurenetd tx staking redelegate treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq treasurenetvaloper2as78dmzhesjndy3v6wsdxjfqnmwnyy2gzs32qq 10unit 
---home (defaule:"/root/.treasurenet/")
---from treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg
---chain-id treasurenet_9000-1
---fees 1unit
---gas auto
---keyring-backend test
-
-## Transactions payload##
-{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgBeginRedelegate","delegator_address":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","validator_src_address":"treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq","validator_dst_address":"treasurenetvaloper2as78dmzhesjndy3v6wsdxjfqnmwnyy2gzs32qq","amount":{"denom":"aunit","amount":"10000000000000000000"}}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"214201","payer":"","granter":""}},"signatures":[]}
+{"body":{"messages":[{"@type":"/cosmos.gov.v1beta1.MsgVote","proposal_id":"2","voter":"treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg","option":"VOTE_OPTION_YES"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[{"denom":"aunit","amount":"1000000000000000000"}],"gas_limit":"104034","payer":"","granter":""}},"signatures":[]}
 
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
 ### Queries
 
-   > treasurenetd query staking validators --home --output json | jq - 查询所有验证者
+   > treasurenetd query gov proposals --home -o json | jq - 查询所有提案
 
 ```json
 {
-  "validators": [
+  "proposals": [
     {
-      "operator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
-      "consensus_pubkey": {
-        "@type": "/cosmos.crypto.ed25519.PubKey",
-        "key": "dGvx6FL1zdjKsmzZ7R/2EBfCgJcsneP0rUpMkxs9Si8="
+      "proposal_id": "1",
+      "content": {
+        "@type": "/cosmos.params.v1beta1.ParameterChangeProposal",
+        "title": "Staking Param Change",
+        "description": "Update max validators",
+        "changes": [
+          {
+            "subspace": "staking",
+            "key": "MaxValidators",
+            "value": "105"
+          }
+        ]
       },
-      "jailed": false,
-      "status": "BOND_STATUS_BONDED",
-      "tokens": "268000000000000000000",
-      "delegator_shares": "268000000000000000000.000000000000000000",
-      "description": {
-        "moniker": "localtestnet",
-        "identity": "",
-        "website": "",
-        "security_contact": "",
-        "details": ""
+      "status": "PROPOSAL_STATUS_DEPOSIT_PERIOD",
+      "final_tally_result": {
+        "yes": "0",
+        "abstain": "0",
+        "no": "0",
+        "no_with_veto": "0"
       },
-      "unbonding_height": "0",
-      "unbonding_time": "1970-01-01T00:00:00Z",
-      "commission": {
-        "commission_rates": {
-          "rate": "0.100000000000000000",
-          "max_rate": "0.200000000000000000",
-          "max_change_rate": "0.010000000000000000"
-        },
-        "update_time": "2023-02-02T10:48:47.611931848Z"
-      },
-      "min_self_delegation": "158000000000000000000",
-      "tat_tokens": "0",
-      "new_tokens": "0",
-      "tat_power": "0",
-      "newunit_power": "0"
-    }
-  ],
-  "pagination": {
-    "next_key": null,
-    "total": "0"
-  }
-}
-
-```
-
-   > treasurenetd query staking validator [validator-address] --home --output json | jq - 查看质押validator的情况
-
-```json
-{
-  "operator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
-  "consensus_pubkey": {
-    "@type": "/cosmos.crypto.ed25519.PubKey",
-    "key": "dGvx6FL1zdjKsmzZ7R/2EBfCgJcsneP0rUpMkxs9Si8="
-  },
-  "jailed": false,
-  "status": "BOND_STATUS_BONDED",
-  "tokens": "268000000000000000000",
-  "delegator_shares": "268000000000000000000.000000000000000000",
-  "description": {
-    "moniker": "localtestnet",
-    "identity": "",
-    "website": "",
-    "security_contact": "",
-    "details": ""
-  },
-  "unbonding_height": "0",
-  "unbonding_time": "1970-01-01T00:00:00Z",
-  "commission": {
-    "commission_rates": {
-      "rate": "0.100000000000000000",
-      "max_rate": "0.200000000000000000",
-      "max_change_rate": "0.010000000000000000"
+      "submit_time": "2023-02-16T07:48:55.807762743Z",
+      "deposit_end_time": "2023-02-18T07:48:55.807762743Z",
+      "total_deposit": [
+        {
+          "denom": "stake",
+          "amount": "1000"
+        }
+      ],
+      "voting_start_time": "0001-01-01T00:00:00Z",
+      "voting_end_time": "0001-01-01T00:00:00Z"
     },
-    "update_time": "2023-02-02T10:48:47.611931848Z"
+    {
+      "proposal_id": "2",
+      "content": {
+        "@type": "/cosmos.gov.v1beta1.TextProposal",
+        "title": "Test Proposal",
+        "description": "My awesome proposal"
+      },
+      "status": "PROPOSAL_STATUS_VOTING_PERIOD",
+      "final_tally_result": {
+        "yes": "0",
+        "abstain": "0",
+        "no": "0",
+        "no_with_veto": "0"
+      },
+      "submit_time": "2023-02-16T08:02:28.455657793Z",
+      "deposit_end_time": "2023-02-18T08:02:28.455657793Z",
+      "total_deposit": [
+        {
+          "denom": "aunit",
+          "amount": "11000000000000000000"
+        }
+      ],
+      "voting_start_time": "2023-02-16T08:02:28.455657793Z",
+      "voting_end_time": "2023-02-18T08:02:28.455657793Z"
+    },
+    {
+      "proposal_id": "3",
+      "content": {
+        "@type": "/cosmos.distribution.v1beta1.CommunityPoolSpendProposal",
+        "title": "Community Pool Spend",
+        "description": "Pay me some Units!",
+        "recipient": "treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg",
+        "amount": [
+          {
+            "denom": "aunit",
+            "amount": "100000000000000000000"
+          }
+        ]
+      },
+      "status": "PROPOSAL_STATUS_DEPOSIT_PERIOD",
+      "final_tally_result": {
+        "yes": "0",
+        "abstain": "0",
+        "no": "0",
+        "no_with_veto": "0"
+      },
+      "submit_time": "2023-02-16T09:15:47.167996954Z",
+      "deposit_end_time": "2023-02-18T09:15:47.167996954Z",
+      "total_deposit": [
+        {
+          "denom": "aunit",
+          "amount": "1000"
+        }
+      ],
+      "voting_start_time": "0001-01-01T00:00:00Z",
+      "voting_end_time": "0001-01-01T00:00:00Z"
+    }
+  ],
+  "pagination": {
+    "next_key": null,
+    "total": "0"
+  }
+}
+```
+
+   > treasurenetd query gov proposal [proposal-id] --home --output json | jq - 通过提案的ID查询单个提案的详情
+
+```json
+{
+  "proposal_id": "2",
+  "content": {
+    "@type": "/cosmos.gov.v1beta1.TextProposal",
+    "title": "Test Proposal",
+    "description": "My awesome proposal"
   },
-  "min_self_delegation": "158000000000000000000",
-  "tat_tokens": "0",
-  "new_tokens": "0",
-  "tat_power": "0",
-  "newunit_power": "0"
-}
-
-```
-
-   > treasurenetd query staking delegations [delegator-address] --home --output json | jq - 根据地址查询委托详情
-
-```json
-{
-  "delegation_responses": [
+  "status": "PROPOSAL_STATUS_VOTING_PERIOD",
+  "final_tally_result": {
+    "yes": "0",
+    "abstain": "0",
+    "no": "0",
+    "no_with_veto": "0"
+  },
+  "submit_time": "2023-02-16T08:02:28.455657793Z",
+  "deposit_end_time": "2023-02-18T08:02:28.455657793Z",
+  "total_deposit": [
     {
-      "delegation": {
-        "delegator_address": "treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg",
-        "validator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
-        "shares": "268000000000000000000.000000000000000000",
-        "tat_shares": "0"
-      },
-      "balance": {
-        "denom": "aunit",
-        "amount": "268000000000000000000"
-      }
+      "denom": "aunit",
+      "amount": "11000000000000000000"
     }
   ],
-  "pagination": {
-    "next_key": null,
-    "total": "0"
-  }
+  "voting_start_time": "2023-02-16T08:02:28.455657793Z",
+  "voting_end_time": "2023-02-18T08:02:28.455657793Z"
 }
-
 ```
 
-   > treasurenetd query staking delegations-to [validator-address] --home --output json | jq - 查询一个验证者的所有委托
+   > treasurenetd query gov tally [proposal-id] --home  -o json | jq - 获取提案投票的总数
 
-```json
+```json 
 {
-  "delegation_responses": [
-    {
-      "delegation": {
-        "delegator_address": "treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg",
-        "validator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
-        "shares": "268000000000000000000.000000000000000000",
-        "tat_shares": "0"
-      },
-      "balance": {
-        "denom": "aunit",
-        "amount": "268000000000000000000"
-      }
-    }
-  ],
-  "pagination": {
-    "next_key": null,
-    "total": "0"
-  }
+  "yes": "268000000000000000000", //票数和权重成正比，权重为多少票数就是多少
+  "abstain": "0",
+  "no": "0",
+  "no_with_veto": "0"
 }
 ```
