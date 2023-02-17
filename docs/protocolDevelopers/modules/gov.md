@@ -157,12 +157,12 @@ govRouter := govtypes.NewRouter()
 ### Transactions
 
    > treasurenetd tx gov submit-proposal - 提交提案和初始存款
-   * treasurened tx gov submit-proposal <proposal type>:
-   * proposal type 为空，则说明为文本提案
-   * proposal type 为param-change 说明我们正在提交参数修改提案
-   * proposal type 为community-pool-spend 说明正在提交社区池支出提案
-   * proposal type 为software-upgrade 说明正在提交软件升级的提案
-   * proposal type 为cancel-software-upgrade 说明正在提交取消软件升级的提案
+* treasurened tx gov submit-proposal (proposal type>):
+  - proposal type 为空，则说明为文本提案
+  - proposal type 为param-change 说明我们正在提交参数修改提案
+  - proposal type 为community-pool-spend 说明正在提交社区池支出提案
+  - proposal type 为software-upgrade 说明正在提交软件升级的提案
+  - proposal type 为cancel-software-upgrade 说明正在提交取消软件升级的提案
 #### 提交文本提案
 
 ```sh
@@ -215,6 +215,7 @@ confirm transaction before signing and broadcasting [y/N]: y
 
    > treasurenetd tx gov deposit [proposal-id] [deposit] - 为活跃提案存入代币
 用户可以提交存款交易来资助和支持积极的提案
+
 ```sh
 treasurenetd tx tx gov deposit 2 1unit
 --from treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg 

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 10
+sidebar_position: 9
 ---
 
 # Distribution
@@ -91,7 +91,7 @@ confirm transaction before signing and broadcasting [y/N]: y
    > treasurenetd tx distribution withdraw-rewards [validator_address] --from [name_of_your_key] --commission
 
    > 验证者可以通过添加 commission flag来提取通过质押tat来获取的奖励 --tatreward
-   
+
    > treasurenetd tx distribution withdraw-rewards [validator_address] --from [name_of_your_key] --tatreward
 
 ```sh
