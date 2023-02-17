@@ -174,6 +174,13 @@ const sidebars = {
                         'validators/staking/qa',
                     ]
                 },
+                {
+                    type: 'category',
+                    label: 'Genesis',
+                    items: [
+                        'validators/genesis/genesis',
+                    ]
+                },
             ]
         },
         {
@@ -252,7 +259,6 @@ const sidebars = {
                     items: [
                         'protocolDevelopers/modules/overview',
                         'protocolDevelopers/modules/auth',
-                        'protocolDevelopers/modules/authz',
                         'protocolDevelopers/modules/bank',
                         'protocolDevelopers/modules/mint',
                         'protocolDevelopers/modules/staking',

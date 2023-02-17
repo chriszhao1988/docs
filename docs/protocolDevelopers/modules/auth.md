@@ -1,9 +1,8 @@
-# Auth
 ---
 sidebar_position: 2
 ---
 
-# Gov
+# Auth
 
 ## Introduction
 
