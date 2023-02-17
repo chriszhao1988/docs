@@ -125,7 +125,7 @@ The auth module provides AnteDecorators that are recursively chained together in
 {
   "accounts": [
     {
-      "@type": "/ethermint.types.v1.EthAccount",
+      "@type": "/treasurenet.types.v1.EthAccount",
       "base_account": {
         "address": "treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg",
         "pub_key": null,
@@ -149,11 +149,11 @@ The auth module provides AnteDecorators that are recursively chained together in
 
 ```json
 {
-  "@type": "/ethermint.types.v1.EthAccount",
+  "@type": "/treasurenet.types.v1.EthAccount",
   "base_account": {
     "address": "treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg",
     "pub_key": {
-      "@type": "/ethermint.crypto.v1.ethsecp256k1.PubKey",
+      "@type": "/treasurenet.crypto.v1.ethsecp256k1.PubKey",
       "key": "AzaTWMVN4SlZq9C+fsI0aQzQuQ+HV5+I1mHW7LwjjWhO"
     },
     "account_number": "0",

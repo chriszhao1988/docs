@@ -44,7 +44,7 @@ sidebar_position: 1
       },
       "accounts": [
         {
-          "@type": "/ethermint.types.v1.EthAccount",
+          "@type": "/treasurenet.types.v1.EthAccount",
           "base_account": {
             "address": "treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg",
             "pub_key": null,
@@ -54,7 +54,7 @@ sidebar_position: 1
           "code_hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
         },
         {
-          "@type": "/ethermint.types.v1.EthAccount",
+          "@type": "/treasurenet.types.v1.EthAccount",
           "base_account": {
             "address": "treasurenet1tpkgljjswp6j8pr2e88lmgled0fnlhncrn5cje",
             "pub_key": null,
@@ -335,7 +335,7 @@ sidebar_position: 1
             "signer_infos": [
               {
                 "public_key": {
-                  "@type": "/ethermint.crypto.v1.ethsecp256k1.PubKey",
+                  "@type": "/treasurenet.crypto.v1.ethsecp256k1.PubKey",
                   "key": "AzaTWMVN4SlZq9C+fsI0aQzQuQ+HV5+I1mHW7LwjjWhO"
                 },
                 "mode_info": {
