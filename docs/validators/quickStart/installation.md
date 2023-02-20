@@ -18,18 +18,18 @@ TreasureNet是一款非常快速的POS区块链，并且整体兼容以太坊。
 
 3. 进入安装包存放路径，在 ~ 下创建go文件夹，并进入go文件夹。
 :::note
-mkdir ~/go && cd ~/go
-wget https://go.dev/dl/go1.18.linux-amd64.tar.gz
+mkdir ~/go && cd ~/go  <br /> 
+wget https://go.dev/dl/go1.18.linux-amd64.tar.gz  
 :::
 
 4. 添加/usr/local/go/bin 目录到PATH变量中(linux中GOPATH环境变量配置)
 :::note
-在etc/profile或者vi .bashrc中写入并保存
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/BIN
-更新一下配置文件
-source etc/profile 或者 source .bashrc
-查看环境变量
+在etc/profile或者vi .bashrc中写入并保存 <br /> 
+export GOPATH=$HOME/go  <br /> 
+export PATH=$PATH:$GOPATH/BIN  <br /> 
+更新一下配置文件  <br /> 
+source etc/profile 或者 source .bashrc  <br /> 
+查看环境变量  <br /> 
 go env
 :::
 

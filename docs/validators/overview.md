@@ -6,6 +6,12 @@ sidebar_position: 1
 
 ## 什么是Validator
 
+TreasureNet 网络的关键特征是去中心化，换句话说，我们treasurenet区块链不是由中央服务器控制的，而是由一组节点服务器控制，为了确保所有网络交易都有效，节点的全球分布越多，攻击难度就越大。
+
+如何就交易有效性达成一致?
+
+最初的共识算法是比特币的工作量证明(pow)，随着区块链的发展pow共识算法已经无法满足日益增长的交易量，新的权益证明(pos)成为主要的共识算法，pos需要节点成为广为人知的validator，然后锁定或者抵押代币成为权重，然后通过pos共识算法依次选择validator来验证交易生成区块。
+
 TreasureNet 依赖于一组负责在区块链中提交新区块的validator节点，这些Validator通过广播消息参与共识协议，其中包含由每个validator私钥签署的加密数字签名。
 
 Validator候选人可以绑定它们的Unit token，并让token的其他持有者将token委托或者质押给它们。一开始，TN将由基金会负责的8个节点作为validator，随着越来越多的节点加入，validator将从众多候选人中抽选一部分成为ActiveValidator，参与共识。

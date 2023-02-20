@@ -159,7 +159,7 @@ const sidebars = {
                         'validators/quickStart/installation',
                         'validators/quickStart/treasurenetd',
                         'validators/quickStart/run-a-node',
-
+                        'validators/quickStart/init',
                     ],
                 },
                 {
