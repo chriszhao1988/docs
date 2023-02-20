@@ -228,7 +228,7 @@ const sidebars = {
                     type: 'category',
                     label: 'Client Libraries',
                     items: [
-                        'developers/client-libraries/treasurenet-js',
+                        'developers/client-libraries/address-converter'
                     ]
                 },
                 {
