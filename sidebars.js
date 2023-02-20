@@ -34,16 +34,12 @@ const sidebars = {
             type: 'category',
             label: 'About TN',
             items: [
-                {
-                    type: 'doc',
-                    id: 'about/introduction', // 文档 ID
-                    label: 'About TreasureNet', // 侧边栏标签
-                },
+                'about/introduction'
             ]
         },
         {
             type: 'category',
-            label: 'Assets',
+            label: 'Assets Production',
             items: [
                 {
                     type: 'category',
@@ -52,6 +48,8 @@ const sidebars = {
                         'assets/basic-concepts/token',
                         'assets/basic-concepts/producer',
                         'assets/basic-concepts/stake',
+                        'assets/basic-concepts/decentralized-audit',
+                        'assets/basic-concepts/privacy-protection',
                     ]
                 },
                 'assets/tngateway',
@@ -126,9 +124,19 @@ const sidebars = {
                     ]
                 },
                 'producers/producer-tools',
+                'producers/new-assets'
             ]
         },
-
+        {
+            type: 'category',
+            label: 'For Delegaters',
+            items: [
+                'staking/basic-concepts',
+                'staking/rule',
+                'staking/operation-guide',
+                'staking/qa',
+            ]
+        },
         {
             type: 'category',
             label: 'For Validators',
@@ -166,16 +174,6 @@ const sidebars = {
                 'validators/join-mainnet',
                 {
                     type: 'category',
-                    label: 'Staking',
-                    items: [
-                        'validators/staking/basic-concepts',
-                        'validators/staking/rule',
-                        'validators/staking/operation-guide',
-                        'validators/staking/qa',
-                    ]
-                },
-                {
-                    type: 'category',
                     label: 'Genesis',
                     items: [
                         'validators/genesis/genesis',
@@ -198,8 +196,7 @@ const sidebars = {
                         'developers/guides/wallet-integration',
                         'developers/guides/erc20',
                         'developers/guides/trace-transactions',
-                        'developers/guides/query-balances',
-                        'developers/guides/new-assets'
+                        'developers/guides/query-balances'
                     ]
                 },
                 {
@@ -220,7 +217,7 @@ const sidebars = {
                 },
                 {
                     type: 'category',
-                    label: 'Ethereum Tooling ',
+                    label: 'TreasureNet EVM Tooling ',
                     items: [
                         'developers/ethereum-tooling/remix',
                         'developers/ethereum-tooling/hardhat',
