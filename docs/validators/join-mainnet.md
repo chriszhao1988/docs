@@ -20,7 +20,8 @@ sidebar_position: 4
 
 ## 初始化链
 
-为节点选择一个自定义的名称并开始初始化。<font color=#A9A9A9>init</font>命令会默认在~下创建.treasurenetd文件，包含config和data,在config中最重要的配置文件为config.toml和app.toml
+
+为节点选择一个自定义的名称并开始初始化。**init**命令会默认在~下创建.treasurenetd文件，包含config和data,在config中最重要的配置文件为config.toml和app.toml
 ```shell
 treasurenetd init <moniker-name>
 ```
