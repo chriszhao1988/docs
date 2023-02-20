@@ -54,7 +54,8 @@ let address = ETH.encoder(Buffer.from("e2d61e49ff8a9d724cc54d338d8076f878ac6b71"
 address = TREASURENET.encoder(Buffer.from("e2d61e49ff8a9d724cc54d338d8076f878ac6b71", "hex"))
 // address === "treasurenet1uttpuj0l32whynx9f5ecmqrklpu2c6m3973048"
 
-address = 
+address = COSMOS.encoder(Buffer.from("e2d61e49ff8a9d724cc54d338d8076f878ac6b71", "hex"))
+// address === "cosmos1uttpuj0l32whynx9f5ecmqrklpu2c6m37sldk9"
 
 ```
 
