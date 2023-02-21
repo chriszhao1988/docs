@@ -73,46 +73,46 @@ make install
   cat $HOME/.treasurenetd/config/genesis.json | jq '.app_state["mint"]["params"]["mint_denom"]="aunit"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
   ```
 * increase block time (?)
-```shell
-cat $HOME/.treasurenetd/config/genesis.json | jq '.consensus_params["block"]["time_iota_ms"]="1000"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
-```
+  ```shell
+  cat $HOME/.treasurenetd/config/genesis.json | jq '.consensus_params["block"]["time_iota_ms"]="1000"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
+  ```
 
 * Set gas limit in genesis
-```shell
-cat $HOME/.treasurenetd/config/genesis.json | jq '.consensus_params["block"]["max_gas"]="10000000"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
-```
+  ```shell
+  cat $HOME/.treasurenetd/config/genesis.json | jq '.consensus_params["block"]["max_gas"]="10000000"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
+  ```
 
 * disable produce empty block
-```shell
-if [[ "$OSTYPE" == "darwin"* ]]; then
+  ```shell
+  if [[ "$OSTYPE" == "darwin"* ]]; then
     sed -i '' 's/create_empty_blocks = true/create_empty_blocks = false/g' $HOME/.treasurenetd/config/config.toml
   else
     sed -i 's/create_empty_blocks = true/create_empty_blocks = false/g' $HOME/.treasurenetd/config/config.toml
-fi
-```
+  fi
+  ```
 
 * add in denom metadata for both native tokens
-```shell
-jq '.app_state.bank.denom_metadata += [{"name": "Foo Token", "symbol": "FOO", "base": "footoken", display: "mfootoken", "description": "A non-staking test token", "denom_units": [{"denom": "footoken", "exponent": 0}, {"denom": "mfootoken", "exponent": 6}]},{"name": "Stake Token", "symbol": "STEAK", "base": "aunit", display: "unit", "description": "A staking test token", "denom_units": [{"denom": "aunit", "exponent": 0}, {"denom": "unit", "exponent": 18}]}]' /root/.treasurenetd/config/genesis.json > /treasurenet-footoken2-genesis.json
-jq '.app_state.bank.denom_metadata += [{"name": "Foo Token2", "symbol": "F20", "base": "footoken2", display: "mfootoken2", "description": "A second non-staking test token", "denom_units": [{"denom": "footoken2", "exponent": 0}, {"denom": "mfootoken2", "exponent": 6}]}]' /treasurenet-footoken2-genesis.json > /treasurenet-bech32ibc-genesis.json
-```
+  ```shell
+  jq '.app_state.bank.denom_metadata += [{"name": "Foo Token", "symbol": "FOO", "base": "footoken", display: "mfootoken", "description": "A non-staking test token", "denom_units": [{"denom": "footoken", "exponent": 0}, {"denom": "mfootoken", "exponent": 6}]},{"name": "Stake Token", "symbol": "STEAK", "base": "aunit", display: "unit", "description": "A staking test token", "denom_units": [{"denom": "aunit", "exponent": 0}, {"denom": "unit", "exponent": 18}]}]' /root/.treasurenetd/config/genesis.json > /treasurenet-footoken2-genesis.json
+  jq '.app_state.bank.denom_metadata += [{"name": "Foo Token2", "symbol": "F20", "base": "footoken2", display: "mfootoken2", "description": "A second non-staking test token", "denom_units": [{"denom": "footoken2", "exponent": 0}, {"denom": "mfootoken2", "exponent": 6}]}]' /treasurenet-footoken2-genesis.json > /treasurenet-bech32ibc-genesis.json
+  ```
 
 * Set the chain's native bech32 prefix
-```shell
-jq '.app_state.bech32ibc.nativeHRP = "treasurenet"' /treasurenet-bech32ibc-genesis.json > /gov-genesis.json
-mv /gov-genesis.json /root/.treasurenetd/config/genesis.json
-```
+  ```shell
+  jq '.app_state.bech32ibc.nativeHRP = "treasurenet"' /treasurenet-bech32ibc-genesis.json > /gov-genesis.json
+  mv /gov-genesis.json /root/.treasurenetd/config/genesis.json
+  ```
 * Allocate genesis accounts (treasurenet formatted addresses)
   - VALIDATOR_KEY=$($BIN keys show validator -a $ARGS)
   - ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)
   - $BIN add-genesis-account $ARGS $VALIDATOR_KEY $ALLOCATION
   - $BIN add-genesis-account $ARGS $ORCHESTRATOR_KEY $ALLOCATION
-```shell
-VALIDATOR_KEY=$($BIN keys show validator -a $ARGS)
-ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)
-$BIN add-genesis-account $ARGS $VALIDATOR_KEY $ALLOCATION
-$BIN add-genesis-account $ARGS $ORCHESTRATOR_KEY $ALLOCATION
-``` 
+  ```shell
+  VALIDATOR_KEY=$($BIN keys show validator -a $ARGS)
+  ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)
+  $BIN add-genesis-account $ARGS $VALIDATOR_KEY $ALLOCATION
+  $BIN add-genesis-account $ARGS $ORCHESTRATOR_KEY $ALLOCATION
+  ``` 
 
 * Sign genesis transaction
   - ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)
