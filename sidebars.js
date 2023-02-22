@@ -172,13 +172,6 @@ const sidebars = {
                 },
                 'validators/join-testnet',
                 'validators/join-mainnet',
-                {
-                    type: 'category',
-                    label: 'Genesis',
-                    items: [
-                        'validators/genesis/genesis',
-                    ]
-                },
             ]
         },
         {
@@ -263,6 +256,13 @@ const sidebars = {
                         'protocolDevelopers/modules/gov',
                         'protocolDevelopers/modules/distribution'
 
+                    ]
+                },
+                {
+                    type: 'category',
+                    label: 'Genesis File',
+                    items: [
+                        'protocolDevelopers/genesis/genesis',
                     ]
                 },
             ]

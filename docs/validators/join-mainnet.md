@@ -160,6 +160,7 @@ address = "tcp://0.0.0.0:1317"
 ### 同步运行验证器节点
 在 TreasureNet 上同步节点有三种主要方式；block sync、state sync和quick sync;
 如果需要同步运行验证器，请参考[run a validator](./setup/run-a-validator.md);
+
 |Sync|Data Integrity|
 |--|--|
 |State Sync|Minimal Historical Data|
