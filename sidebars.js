@@ -41,7 +41,7 @@ const sidebars = {
             type: 'category',
             label: 'Assets Production',
             items: [
-                'assets/introduction',
+                'assets/overview',
                 {
                     type: 'category',
                     label: 'Core Concepts',
