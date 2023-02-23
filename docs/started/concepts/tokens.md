@@ -8,7 +8,9 @@ sidebar_position: 2
 
 Treasurenet 是一个附带全套EVM(Ethereum Virtual Machine)支持的Cosmos-based区块链网络，由于这种架构，网络中的代币和资产可能来自不同的独立来源。
 
-## UNIT Token
+## TreasureNet项目的原生代币 -- UNIT
+
+UNIT是TreasureNet区块链网络底层直接发行，用以实现区块链基本运作的代币，当我们需要在TreasureNet区块链网络中进行任何[Transaction](http://www.google.com)、[Governance](https://www.google.com)或者其他活动时，都需要以UNIT Token的形式来支付[Gas Fee](https://www.google.com).与此同时 UNIT Token也被用来致富矿工（也就是维持或者协助区块链正常运作的人）当作奖励。
 
 在TreasureNet上用于质押、治理（DAO）、区块奖励（Block Reward）和Gas消耗的是Unit Token。
 
@@ -26,10 +28,9 @@ TreasureNet使用atto unit（aUnit）作为最小面额
 
 1ETH = 10**18 wei
 
+## 与实体经济相链接的数字代币 -- TAT
 
-## TAT Token
-
-在TreasureNet上由实体、数字矿产或者其他工作流产生的代币是TAT Token。
+TAT是TreasureNet区块链网络中由TN官方发行的数字代币，它由TreasureNet上的实体、数字矿产或者其他工作流产生的代币。 TAT作为链接资产的生产证明而发挥作用。
 
 TAT作为连接资产的生产证明而发挥作用。这类似于 "PoW工作量证明"，但通过经济价值的生产而有形地完成。
 
@@ -41,13 +42,14 @@ TAT作为 "工作量证明 "的目的是为了记录和验证Treasurenet经济�
 
 TAT Token 是标准的ETH ERC20 代币。 具有标准ERC20代币所具有的转账、查询、代理等功能。
 
-除此之外 TAT Token还具有[红利质押（Bonus stake）](http://)功能。通过红利质押，您的TAT Token将会被销毁，但有机会获得红利区块奖励（Bonus Block Reward).
+除此之外 TAT Token还具有红利质押（Bonus stake）功能。通过红利质押，您的TAT Token将会被销毁，但有机会获得红利区块奖励（Bonus Block Reward).
+
 
 TAT Token 使用atto TAT（aTAT)作为最小面额
 
 1TAT = 10**18 aTAT
 
-## USTN Token
+## TreasureNet网络中的稳定币 -- USTN
 
 在TreasureNet上作为稳定币存在的Token是USTN Token。
 

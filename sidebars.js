@@ -41,11 +41,11 @@ const sidebars = {
             type: 'category',
             label: 'Assets Production',
             items: [
+                'assets/introduction',
                 {
                     type: 'category',
                     label: 'Core Concepts',
                     items: [
-                        'assets/basic-concepts/token',
                         'assets/basic-concepts/producer',
                         'assets/basic-concepts/stake',
                         'assets/basic-concepts/decentralized-audit',
@@ -66,7 +66,6 @@ const sidebars = {
                         'started/concepts/transactions',
                         'started/concepts/tokens',
                         'started/concepts/gas-and-fees',
-                        'started/concepts/smart-contract'
                     ]
                 },
                 {
@@ -106,17 +105,10 @@ const sidebars = {
             label: 'Producer & TAT',
             items: [
                 'producers/basic-concepts',
-                'producers/producer-registration',
-                {
-                    type: 'category',
-                    label: 'Production Data',
-                    items: [
-                        'producers/production-data/canadian-petroleum-minerals',
-                        'producers/production-data/digital-minerals',
-                    ]
-                },
+                'producers/operation-guide',
                 'producers/producer-tools',
-                'producers/new-assets'
+                'producers/new-assets',
+                'producers/qa'
             ]
         },
         {

@@ -1,8 +1,4 @@
----
-sidebar_position: 2
----
-
-# Digital Minerals
+# Operation Guide
 
 :::info
   🚧 Documentation is in progress.
