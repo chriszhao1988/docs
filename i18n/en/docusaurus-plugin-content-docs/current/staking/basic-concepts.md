@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 ---
+# Basic Concepts
 
 ## Earn rewards while securing TreasureNet
 
