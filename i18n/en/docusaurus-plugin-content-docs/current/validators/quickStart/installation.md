@@ -2,14 +2,36 @@
 sidebar_position: 1
 ---
 
-# Installation
+## Install Binaries
 
+TreasureNet是一款非常快速的POS区块链，并且整体兼容以太坊。TreasureNet集成看Tendermint和ethereum实现了POS+BFT的共识机制。
+
+## 单节点部署
+
+1. 确保您按照了go环境和git
 :::caution
   ❗️ TreasureNet 构建需要安装[Go](https://golang.org/dl/) 版本1.18+
+  Golang官网下载地址: https://golang.org/dl/
 :::
 
+2. 打开官网下载地址选择对应系统版本。
 
-## Install Binaries
+3. 进入安装包存放路径，在 ~ 下创建go文件夹，并进入go文件夹。
+:::note
+mkdir ~/go && cd ~/go  <br /> 
+wget https://go.dev/dl/go1.18.linux-amd64.tar.gz  
+:::
+
+4. 添加/usr/local/go/bin 目录到PATH变量中(linux中GOPATH环境变量配置)
+:::note
+在etc/profile或者vi .bashrc中写入并保存 <br /> 
+export GOPATH=$HOME/go  <br /> 
+export PATH=$PATH:$GOPATH/BIN  <br /> 
+更新一下配置文件  <br /> 
+source etc/profile 或者 source .bashrc  <br /> 
+查看环境变量  <br /> 
+go env
+:::
 
 ### Github
 
@@ -17,10 +39,12 @@ sidebar_position: 1
 
 ```shell
     git clone https://github.com/treasurenetprotocol/treasurenet.git
+    go env -w GO111MODULE=on
     cd treasurenet
+    go mod tidy
     make install
-    
 ```
+
 检查是否正确安装
 
 ```shell

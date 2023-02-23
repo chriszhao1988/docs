@@ -4,8 +4,6 @@ sidebar_position: 1
 
 # Basic Concepts
 
-## 什么是生产商
-
 TreasureNet将能够在TreasureNet网络上提供符合要求的实体矿产生产数据的用户 称为"Producer"。
 Producer可以将自己生产资源的数据信息通过Producer Tool上传到TreasureNet，按照美元计价的方式获得相应的TAT Token。
 TAT Token 不直接参与DeFi 他是一种生产证明，可以用于Bonus Stake 来在您的PoS Stake中获得更多奖励 （参考[Bonus Stake章节](https://)）
@@ -17,8 +15,6 @@ TAT Token 不直接参与DeFi 他是一种生产证明，可以用于Bonus Stake
 |Name|Descrption|Maintainer|Status|
 |--|--|--|--|
 |Canadian Petroleum Minerals||Treasurenet Foundation|Live|
-|BTC Mining|Digital Minerals|Treasurenet Foundation|Live|
-|ETH Mining|Digital Minerals|Treasurenet Foundation|Live|
 
 #### 非官方
 
@@ -29,29 +25,6 @@ TAT Token 不直接参与DeFi 他是一种生产证明，可以用于Bonus Stake
 
 我们欢迎任何有价值的资产加入进来，具体内容您可以参考[这里](https://)
 
-## 成为生产商需要什么资质
-
-我们把生产商资质的制定交给了该资源的Maintainer，显然不同的资源会需要截然不同的资质.
-
-### Canadian Petroleum Minerals
-
-:::info
-  🚧 Documentation is in progress.
-:::
-
-### BTC Mining
-
-:::info
-  🚧 Documentation is in progress.
-:::
-
-### ETH Mining
-
-:::info
-  🚧 Documentation is in progress.
-:::
-
-这个页面将会持续更新。
 
 ## 如何注册成为生产商
 
