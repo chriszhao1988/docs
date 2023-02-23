@@ -164,6 +164,7 @@ const sidebars = {
                 },
                 'validators/join-testnet',
                 'validators/join-mainnet',
+                'validators/faq',
             ]
         },
         {
