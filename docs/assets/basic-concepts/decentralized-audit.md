@@ -26,7 +26,7 @@ sidebar_position: 4
 3. 生产商自行触发铸造TAT token的操作，该操作首先会触发合约进行产量审计，审计完成后再进行TAT的铸造操作；
 
 :::note
-   产量审计，将根据合约规则，对两处产量数据进行对比、校对，如偏差较大，需要扣除一定的保证金，具体的校对规则详见[此处](../../producers/production-data/canadian-petroleum-minerals.md).
+   产量审计，将根据合约规则，对两处产量数据进行对比、校对，如偏差较大，需要扣除一定的保证金，具体的校对规则详见[此处](/).
 :::
 
-当然，铸造TAT token不仅需要校对后的资产产量数据，还需要资产的价格数据，此处不做赘述，关于TAT 的铸造，详见[此处](../../producers/production-data/canadian-petroleum-minerals.md).
+当然，铸造TAT token不仅需要校对后的资产产量数据，还需要资产的价格数据，此处不做赘述，关于TAT 的铸造，详见[此处](/).
