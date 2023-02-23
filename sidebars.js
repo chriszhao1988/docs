@@ -43,7 +43,7 @@ const sidebars = {
             items: [
                 {
                     type: 'category',
-                    label: 'Basic Concepts',
+                    label: 'Core Concepts',
                     items: [
                         'assets/basic-concepts/token',
                         'assets/basic-concepts/producer',
@@ -52,20 +52,12 @@ const sidebars = {
                         'assets/basic-concepts/privacy-protection',
                     ]
                 },
-                'assets/tngateway',
-                {
-                    type: 'category',
-                    label: 'Ecosystem',
-                    items: [
-                        'assets/ecosystem/ustn-finance',
-                        'assets/ecosystem/tat',
-                    ]
-                },
+                'assets/tngateway'
             ]
         },
         {
             type: 'category',
-            label: 'Getting Started',
+            label: 'Fundamentals',
             items: [
                 {
                     type: 'category',
