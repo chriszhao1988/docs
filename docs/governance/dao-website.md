@@ -4,41 +4,59 @@ sidebar_position: 2
 
 # Governance Operation
 
-## Getting Start
+## Proposal pool
 
-### Voting
+* 在proposal pool中可以看到所有的提案。在右上角可以筛选出'Ongoing'、'Passed'和'Failed'的提案。在搜索框可以进行提案编号检索。
 
-在提案池中选择感兴趣的提案。
+![Polling_pool](/img/docs/3.1Polling_pool.png)
 
-![d1.png](/img/docs/d1.png)
 
-点击'投票'按钮，最少输入1UNIT进行投票。
+* 点击'vote'按钮，可以对提案进行投票。
 
-![d2.png](/img/docs/d2.png)
+![vote](/img/docs/3.1.1vote.png)
 
-点击'投票详情'，可以查看提案的得票详情。
+* 点击'vote details'，可以查看提案的得票详情。
 
-![d3.png](/img/docs/d3.png)
+![vote_details](/img/docs/3.1.2vote_details.png)
 
-### 如何提取已投入的UNIT？
+* 点击'GO BACK'，则会返回Proposal pool。
 
-选择我的已投票但未提取UNIT的记录，点击'提取'按钮。
+## My vote
 
-![d4.png](/img/docs/d4.png)
+* 在'My vote'页面，可以看到所有由我进行过投票的提案。在右上角可以根据状态筛选提案，状态包括'Ongoing'、'Passed'、'Failed'。勾选'没有提取Unit'，可以筛选出所有未提取出投入Unit的记录。在搜索框可以进行提案编号检索。
 
-### 发起提案
+![My_vote](/img/docs/3.2.1My_vote.png)
 
-进入我的提案页面，点击'发起提案'按钮进入发起提案页面
 
-填写提案内容时需要注意以下要素：
+* 点击'Extract'，可以提取出投入的Unit。
 
-- 标题：输入提案的主要内容或主要诉求
-- 描述：您认为与您提案相关的任何内容，比如你想做什么？为什么要这么做？
-- 链接：这里可以输入您在社交平台发起的讨论链接，便于其他用户参与讨论。链接推荐官方的社群软件。
-- 提案时长：目前默认1天，无法修改。
-- 提案花费：您想发起一个提案至少需要花费1UNIT，这笔花费将直接计入您的投票总数。
+![Extract](/img/docs/3.2.2Extract.png)
 
-![d5.png](/img/docs/d5.png)
-![d6.png](/img/docs/d6.png)
+* 点击'Details'可以查看提案详情。
 
-当您的投票总数达到投票阈值，您的提案将自动通过。如果没有达到阈值，到截止时间后提案将结束，无法继续投票。
+![vote_details](/img/docs/3.1.2vote_details.png)
+
+## My proposal
+
+* 在'My proposal'页面可以看到所有我的提案和相关状态。在右上角可以根据状态筛选提案，状态包括'Ongoing'、'Passed'、'Failed'。还可以根据执行状态筛选出已执行（Executed）和未执行（Execute）的提案。在搜索框可以进行提案编号检索。
+
+![My_proposal](/img/docs/3.3.1My_proposal.png)
+
+* 点击'Details'可以查看提案详情。
+
+![vote_details](/img/docs/3.1.2vote_details.png)
+
+## Initiate Proposal
+
+* 点击'Initiate Proposal'按钮可以发起提案，提案时长1天，提案填写完毕后点击'Submit'，输入要支付的Unit数量（需至少缴纳1Unit）后提交。缴纳的1Unit将计算在投票内。
+
+
+![Initiate_Proposal](/img/docs/3.3.3Initiate_Proposal.png)
+
+![Initiate_Proposal2](/img/docs/3.3.3Initiate_Proposal2.png)
+
+![Proposal_pay](/img/docs/3.3.4Proposal_pay.png)
+
+* 成功会提示'Proposed successful'。成功发起的提案会在Proposal pool和My proposal两个tab显示。
+
+![Proposed_successful](/img/docs/3.3.5Proposed_successful.png)
