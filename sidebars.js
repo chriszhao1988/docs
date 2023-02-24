@@ -105,10 +105,18 @@ const sidebars = {
             label: 'Producer & TAT',
             items: [
                 'producers/basic-concepts',
-                'producers/operation-guide',
                 'producers/producer-tools',
                 'producers/new-assets',
-                'producers/qa'
+                'producers/qa',
+                {
+                    type: 'category',
+                    label: 'Producer Guide',
+                    items: [
+                        'producers/operation-guide/producer',
+                        'producers/operation-guide/foundationmanager',
+                    ],
+                    
+                }
             ]
         },
         {
