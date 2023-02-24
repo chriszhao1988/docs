@@ -110,7 +110,7 @@ const sidebars = {
                 'producers/qa',
                 {
                     type: 'category',
-                    label: 'Producer Guide',
+                    label: 'Operation Guide',
                     items: [
                         'producers/operation-guide/producer',
                         'producers/operation-guide/foundationmanager',
