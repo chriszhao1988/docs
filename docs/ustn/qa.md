@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Q&A
+# FAQ
 
 :::info
   🚧 Documentation is in progress.

@@ -24,10 +24,6 @@ TreasureNet使用atto unit（aUnit）作为最小面额
 
 1Unit = 10**18 aUnit
 
-这与Ethereum的面额相匹配
-
-1ETH = 10**18 wei
-
 ## 与实体经济相链接的数字代币 -- TAT
 
 TAT是TreasureNet区块链网络中由TN官方发行的数字代币，它由TreasureNet上的实体、数字矿产或者其他工作流产生的代币。 TAT作为链接资产的生产证明而发挥作用。

@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-## How to Delegate
+# Getting Started
 
 这是一个操作只能帮助您快速的成为delegator,但是您需要确定您是否在TreasureNet主网上是否拥有代币UNIT和TAT
 

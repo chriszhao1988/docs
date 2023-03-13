@@ -63,7 +63,15 @@ const sidebars = {
                     type: 'category',
                     label: 'Basic Concepts',
                     items: [
-                        'started/concepts/transactions',
+                        {
+                            type: 'category',
+                            label: 'Transactions',
+                            items: [
+                                'started/concepts/transactions',
+                                'started/concepts/etherenum-tx',
+                                'started/concepts/cosmos-tx',
+                            ]
+                        },
                         'started/concepts/tokens',
                         'started/concepts/gas-and-fees',
                     ]
@@ -79,16 +87,15 @@ const sidebars = {
                     ]
                 },
                 'started/accounts',
-                {
-                    type: 'category',
-                    label: 'USTN Finance Platform',
-                    items: [
-                        'started/ustn/overview',
-                        'started/ustn/financial-operations',
-                        'started/ustn/qa'
-                    ]
-                },
-
+            ]
+        },
+        {
+            type: 'category',
+            label: 'USTN Finance Platform',
+            items: [
+                'ustn/overview',
+                'ustn/financial-operations',
+                'ustn/qa'
             ]
         },
         {
@@ -104,28 +111,33 @@ const sidebars = {
             type: 'category',
             label: 'Producer & TAT',
             items: [
-                'producers/basic-concepts',
-                'producers/producer-tools',
+                'producers/introduction',
+                'producers/rules',
+                'producers/assets',
                 'producers/new-assets',
-                'producers/qa',
                 {
                     type: 'category',
                     label: 'Operation Guide',
                     items: [
+                        'producers/operation-guide/production-data-upload',
                         'producers/operation-guide/producer',
                         'producers/operation-guide/foundationmanager',
+                        'producers/operation-guide/expense',
+                        'producers/operation-guide/beneficiaries',
+                        'producers/operation-guide/getinfo'
                     ],
-                    
-                }
+
+                },
+                'producers/qa'
             ]
         },
         {
             type: 'category',
             label: 'For Delegaters',
             items: [
-                'staking/basic-concepts',
-                'staking/rule',
-                'staking/operation-guide',
+                'staking/introduction',
+                'staking/getting-started',
+                'staking/best-practices',
                 'staking/qa',
             ]
         },
@@ -144,6 +156,7 @@ const sidebars = {
                         'validators/concepts/incentives',
                     ],
                 },
+                'validators/rules',
                 {
                     type: 'category',
                     label: 'Quick Start',

@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# Validator FAQ
+# FAQ
 
 :::note
 Check the FAQ for running a validator on TreasureNet

@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Overview
+# Introduction
 
 TreasureNet链利用Cosmos SDK和底层的Tendermint核心共识引擎。具体来说，Cosmos SDK 是一个框架，可促进在 Tendermint 之上开发安全状态机。
 

@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Governance Operation
+# Getting Involved
 
 ## Proposal pool
 

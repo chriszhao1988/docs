@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Operation Guide
+# Cosmos Transactions
 
 :::info
   🚧 Documentation is in progress.

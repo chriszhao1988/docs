@@ -2,11 +2,19 @@
 sidebar_position: 1
 ---
 
-# Overview
+# Introduction
 
 TreasureNet 具有链上治理机制，用于发起文本提案、更改链参数、修改内置合约参数以及从社区池中支出资金。
 
 ## 链上链下治理机制
+
+### DAO Website
+
+:::info
+🚧 Documentation is in progress.
+
+**Website interview here. connect to dao-website.md and mainnet dao website's url.**
+:::
 
 ### 决策和沟通讨论渠道
 
@@ -24,3 +32,20 @@ TreasureNet 具有链上治理机制，用于发起文本提案、更改链参�
 - [Twitter](https://twitter.com/treasurenet_io)
   - TN 官方社交账号
 
+## Governance Process
+
+:::info
+🚧 Documentation is in progress.
+
+**Introduce the process of dao, such as how to complete the proposal, voting, multi-signature, timelock....**
+
+**A picture shows the whole process.**
+:::
+
+## Roles and Responsibilities.
+
+:::info
+🚧 Documentation is in progress.
+
+**How many proposals are there?How many signatures are required for each type of vote, how long does it take, how FoundationManager technicians operate to implement changes, what do validators do...**
+:::
