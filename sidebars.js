@@ -110,10 +110,19 @@ const sidebars = {
                     label: 'Operation Guide',
                     items: [
                         'producers/operation-guide/production-data-upload',
-                        'producers/operation-guide/producer',
+                        {
+                            type: 'category',
+                            label: 'Producer Guide',
+                            items: [
+                                'producers/operation-guide/producer/registration',
+                                'producers/operation-guide/producer/wellmanagement',
+                                'producers/operation-guide/producer/expense',
+                                'producers/operation-guide/producer/mint',
+                                'producers/operation-guide/producer/messages',
+                            ],
+
+                        },
                         'producers/operation-guide/foundationmanager',
-                        'producers/operation-guide/expense',
-                        'producers/operation-guide/beneficiaries',
                         'producers/operation-guide/getinfo'
                     ],
 
