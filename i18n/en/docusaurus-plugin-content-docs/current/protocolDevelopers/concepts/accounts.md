@@ -2,7 +2,7 @@
 
 ## Keyring
 
-Keyring 包含用于与节点交互的公私钥对。例如，需要在运行节点之前设置一个Validator Key用以正确签署区块。私钥可以存放在不同的位置，称为"[Keyring Backends](/docs/started/accounts#keyring-backends)"，例如文件系统或者操作系统自己的密钥存储。
+Keyring 包含用于与节点交互的公私钥对。例如，需要在运行节点之前设置一个Validator Key用以正确签署区块。私钥可以存放在不同的位置，称为"[Keyring Backends](/)"，例如文件系统或者操作系统自己的密钥存储。
 
 ### Add Keys
 
