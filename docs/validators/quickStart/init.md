@@ -35,9 +35,9 @@ sidebar_position: 4
   ARGS="$GAIA_HOME --keyring-backend test"
   ```
 * validate dependencies are installed
-  - command -v jq > /dev/null 2>&1 || { echo >&2 "jq not installed. More info: https://stedolan.github.io/jq/download/"; exit 1; }
+  - ```command -v jq > /dev/null 2>&1 || { echo >&2 "jq not installed. More info: https://stedolan.github.io/jq/download/"; exit 1; }```
 * remove existing daemon and client
-  - rm -rf ~/.treasurenet*
+  - ```rm -rf ~/.treasurenet*```
 * make install
 ```shell
 command -v jq > /dev/null 2>&1 || { echo >&2 "jq not installed. More info: https://stedolan.github.io/jq/download/"; exit 1; }
@@ -46,15 +46,15 @@ make install
 ```
 * 执行treasurenetd
   - 创建或者查询应用程序CLI配置文件
-    1. $BIN config keyring-backend $KEYRING
-    2. $BIN config chain-id $CHAINID
+    1. ```$BIN config keyring-backend $KEYRING```
+    2. ```$BIN config chain-id $CHAINID```
   - Generate a validator key, orchestrator key, and eth key for each validator  
-    1. $BIN keys add $KEY1 --keyring-backend $KEYRING --algo $KEYALGO 2>> /data/validator-phrases : 添加秘钥来保护自己的账户
-    2. $BIN keys add $KEY2 --keyring-backend $KEYRING --algo $KEYALGO 2>> /data/orchestrator-phrases : 添加秘钥来保护中继器上的账户
-    3. $BIN eth_keys add --keyring-backend $KEYRING >> /data/validator-eth-keys : 添加秘钥来保护以太坊的账户
+    1. ```$BIN keys add $KEY1 --keyring-backend $KEYRING --algo $KEYALGO 2>> /data/validator-phrases``` : 添加秘钥来保护自己的账户
+    2. ```$BIN keys add $KEY2 --keyring-backend $KEYRING --algo $KEYALGO 2>> /data/orchestrator-phrases``` : 添加秘钥来保护中继器上的账户
+    3. ```$BIN eth_keys add --keyring-backend $KEYRING >> /data/validator-eth-keys``` : 添加秘钥来保护以太坊的账户
   - Set moniker and chain-id for Treasurenet (Moniker can be anything, chain-id must be an integer)
-    * $BIN init $MONIKER --chain-id $CHAINID : 初始化NODE会在$HOME目录下生产.treasurenetd文件，该文件下包含了链需要的文件，如:config.toml,genesis.json,data...等 
-  ```shel
+    * ```$BIN init $MONIKER --chain-id $CHAINID``` : 初始化NODE会在$HOME目录下生产.treasurenetd文件，该文件下包含了链需要的文件，如:config.toml,genesis.json,data...等 
+  ```shell
   $BIN config keyring-backend $KEYRING
   $BIN config chain-id $CHAINID  
   GAIA_HOME="--home /root/.treasurenetd"
@@ -103,10 +103,10 @@ make install
   mv /gov-genesis.json /root/.treasurenetd/config/genesis.json
   ```
 * Allocate genesis accounts (treasurenet formatted addresses)
-  - VALIDATOR_KEY=$($BIN keys show validator -a $ARGS)
-  - ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)
-  - $BIN add-genesis-account $ARGS $VALIDATOR_KEY $ALLOCATION
-  - $BIN add-genesis-account $ARGS $ORCHESTRATOR_KEY $ALLOCATION
+  - ```VALIDATOR_KEY=$($BIN keys show validator -a $ARGS)```
+  - ```ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)```
+  - ```$BIN add-genesis-account $ARGS $VALIDATOR_KEY $ALLOCATION```
+  - ```$BIN add-genesis-account $ARGS $ORCHESTRATOR_KEY $ALLOCATION```
   ```shell
   VALIDATOR_KEY=$($BIN keys show validator -a $ARGS)
   ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)
@@ -115,16 +115,16 @@ make install
   ``` 
 
 * Sign genesis transaction
-  - ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)
-  - ETHEREUM_KEY=$(grep address /validator-eth-keys | sed -n "1"p | sed 's/.*://')
+  - ```ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)```
+  - ```ETHEREUM_KEY=$(grep address /validator-eth-keys | sed -n "1"p | sed 's/.*://')```
   - 创建了一个gentx目的是为了1:将您创建的账户注册validator为验证器操作员的账户；2：自行委托提供unit质押的代币；3：将操作员账户与将用于签署区块的TreasureNet节点公钥链接
-   * $BIN gentx $ARGS --moniker $MONIKER --chain-id=$CHAIN_ID validator 258000000000000000000aunit $ETHEREUM_KEY $ORCHESTRATOR_KEY
+   * ```$BIN gentx $ARGS --moniker $MONIKER --chain-id=$CHAIN_ID validator 258000000000000000000aunit $ETHEREUM_KEY $ORCHESTRATOR_KEY```
 * Collect genesis tx
-  - $BIN collect-gentxs : 将gentx添加到genesis文件中
+  - ```$BIN collect-gentxs``` : 将gentx添加到genesis文件中
 * Run this to ensure everything worked and that the genesis file is setup correctly
-  - $BIN validate-genesis
+  - ```$BIN validate-genesis```
 * Start the node (remove the --pruning=nothing flag if historical queries are not needed)
-  - $BIN start --pruning=nothing --log_level $LOGLEVEL --json-rpc.api eth,txpool,personal,net,debug,web3,miner --trace --json-rpc.address 0.0.0.0:8555
+  - ```$BIN start --pruning=nothing --log_level $LOGLEVEL --json-rpc.api eth,txpool,personal,net,debug,web3,miner --trace --json-rpc.address 0.0.0.0:8555```
 ```shell
 ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)
 ETHEREUM_KEY=$(grep address /validator-eth-keys | sed -n "1"p | sed 's/.*://')

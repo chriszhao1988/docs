@@ -23,9 +23,11 @@ sidebar_position: 6
 |default|16G|1TB|
 
 ## State Sync
+
 To enable state sync, visit an [explorer](https://explorer.treasurenet.io/) (opens new window)to get a recent block height and corresponding hash. A node operator can choose any height/hash in the current bonding period, but as the recommended snapshot period is 1000 blocks, it is advised to choose something close to current height - 1000. Set these parameters in the code snippet below <BLOCK_HEIGHT> and <BLOCK_HASH>
 
 作为参考，可以在[treasurenet hub chain-registry reporpc_servers](https://github.com/cosmos/chain-registry/blob/master/cosmoshub/chain.json)中找到peer的列表persistent 
+
 ```shell
 # Build treasurenet binary and initialize chain
 cd $HOME
@@ -56,7 +58,7 @@ treasurenetd start --x-crisis-skip-assert-invariants
 
 ### Create Gaia Home & Config
 
-mkdir $HOME/.treasurenetd/config -p
+```mkdir $HOME/.treasurenetd/config -p```
 
 ### Start Quicksync Download
 
@@ -94,9 +96,9 @@ treasurenetd init <moniker-name>
 
 节点初始化后，下载创世文件并移动到~/config/genesis.json
 :::note
-wget https://github.com/treasurenetprotocol/mainnet/master/genesis/genesis.treasurenet.json.gz  <br />
-gzip -d genesis.json.gz  <br />
-mv genesis.json ~/.treasurenetd/config/genesis.json
+```wget https://github.com/treasurenetprotocol/mainnet/master/genesis/genesis.treasurenet.json.gz```  <br />
+```gzip -d genesis.json.gz```  <br />
+```mv genesis.json ~/.treasurenetd/config/genesis.json```
 :::
 
 
@@ -143,7 +145,7 @@ e7bcaa83f89c76ca0337f73d767e35887d306f73表示我们的node1节点的NodeID,2665
 :::caution
   Note: This is an optional configuration.
 :::
-By default, the REST API is disabled. To enable the REST API, edit the ~/.treasurenetd/config/app.toml file, and set enable to true in the [api] section
+By default, the REST API is disabled. To enable the REST API, edit the ```~/.treasurenetd/config/app.toml``` file, and set enable to true in the [api](https://google.com) section
 ```shell
 ###############################################################################
 ###                           API Configuration                             ###
@@ -170,8 +172,5 @@ address = "tcp://0.0.0.0:1317"
 
 ### Start Treasurenetd
 
-treasurenetd start --x-crisis-skip-assert-invariants
+```treasurenetd start --x-crisis-skip-assert-invariants```
 
-:::info
-  🚧 Documentation is in progress.
-:::

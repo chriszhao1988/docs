@@ -2,8 +2,10 @@
 sidebar_position: 1
 ---
 
-# Cosmos Transactions
+# Transactions
 
 :::info
   🚧 Documentation is in progress.
 :::
+
+

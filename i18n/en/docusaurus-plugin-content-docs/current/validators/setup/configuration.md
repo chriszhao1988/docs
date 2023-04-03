@@ -448,8 +448,4 @@ treasurenetd tendermint show-address --home /data/mytestnet/.treasurenetd/
 treasurenetvalcons1s5kh480rtyaj8a4cw4uj2kr5u857c575wh7ytv
 ```
 * Peer Format: node-id@ip:port
-* Example: f5aff6fc4837935c0d8188e2c0044ffd4ece06d3@124.70.23.119::26656
-
-:::info
-  🚧 Documentation is in progress.
-:::
+* Example: f5aff6fc4837935c0d8188e2c0044ffd4ece06d3@node0.testnet.treasurenet.io:26656

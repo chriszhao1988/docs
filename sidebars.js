@@ -61,32 +61,22 @@ const sidebars = {
             items: [
                 {
                     type: 'category',
-                    label: 'Basic Concepts',
+                    label: 'Tokens',
                     items: [
-                        {
-                            type: 'category',
-                            label: 'Transactions',
-                            items: [
-                                'started/concepts/transactions',
-                                'started/concepts/etherenum-tx',
-                                'started/concepts/cosmos-tx',
-                            ]
-                        },
-                        'started/concepts/tokens',
-                        'started/concepts/gas-and-fees',
+                        'fundamentals/tokens/official-tokens',
+                        'fundamentals/tokens/third-party-tokens',
                     ]
                 },
                 {
                     type: 'category',
                     label: 'Digital Wallets',
                     items: [
-                        'started/wallets/metamask',
-                        'started/wallets/coinbase',
-                        'started/wallets/keplr',
-                        'started/wallets/ledger',
+                        'fundamentals/wallets/metamask',
+                        'fundamentals/wallets/coinbase',
+                        'fundamentals/wallets/keplr',
                     ]
                 },
-                'started/accounts',
+                'fundamentals/transfer-tokens',
             ]
         },
         {
@@ -156,7 +146,6 @@ const sidebars = {
                         'validators/concepts/incentives',
                     ],
                 },
-                'validators/rules',
                 {
                     type: 'category',
                     label: 'Quick Start',
@@ -242,6 +231,7 @@ const sidebars = {
                     label: 'Cosmos gRPC & REST',
                     href: 'https://www.google.com'
                 },
+                'developers/faq'
             ]
         },
         {
@@ -249,6 +239,17 @@ const sidebars = {
             label: 'For Protocol Devs',
             items: [
                 'protocolDevelopers/overview',
+                {
+                    type: 'category',
+                    label: 'Basic Concepts',
+                    items: [
+                        'protocolDevelopers/concepts/accounts',
+                        'protocolDevelopers/concepts/transactions',
+                        'protocolDevelopers/concepts/encoding',
+                        'protocolDevelopers/concepts/gas-and-fees',
+                        'protocolDevelopers/concepts/multisig',
+                    ]
+                },
                 {
                     type: 'category',
                     label: 'Modules',
