@@ -4,10 +4,6 @@ sidebar_position: 6
 
 # Join main-net
 
-:::caution
-  ❗️ coming soon
-:::
-
 ## Getting Started
 
 * 选择合适的硬件和服务器配置。(参见[硬件指南](./overview.md))。
@@ -79,8 +75,10 @@ curl https://quicksync.io/addrbook.treasurenetd.json > $HOME/.treasurenetd/confi
 ```
 ### Start Treasurenetd
 
+```shell
 treasurenetd start --x-crisis-skip-assert-invariants
-
+```
+`
 ## 持久对等节点和种子节点
 
 ### 初始化链

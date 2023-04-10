@@ -36,13 +36,13 @@ treasurenetd init <your_custom_moniker> --chain-id treasurenet_9000-1
  名字对象只能包含 ASCII 字符。 使用 Unicode 字符将使您的节点无法访问。
 :::
 
-默认情况下，init 命令会创建您的 ~/.treasurenetd（即 $HOME）目录，其中包含子文件夹 config/ 和 data/。 在config目录中，最重要的配置文件是app.toml和config.toml。
+默认情况下，init 命令会创建您的 ```~/.treasurenetd```（即 $HOME）目录，其中包含子文件夹 ```config/``` 和 ```data/```。 在config目录中，最重要的配置文件是app.toml和config.toml。
 
 ### Genesis & Seeds
 
 #### Copy Genesis File
 
-检查存档中的 [genesis.json 文件](https://),并将其复制到配置目录：~/.treasurenetd/config/genesis.json。 这是一个包含链 ID 和创世账户余额的创世文件。
+检查存档中的 [genesis.json 文件](https://),并将其复制到配置目录：```~/.treasurenetd/config/genesis.json```。 这是一个包含链 ID 和创世账户余额的创世文件。
 
 ```shell
 sudo apt install -y unzip wget
@@ -57,9 +57,9 @@ treasurenetd validate-genesis
 
 #### Add Seed Nodes
 
-您的节点需要知道如何找到[peers](https://)。 您需要将健康的[seed nodes](https://) 添加到 $HOME/.treasurenetd/config/config.toml。 [testnets](https://) 存储库包含一些种子节点的链接。
+您的节点需要知道如何找到[peers](https://)。 您需要将健康的[seed nodes](https://) 添加到 ```$HOME/.treasurenetd/config/config.toml```。 [testnets](https://) 存储库包含一些种子节点的链接。
 
-将位于 ~/.treasurenetd/config/config.toml 中的文件和种子编辑为以下内容：
+将位于``` ~/.treasurenetd/config/config.toml``` 中的文件和种子编辑为以下内容：
 
 ```shell
 #######################################################
@@ -82,7 +82,7 @@ sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" ~/.treasurenetd/config/config.t
 
 #### Add Persistent Peers
 
-我们可以在 ~/.treasurenetd/config/config.toml 中设置 [persistent_peers](https://) 字段来指定您的节点将与之保持持久连接的peer。 您可以从[testnets](https://)repo 上的可用对等点列表中检索它们。
+我们可以在 ```$HOME/.treasurenetd/config/config.toml``` 中设置 [persistent_peers](https://) 字段来指定您的节点将与之保持持久连接的peer。 您可以从[testnets](https://)repo 上的可用对等点列表中检索它们。
 
 [Treasurenet Discord](https://) 的 #find-peers 频道中还提供了可用的持久性对等点列表。 您可以通过运行以下命令从 PEERS 变量中的 peers.txt 文件中随机获取 10 个条目：
 

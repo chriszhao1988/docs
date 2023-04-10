@@ -4,15 +4,11 @@ sidebar_position: 7
 
 # FAQ
 
-:::note
-Check the FAQ for running a validator on TreasureNet
-:::
-
 ## Introduce
 
 ### What is a validator?
 
-[TreasuerNet 基于Tendermint](https://docs.tendermint.com/main/introduction/what-is-tendermint.html)它依赖于一组负责在区块链中提交新块的验证器。这些验证者通过广播包含由每个验证者的私钥签名的加密签名的投票来参与共识协议。
+TreasuerNet [基于Tendermint](https://docs.tendermint.com/main/introduction/what-is-tendermint.html)它依赖于一组负责在区块链中提交新块的验证器。这些验证者通过广播包含由每个验证者的私钥签名的加密签名的投票来参与共识协议。
 
 验证者候选者可以绑定他们自己的 UNIT或者TAT，并让代币持有者将UNIT “委托”或质押给他们。TreasureNet 目前只允许100个validator参与共识，但随着时间的推移，可以通过治理提案增加验证器的数量。验证者由委托给他们的 UNIT代币总数和TAT一起决定([参见活跃验证者的选取规则](./faq.md))，投票权最高的前 100 名验证者候选人是当前的活跃验证者参与共识生成新的区块。
 
@@ -21,6 +17,10 @@ Check the FAQ for running a validator on TreasureNet
 如果验证者双重签名或长时间离线，他们质押的 UNIT（包括委托给他们的用户的 UNIT）可能会被罚没。处罚取决于违规的严重程度。
 
 ### Active Validator的选取规则
+
+:::caution
+  产品补充 更易懂的版本
+:::
 
 1. 每个节点要想成为Validator必须自抵押UNIT，且验证者的自我委托永远不能低于 min-self-delegation(最小自抵押,默认为158unit)。
 2. 第一轮筛选满足min-self-delegation的validator，取权重最高的前400个validator进行选取。
@@ -57,46 +57,6 @@ Of course, it is possible and encouraged for any user to run full nodes even if 
 **委托人分享他们验证者的收入，但他们也分担风险。** 在收入方面，验证人和委托人的不同之处在于，验证人可以对分配给委托人的收入收取佣金。该佣金事先为委托人所知，并且只能根据预定义的约束进行更改([请参阅staking](../protocolDevelopers/modules/staking.md))。就风险而言，如果验证者行为不当，委托人的 UNIT 可能会被削减。有关更多信息，请参阅[slashing](../protocolDevelopers/modules/slashing.md)。
 
 要成为委托人，UNIT 持有者需要发送一个“委托交易”，在其中指定他们想要绑定多少个 UNIT 以及与哪个验证者绑定。候选验证者列表将显示在 TreasutreNet 浏览器中。之后，如果委托人想要解绑部分或全部股份，他们需要发送“解绑交易”。从那里开始，委托人将不得不等待 3 周才能取回他们的 UNIT。委托人还可以发送“重新绑定交易”以从一个验证器切换到另一个验证器，而无需经过 3 周的等待期([请参阅重新委托和解除绑定](../protocolDevelopers/modules/staking.md))。
-
-### Becoming a Validator
-#### How to become a validator?
-Any participant in the network can signal their intent to become a validator by creating a validator and registering its validator profile. To do so, the candidate broadcasts a create-validator transaction, in which they must submit the following information:
-
-* Validator's PubKey: Validator operators can have different accounts for validating and holding liquid funds. The PubKey submitted must be associated with the private key with which the validator intends to sign prevotes and precommits.
-* Validator's Address: treasurenetvaloper1- address. This is the address used to identify your validator publicly. The private key associated with this address is used to bond, unbond, and claim rewards.
-* Validator's name (also known as the moniker)
-* Validator's website (optional)
-* Validator's description (optional)
-* Initial commission rate: The commission rate on block provisions, block rewards and fees charged to delegators.
-* Maximum commission: The maximum commission rate which this validator will be allowed to charge.
-* Commission change rate: The maximum daily increase of the validator commission.
-* Minimum self-bond amount: Minimum amount of UNIT the validator needs to have bonded at all times. If the validator's self-bonded stake falls below this limit, its entire staking pool will be unbonded.
-* Initial self-bond amount: Initial amount of UNIT the validator wants to self-bond.
-```shell
-$ treasurenetd tx staking create-validator \
---from=[name_of_your_key] \
---amount=[staking_amount] \
---pubkey=[treasurenetpub...]  \
---moniker="[moniker_id_of_your_node]" \
---security-contact="[security contact email/contact method]" \
---chain-id="[chain-id]" \
---commission-rate="[commission_rate]" \
---commission-max-rate="[maximum_commission_rate]" \
---commission-max-change-rate="[maximum_rate_of_change_of_commission]" \
---min-self-delegation="[min_self_delegation_amount]"
---keyring-backend test
-## Transactions payload##
-{"body":{"messages":[{"@type":"/cosmos.staking.v1beta1.MsgCreateValidator"...}
-confirm transaction before signing and broadcasting [y/N]: y
-```
-
-:::caution
-   ❗️ DANGER: Never create your mainnet validator keys using a test keying backend. Doing so might result in a loss of funds by making your funds remotely accessible via the eth_sendTransaction JSON-RPC endpoint.
-
-   Ref: [Security Advisory: Insecurely configured geth can make funds remotely accessible](https://blog.ethereum.org/2015/08/29/security-alert-insecurely-configured-geth-can-make-funds-remotely-accessible/)
-:::
-
-Once a validator is created and registered, UNIT holders can delegate UNIT to it, effectively adding stake to its pool. The total stake of a validator is the sum of the UNIT self-bonded by the validator's operator and the UNIT bonded by external delegators.
 
 
 ### Validator states

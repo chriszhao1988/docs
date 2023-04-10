@@ -182,7 +182,6 @@ const sidebars = {
             type: 'category',
             label: 'For Dapp Devs',
             items: [
-                'developers/overview',
                 'developers/quick-connect',
                 'developers/tn-gateway',
                 'developers/clients',

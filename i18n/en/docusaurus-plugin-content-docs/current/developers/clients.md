@@ -6,7 +6,9 @@ sidebar_position: 2
 
 TreasureNet支持Cosmos和Ethereum的客户端发送交易和查询信息
 
-<font color="red">待核对</font>
+:::caution
+待核对
+:::
 
 
 ||Description|Default Port|
