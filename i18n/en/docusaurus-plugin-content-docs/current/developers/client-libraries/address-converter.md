@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Address converter
 
 A simple converter between ETH,COSMOS and TreasureNet address.
@@ -13,12 +17,12 @@ A simple converter between ETH,COSMOS and TreasureNet address.
 #### Converter
 
 ```javascript
-import {ethToTreasurenet, treasurenetToEth, ethToCosmos, cosmosToEth} from "@treasurenet/address-converter"
+import {ethToTreasurenet, treasurenetToEth, ethToCosmos, cosmosToEth} from "@treasurenet/address-converter";
 
-let address = ethToTreasurenet("0xe2D61e49ff8a9d724CC54d338D8076F878aC6b71")
+let address = ethToTreasurenet("0xe2D61e49ff8a9d724CC54d338D8076F878aC6b71");
 // "treasurenet1uttpuj0l32whynx9f5ecmqrklpu2c6m3973048"
 
-let address = treasurenetToEth("treasurenet1uttpuj0l32whynx9f5ecmqrklpu2c6m3973048")
+let address = treasurenetToEth("treasurenet1uttpuj0l32whynx9f5ecmqrklpu2c6m3973048");
 // "0xe2D61e49ff8a9d724CC54d338D8076F878aC6b71"
 
 let address = ethToCosmos("0xe2D61e49ff8a9d724CC54d338D8076F878aC6b71");

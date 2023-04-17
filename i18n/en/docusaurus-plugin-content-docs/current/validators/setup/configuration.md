@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Configuration
 
-TreasureNet de 配置文件在$HOME/.treasurenetd/config/config.toml，这其中的一些参数可以通过treasurenetd config
+TreasureNet 的配置文件在```$HOME/.treasurenetd/config/config.toml```，这其中的一些参数可以通过treasurenetd config
 ```shell
 treasurenetd config <key> [value]
 eg:
@@ -419,18 +419,26 @@ namespace = "tendermint"
 ## Empty blocks VS no empty blocks
 ### create_empty_blocks = true
 
-If create_empty_blocks is set to true in your config, blocks will be created ~ every second (with default consensus parameters). You can regulate the delay between blocks by changing the timeout_commit. E.g. timeout_commit = "10s" should result in ~ 10 second blocks.
+If create_empty_blocks is set to true in your config, blocks will be created ~ every second (with default consensus parameters). You can regulate the delay between blocks by changing the timeout_commit. 
+
+E.g. timeout_commit = "10s" should result in ~ 10 second blocks.
 
 create_empty_blocks = false
 
 In this setting, blocks are created when transactions received.
 
-Note after the block H, TreasureNet creates something we call a "proof block" (only if the application hash changed) H+1. The reason for this is to support proofs. If you have a transaction in block H that changes the state to X, the new application hash will only be included in block H+1. If after your transaction is committed, you want to get a lite-client proof for the new state (X), you need the new block to be committed in order to do that because the new block has the new application hash for the state X. That's why we make a new (empty) block if the application hash changes. Otherwise, you won't be able to make a proof for the new state.
+Note after the block H, TreasureNet creates something we call a "proof block" (only if the application hash changed) H+1. The reason for this is to support proofs. If you have a transaction in block H that changes the state to X, the new application hash will only be included in block H+1. 
 
-Plus, if you set create_empty_blocks_interval to something other than the default (0), TreasureNet will be creating empty blocks even in the absence of transactions every create_empty_blocks_interval. For instance, with create_empty_blocks = false and create_empty_blocks_interval = "30s", TreasureNet will only create blocks if there are transactions, or after waiting 30 seconds without receiving any transactions.
+If after your transaction is committed, you want to get a lite-client proof for the new state (X), you need the new block to be committed in order to do that because the new block has the new application hash for the state X.
+
+That's why we make a new (empty) block if the application hash changes. Otherwise, you won't be able to make a proof for the new state.
+
+Plus, if you set create_empty_blocks_interval to something other than the default (0), TreasureNet will be creating empty blocks even in the absence of transactions every create_empty_blocks_interval. 
+
+For instance, with create_empty_blocks = false and create_empty_blocks_interval = "30s", TreasureNet will only create blocks if there are transactions, or after waiting 30 seconds without receiving any transactions.
 
 ## Peers
-In $HOME/.treasurenetd/config/config.toml you can set your peers.
+In ```$HOME/.treasurenetd/config/config.toml``` you can set your peers.
 
 添加持久对等节点，可以参考[加入主网](../join-mainnet.md),该字段类似于逗号分隔对等点字符(仅作为参考)
 
@@ -448,4 +456,4 @@ treasurenetd tendermint show-address --home /data/mytestnet/.treasurenetd/
 treasurenetvalcons1s5kh480rtyaj8a4cw4uj2kr5u857c575wh7ytv
 ```
 * Peer Format: node-id@ip:port
-* Example: f5aff6fc4837935c0d8188e2c0044ffd4ece06d3@node0.testnet.treasurenet.io:26656
+* Example: ```f5aff6fc4837935c0d8188e2c0044ffd4ece06d3@node0.testnet.treasurenet.io:26656```
