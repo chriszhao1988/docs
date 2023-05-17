@@ -135,7 +135,15 @@ const sidebars = {
             label: 'For Delegaters',
             items: [
                 'staking/introduction',
-                'staking/getting-started',
+                {
+                    type: 'category',
+                    label: 'Operation Guide',
+                    items: [
+                        'staking/operation-guide/staking',
+                        'staking/operation-guide/stakeboosting',
+                    ],
+
+                },
                 'staking/best-practices',
                 'staking/qa',
             ]
@@ -151,7 +159,6 @@ const sidebars = {
                     items: [
                         'validators/concepts/validator-delegator',
                         'validators/concepts/becoming-a-validator',
-                        'validators/concepts/bonus-stake',
                         'validators/concepts/incentives',
                     ],
                 },

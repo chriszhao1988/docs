@@ -116,11 +116,11 @@ const config = {
                         title: 'Produces',
                         items: [
                             {
-                                label: 'TreasureNet',
+                                label: 'Treasurenet',
                                 href: 'https://www.treasurenet.io',
                             },
                             {
-                                label: 'tn faucet',
+                                label: 'Treasurenet Faucet',
                                 href: 'https://faucet.treasurenet.io',
                             },
                             {

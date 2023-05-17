@@ -44,7 +44,28 @@ Stake 是 depositing 158 UNIT token 来activate自己的validator node的过程�
 - #### Better security
   - 随着更多的UNIT token被质押，网络对供给的抵抗力变得更强，因为他需要更多的UNIT来控制大部分网络。要成为有效的安全威胁，意味着您需要控制系统中的大部分UNIT token。
 
+## 什么是Stake Boosting?
+Stake Boosting是Validator质押TAT成为Super Validator的过程。
+
+如果成为SuperValidator，将有机会被选择成为Active Super Validator，就能获得更多的UNIT奖励。
+
+## Active Super Validator是怎样选出的？
+每5分钟会进行一次筛选，每次筛选都遵循以下规则：
+
+1. 由400个分布式Validator形成候选池
+   排名由质押的UNIT Token数量多少决定
+
+2. 候选池分为Regular Validators和Super Validators
+   超级验证节点不仅质押了UNIT，而且还出价TAT代币
+
+3. 200个Validators在第1轮中被选中
+   从候选池中随机选择最多100个Regular Validators和100个Super Validators
+
+4. 100个从第1轮中选择的Active Validators
+   从最多200个Validators中随机选择最多100个Active Validators，这其中包含Active Regular Validators 和 Active Super Validators。
 
 ## Community Resources
 
 - Provide links to community resources, such as forums, chat groups, and other support channels, to assist users with any questions or issues they may encounter while staking.
+
+

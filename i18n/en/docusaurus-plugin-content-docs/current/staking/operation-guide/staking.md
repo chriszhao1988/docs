@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Getting Started
+# Staking
 
 这是一个操作只能帮助您快速的成为delegator,但是您需要确定您是否在TreasureNet主网上是否拥有代币UNIT和TAT
 
@@ -41,7 +41,7 @@ sidebar_position: 3
   ![unstake](/img/docs/unstake.png)
 
   :::caution
-    解除委托绑定后，您在这个Active Validator中所分配到的区块奖励将自动给您发送到账户中。(在不解除绑定的情况下，奖励分配都是被动奖励分发，您可以参考[奖励分发机制](../protocolDevelopers/modules/distribution.md))
+    解除委托绑定后，您在这个Active Validator中所分配到的区块奖励将自动给您发送到账户中。(在不解除绑定的情况下，奖励分配都是被动奖励分发，您可以参考[奖励分发机制](../../protocolDevelopers/modules/distribution.md))
   :::
 
 ### Stake Statistics
