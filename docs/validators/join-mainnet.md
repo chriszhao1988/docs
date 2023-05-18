@@ -7,7 +7,7 @@ sidebar_position: 6
 ## Getting Started
 
 * 选择合适的硬件和服务器配置。(参见[硬件指南](./overview.md))。
-* 确保TreasureNetd正确安装。(参见[硬件指南](./quickStart/installation.md))。
+* 确保Treasurenetd正确安装。(参见[硬件指南](./quickStart/installation.md))。
 * 下载创世文件，并设置持久对等节点或者启动种子节点。
 
 ## 硬件配置
@@ -158,7 +158,7 @@ address = "tcp://0.0.0.0:1317"
 ```
 
 ### 同步运行验证器节点
-在 TreasureNet 上同步节点有三种主要方式；block sync、state sync和quick sync;
+在 Treasurenet 上同步节点有三种主要方式；block sync、state sync和quick sync;
 如果需要同步运行验证器，请参考[run a validator](./setup/run-a-validator.md);
 
 |Sync|Data Integrity|

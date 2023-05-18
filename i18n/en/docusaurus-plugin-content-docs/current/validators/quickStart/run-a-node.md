@@ -34,7 +34,7 @@ sidebar_position: 3
     echo "your mnemonic here" | treasurenetd keys add $KEY --recover
 ```
 :::caution
-   treasureNet 现在只支持24个单词的助记词。
+   treasurenet 现在只支持24个单词的助记词。
 :::
 
 

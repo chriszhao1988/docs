@@ -5,7 +5,7 @@ sidebar_position: 2
 # Coinbase Wallet
 ## 什么是Coinbase Wallet？
 
-Coinbase Wallet 浏览器扩展是一个用于访问支持以太坊的应用程序和管理用户身份的钱包。 它可用于通过正在运行的 TreasureNet 节点连接 TreasureNet。
+Coinbase Wallet 浏览器扩展是一个用于访问支持以太坊的应用程序和管理用户身份的钱包。 它可用于通过正在运行的 Treasurenet 节点连接 Treasurenet。
 
 ## 如何在你的浏览器上安装Coinbase Wallet？
 1. 安装MetaMask插件前，您需要先安装Chrome浏览器。
@@ -17,9 +17,9 @@ Coinbase Wallet 浏览器扩展是一个用于访问支持以太坊的应用程�
 
 * 最快且最推荐的方法是通过官网链接你的钱包，我们会直接引导你通过Coinbase Wallet交互链接到我们的节点并完成创建。
 
-* 如果您只是作为TokenHolder 并不想通过官网的引导来链接TreasureNet网络, 您也可以手动链接。
+* 如果您只是作为TokenHolder 并不想通过官网的引导来链接Treasurenet网络, 您也可以手动链接。
 
-### 手动添加TreasureNet Mainnet
+### 手动添加Treasurenet Mainnet
 
 1. 在您的浏览器上打开 Coinbase Wallet扩展程序，如果您尚未登录，您可能需要登录您的 Coinbase Wallet帐户；
 2. 打开设置>网络>添加网络，填写下方网络信息：
@@ -35,7 +35,7 @@ Coinbase Wallet 浏览器扩展是一个用于访问支持以太坊的应用程�
 
 ![addnetwork3](/img/docs/addnetwork3.png)
 
-### 手动添加TreasureNet Testnet
+### 手动添加Treasurenet Testnet
 
 1. 在您的浏览器上打开 Coinbase 扩展程序，如果您尚未登录，请先登录您的 Coinbase 帐户
 2. 打开设置>网络>添加网络，填写下方网络信息

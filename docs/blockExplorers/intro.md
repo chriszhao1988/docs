@@ -6,7 +6,7 @@ sidebar_position: 1
 
 区块浏览器允许用户查询区块链中的数据，浏览器经常被比作区块链的搜索引擎。通过使用浏览器，用户可以查询、搜索和跟踪余额、账户、合约、交易和广播到区块链的其他数据。
 
-TreasureNet 提供两种类型的区块浏览器：EVM Block Explorer 和 Cosmos Block Explorer。
+Treasurenet 提供两种类型的区块浏览器：EVM Block Explorer 和 Cosmos Block Explorer。
 
 每个资源管理器查询与其环境相关的数据，EVM 资源管理器查询以太坊格式的数据（块、交易、账户、智能合约等），Cosmos 资源管理器查询 Cosmos 格式的数据（Cosmos 和 IBC 交易、块、账户、模块数据， ETC）。
 

@@ -6,16 +6,16 @@ sidebar_position: 1
 
 ## what is a validator?
 
-作为validator，您不仅可以参与TreasureNet区块链网络的建设并成为节点（完整节点），还可以通过选举和质押成为区块提议者获得区块奖励。 参与TreasureNet区块链网络及协议的治理。
+作为validator，您不仅可以参与Treasurenet区块链网络的建设并成为节点（完整节点），还可以通过选举和质押成为区块提议者获得区块奖励。 参与Treasurenet区块链网络及协议的治理。
 
-TreasureNet 区块链网络依赖于一组负责在区块链网络中提交新区块的验证节点. 这些验证节点通过广播投票参与共识协议, 其中包含由每个validator的私钥签名.
+Treasurenet 区块链网络依赖于一组负责在区块链网络中提交新区块的验证节点. 这些验证节点通过广播投票参与共识协议, 其中包含由每个validator的私钥签名.
 
 如果validator双重签名、经常离线或不参与治理，他们质押的UNIT可能会被削减。处罚取决于违规的严重程度。
 
 
 ## what is staking?
 
-TreasureNet 是一个权益证明（PoS）区块链网络，这意味着validator的权重取决于作为抵押品的质押代币（Unit Token）的数量。这些代币可以由validator直接质押，也可以由staker委托给它们觉得可靠的validator。
+Treasurenet 是一个权益证明（PoS）区块链网络，这意味着validator的权重取决于作为抵押品的质押代币（Unit Token）的数量。这些代币可以由validator直接质押，也可以由staker委托给它们觉得可靠的validator。
 
 ## what is a full node?
 
@@ -25,7 +25,7 @@ TreasureNet 是一个权益证明（PoS）区块链网络，这意味着validato
 
 ## what is a delegator?
 
-delegator是指不能或不想自己运行validator操作的TreasureNet参与者。用户可以将Unit Token委托给validator并获得其部分收入作为交换（有关收入如何分配的更多详细信息 请参考Incentives部分）。
+delegator是指不能或不想自己运行validator操作的Treasurenet参与者。用户可以将Unit Token委托给validator并获得其部分收入作为交换（有关收入如何分配的更多详细信息 请参考Incentives部分）。
 
 因为他们与validator分享收入，所以delegator也分担责任。如果validator行为不端，其每个delegator都将根据其股份比例被部分削减。这就是为什么delegator应该在委托之前对validator进行尽职调查，并通过将他们的股权分散到多个validator来实现多样化。
 
