@@ -3,81 +3,77 @@ sidebar_position: 1
 ---
 
 # Metamask
-## 什么是Metamask？
 
-MetaMask浏览器扩展是一个用于访问支持以太坊的应用程序和管理用户身份的钱包。 它可通过正在运行的 TreasureNet 节点连接 TreasureNet。
+## What is Metamask?
 
-## 如何在你的浏览器上安装Metamask？
+The MetaMask browser extension is a wallet for accessing Ethernet-enabled applications and managing user identities. It can connect to Treasurenet through a running Treasurenet node.
 
-1. 安装MetaMask插件前，您需要先安装Chrome浏览器。
-2. 浏览器安装成功后，通过Chrome浏览器，进入MetaMask官网，点击'Download now'，然后点击 'Install MetaMask for Chrome' 开始下载。
-3. 安装完成后，点击'添加至Chrome'，在确认界面点击'添加扩展程序'，即可将小狐狸钱包安装至Chrome浏览器。
-4. 安装完成后，浏览器右上角插件栏会出现小狐狸图标，说明安装成功。
+## How to install Metamask on your browser?
 
-## 如何连接Metamask？
+1. Before installing the MetaMask plugin, you need to install the Chrome browser first.
+2. After the browser is successfully installed go to the MetaMask official website, click 'Download now', and then click 'Install MetaMask for Chrome' to start downloading.
+3. Once the installation is finished, click 'Add to Chrome', and then click 'Add Extension' on the confirmation screen to install Little Fox Wallet to Chrome.
+4. After the installation is complete, a small fox icon will appear in the top right corner of the browser's plug-in bar, indicating successful installation.
 
-* 最快且最推荐的方法是通过官网链接你的钱包，我们会引导你通过metamask交互链接到我们的节点并完成创建。
-* 如果您只是TokenHolder，并不想通过官网的引导来链接TreasureNet网络, 您也可以手动链接。
+## How do I connect to Metamask?
 
-### 手动添加TreasureNet Mainnet
+- The fastest and most recommended way is to link your wallet through the official website and we will guide you to link to our node through metamask interaction and complete the creation.
+- If you are just a TokenHolder and do not want to link to the Treasurenet network via the official website, you can also do so manually.
 
-1. 在您的浏览器上打开 Metamask 扩展程序，如果您尚未登录，请先登录您的 Metamask 帐户
-2. 打开设置>网络>添加网络，填写下方网络信息
+### Adding Treasurenet Mainnet manually
 
-    * Network Name : Treausurenet Mainnet Alpha
-    * New RPC URL: https://wallet.treasurenet.io
-    * Chain ID：9001
-    * Currency Symbol (optional): UNIT
-    * Block Explorer URL (optional)：https://evmexplorer.treasurenet.io/
+1. Open the Metamask extension in your browser and log in to your Metamask account if you are not already logged in.
+2. Open Settings > Network > Add Network and fill in the network information below.
 
+   - Network Name : Treausurenet Mainnet Alpha
+   - New RPC URL: https://wallet.treasurenet.io
+   - Chain ID：9001
+   - Currency Symbol (optional): UNIT
+   - Block Explorer URL (optional)：https://evmexplorer.treasurenet.io/
 
 ![addmainnet](/img/docs/addmainnet.png)
 
-3. 添加成功后，进入账户
+3. After successful addition, go to your account.
 
 ![mainnetmyaccount](/img/docs/mainnetmyaccount.png)
 
+### Adding Treasurenet Testnet manually
 
-### 手动添加TreasureNet Testnet
+1. Open the Metamask extension in your browser and log in to your Metamask account if you are not already logged in.
+2. Open Settings > Network > Add Network and fill in the network information below
 
-1. 在您的浏览器上打开 Metamask 扩展程序，如果您尚未登录，请先登录您的 Metamask 帐户
-2. 打开设置>网络>添加网络，填写下方网络信息
-
-    * Network Name : Treausurenet Testnet
-    * New RPC URL: https://wallet.testnet.treasurenet.io
-    * Chain ID：9000
-    * Currency Symbol (optional): UNIT
-    * Block Explorer URL (optional)：https://evmexplorer.testnet.treasurenet.io/
-
+   - Network Name : Treausurenet Testnet
+   - New RPC URL: https://wallet.testnet.treasurenet.io
+   - Chain ID：9000
+   - Currency Symbol (optional): UNIT
+   - Block Explorer URL (optional)：https://evmexplorer.testnet.treasurenet.io/
 
 ![addtestnet](/img/docs/addtestnet.png)
 
-
-3. 添加成功后，进入账户
+3. After successful addition, go to your account.
 
 ![testnetmyaccount](/img/docs/testnetmyaccount.png)
 
+## How do I import my account?
 
-## 如何导入账户？
-
-1. 点击小狐狸图标，打开钱包
-2. 点击右上角头像，选择导入账户
-3. 根据提示填写相应私钥便
-4. 点击导入按钮，提交后即可成功导入账户
+1. Click on the little fox icon to open the wallet.
+2. Click on the avatar in the upper right corner and select Import Account.
+3. Fill in the corresponding private key according to the prompt.
+4. Click the import button and submit to successfully import your account.
 
 ![import account1](/img/docs/importaccount1.png)
 
 ![importaccount2](/img/docs/importaccount2.png)
 
+## How do I import tokens?
 
-## 如何导入代币？
+1. Click on the little fox icon to open the wallet.
+2. Choose to import tokens.
+3. Fill in the token contract address.
+4. Our token contract address information is as follows:
 
-1. 点击小狐狸图标，打开钱包
-2. 选择导入代币
-3. 填写代币合约地址
-4. 我们的代币合约地址信息如下：
-* USTN : 0x7102e133acfbDE1BE72C25f6669117Dd75DE7184
-* TAT : 0xDe5e255231Cdc6c40fF238FB55E35Ea9d4a111D8
+- USTN : 0x7102e133acfbDE1BE72C25f6669117Dd75DE7184
+- TAT : 0xDe5e255231Cdc6c40fF238FB55E35Ea9d4a111D8
 
 ![importtokens](/img/docs/importtokens.png)
 
@@ -87,4 +83,4 @@ MetaMask浏览器扩展是一个用于访问支持以太坊的应用程序和管
 
 ![token4](/img/docs/token4.png)
 
-现在您的 MetaMask 钱包已经连接到我们的区块链网络，您可以通过官网查看您的相关资产并进行相关操作。
+Now that your MetaMask wallet has been connected to our blockchain network, you can view your related assets and perform related operations through the official website.
