@@ -14,32 +14,34 @@ Once you access the 'Production Portal', click on "connect MetaMask" to establis
 
 - After selecting a physical mineral, you will need to fill in three sections of information:
 
-a. 填写企业信息
-Provide the fundamental details about your company in the 'Business Verification' section , including company name, address, etc. After filling in the information, click ‘Next’ in the bottom right corner to jump, and the system will automatically verify the authenticity of the provided information.
+a. Company Information
+
+On the 'Business Verification' interface, input your company's basic details, such as the company name, address, and so forth. Once you've filled out this information, click 'Next' at the bottom-right corner. The system will automatically verify the authenticity of the provided information.
 
 ![Business_verification](/img/docs/Business_verification.png)
 
-b. 在 Personal Verifiation 界面填写包括姓名、出生年月日、家庭住址和邮编等个人信息。填写完毕后系统进行即时审核。
+b. Personal Information
+
+On the 'Personal Verification' interface, input your personal details, including your name, date of birth, home address, and zip code. After completing the form, the system will conduct an instant review of your information.
 
 ![Personal_verification](/img/docs/Personal_verification.png)
 
-c. 填写矿井信息
-在 Well information 界面填写矿井信息，包括矿井的地址、执照与各种参数。如果生产商持有多个矿井，可以点击下方的“+ Add well”添加新的矿井并分别填写信息。如果误添加了矿井，可以点击 Delete 删除矿井。在不同的 Measurement Point 可以填写不同测量点的信息。填写完毕后，点击 Next 跳转。
+c. Mine Information:
+
+On the 'Well Information' interface, provide details about your mine, including its address, license, and various parameters. If you have multiple wells, you can click '+ Add well' to add additional wells and fill in their information separately. If you mistakenly add a mine, you can click 'Delete' to remove it.
 
 ![well_information](/img/docs/well_information.png)
 
-- 提交之后会提示'Submitted successfully!'。
+- After submission, you will receive a confirmation message, 'Submitted successfully!'.。
 
-## 3. 主页
+## 3. Home
 
-点击主页 Home Page，可以查看下列信息：
+By navigating to the Home Page, you can view the following information:
 
-- 左上角的 My Security Deposit 蓝色框内您可以查看保证金余额。
+- In the 'My Security Deposit' section (indicated by a blue box at the top-left corner), you can check your deposit balance.
+- At the top-right corner, 'Cumulative Minted TAT' displays the current minting status of the producer's TAT.
+- The line chart at the bottom of the page shows the assets currently held by the producer.
 
-- 右上角的 Cumulative Minted TAT 处您可以查看生产商的 TAT 铸造情况。
-
-- 在页面下方的折线图处您可以查看生产商持有的资产。
-
-- 点击每个框内右上角的 View Details 您可以查看保证金、TAT 与产量的详细信息。
+For more detailed information, click 'View Details' in the top-right corner of each box. Here you can access more in-depth information about your margin, TAT, and output.
 
 ![home_page](/img/docs/home_page.png)
