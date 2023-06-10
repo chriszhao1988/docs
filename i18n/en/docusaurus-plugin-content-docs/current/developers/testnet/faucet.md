@@ -2,36 +2,36 @@
 sidebar_position: 1
 ---
 
-# faucet
+# Faucet
 
-Treasurenet测试网faucet会向任何愿意参与到项目中来的人分发少量的Unit，使用metamask/coinbase钱包按照此页面上的说明即可从水龙头请求资金。
+The Treasurenet test network faucet provide participants with a small amount of Unit tokens to engage in the project. To request funds from the faucet, you can use popular wallets like MetaMask or Coinbase by following the instructions provided on the dedicated page.
 
 ## Daily rewards
 
-  * You need to connect to Treasurenet testnet, otherwise UNIT cannot be viewed in MetaMask.Input your treasurenet account to get a login bonus once a day.
+- To access UNIT tokens in MetaMask, you must connect to the Treasurenet testnet. By entering your Treasurenet account, you can receive a daily login bonus as an incentive. This bonus allows you to claim additional UNIT tokens, enhancing your participation in the TreasureNet testnet environment. Make sure to connect to the testnet and provide your account details to access the login bonus feature.
 
-  ![水龙头 输入链接](/img/docs/faucet1.png)
+![水龙头 输入链接](/img/docs/faucet1.png)
 
-  * Once you input your address or link, click the "Give me UNIT & TAT" button, you will get your daily reward: 5 UNIT and 100 TAT.
+- Upon Entering your address or link, simply click the "Give me UNIT & TAT" button to claim your daily reward. You will receive 5 UNIT and 100 TAT as your daily reward.
 
-  ![水龙头 点击按钮领取成功](/img/docs/faucet2.png)
+![水龙头 点击按钮领取成功](/img/docs/faucet2.png)
 
-  ![水龙头 签到](/img/docs/faucet3.png)
+![水龙头 签到](/img/docs/faucet3.png)
 
-  * If you already claim your reward today, you cannot get it twice.
+- Please note that you can only claim your daily reward once. If you have already claimed your reward today, you will not be able to claim it again until the next day.
 
-  ![水龙头 错误](/img/docs/faucet4.png)
+![水龙头 错误](/img/docs/faucet4.png)
 
-  * If you claim every 7 consecutive days, the reward will be doubled on the 7th day.
+- On the 7th consecutive day of claiming your daily reward, you will receive a bonus. The reward will be doubled on the 7th day as an incentive for consistent participation.
 
-  ![水龙头 签到全签](/img/docs/faucet5.png)
+![水龙头 签到全签](/img/docs/faucet5.png)
 
 ## Share rewards
 
-  * Once you claim your daily reward, you can click the "Share to get more rewards" button to tweet your rewards. By tweeting the login bonus information to twitter and follow the treasurenet twitter account, and enter the retweeted twitter address then click the "Give me UNIT & TAT" button to get 5 UNIT and 100 TAT again.
+After claiming your daily reward, you have the option to share your rewards on Twitter to earn additional rewards. By tweeting the login bonus information and following the Treasurenet Twitter account, you can enter the retweeted Twitter address. Once you've done that, click the "Give me UNIT & TAT" button again to receive 5 UNIT and 100 TAT as an extra reward. Sharing your rewards on Twitter allows you to further engage with the community and potentially earn more tokens.
 
-  ![水龙头 分享奖励](/img/docs/faucet6.png)
+![水龙头 分享奖励](/img/docs/faucet6.png)
 
 :::info
-  🚧 Documentation is in progress.
+🚧 Documentation is in progress.
 :::

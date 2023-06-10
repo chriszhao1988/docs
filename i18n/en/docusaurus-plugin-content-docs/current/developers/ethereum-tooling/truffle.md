@@ -2,7 +2,6 @@
 
 [Truffle ](https://www.trufflesuite.com/truffle)is a development framework for deploying and managing [Solidity ](https://github.com/ethereum/solidity)smart contracts.
 
-
 ## Install Dependencies
 
 First, install the latest Truffle version on your machine globally.
@@ -47,6 +46,7 @@ Open truffle-config.js and uncomment the development section in networks:
       network_id: "9000",
     }
 ```
+
 This will allow your contract to connect to your Treasurenet testnet node.
 
 ## Deploy contract
@@ -56,4 +56,3 @@ In the Truffle terminal, migrate the contract using:
 ```shell
 truffle migrate --network development
 ```
-
