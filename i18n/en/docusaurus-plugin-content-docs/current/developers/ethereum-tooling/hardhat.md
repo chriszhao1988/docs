@@ -46,8 +46,7 @@ module.exports = {
       url: "https://node1.testnet.treasurenet.io:8545",
       accounts: [privateKey1, privateKey2, ...]
     }
-  },
-  ...
+  }
 }
 ```
 
@@ -56,7 +55,6 @@ To ensure you are targeting the correct network, you can query for a list of acc
 ```shell
 $ npx hardhat accounts
 0xf39Fd6e51aad88F6F4ce6aB88273c5d6ba293358
-...
 ```
 
 ## Deploying a Smart Contract
@@ -96,7 +94,7 @@ Hardhat also provides a script to deploy smart contracts to a target network; th
 npx hardhat run scripts/deploy.js
 ```
 
-Hardhat also lets you manually specify a target network via the --network \<your-network> flag:
+Hardhat also lets you manually specify a target network via the --network your-network flag:
 
 ```shell
 npx hardhat run --network {{ $themeConfig.project.rpc_url_testnet }} scripts/deploy.js
