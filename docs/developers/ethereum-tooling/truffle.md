@@ -1,44 +1,43 @@
-# Truffle: Deploying a Smart Contract
+# 用 Truffle 部署智能合约
 
-[Truffle ](https://www.trufflesuite.com/truffle)is a development framework for deploying and managing [Solidity ](https://github.com/ethereum/solidity)smart contracts.
+[Truffle ](https://www.trufflesuite.com/truffle) 是一个用于部署和管理 Solidity 智能合约的开发框架。
 
+## 安装依赖项
 
-## Install Dependencies
-
-First, install the latest Truffle version on your machine globally.
+首先，在您的机器上全局安装最新的 Truffle 版本。
 
 ```shell
 yarn install truffle -g
 ```
 
-## Create Truffle Project
+## 创建 Truffle 项目
 
-In this step we will create a simple counter contract. Feel free to skip this step if you already have your own compiled contract.
+在这一步中，我们将创建一个简单的计数器合约。如果您已经有自己已编译的合约，可以随时跳过这一步。
 
-Create a new directory to host the contracts and initialize it:
+创建一个新的目录来存放合约，并进行初始化：
 
 ```shell
 mkdir tn-truffle
 cd tn-truffle
 ```
 
-Initialize the Truffle suite with:
+使用以下命令初始化 Truffle 工具套件：
 
 ```shell
 truffle init
 ```
 
-create you contract.
+创建你的智能合约。
 
-Compile the contract using the compile command:
+使用编译命令编译合同：
 
 ```shell
 truffle compile
 ```
 
-## Truffle configuration
+## Truffle 配置
 
-Open truffle-config.js and uncomment the development section in networks:
+打开 truffle-config.js 文件并在 networks 中取消注释开发部分。
 
 ```shell
     development: {
@@ -47,13 +46,13 @@ Open truffle-config.js and uncomment the development section in networks:
       network_id: "9000",
     }
 ```
-This will allow your contract to connect to your Treasurenet testnet node.
 
-## Deploy contract
+这将允许您的合约连接到您的 Treasurenet 测试网络节点。
 
-In the Truffle terminal, migrate the contract using:
+## 部署智能合约
+
+在 Truffle 终端中，使用以下命令迁移合约：
 
 ```shell
 truffle migrate --network development
 ```
-

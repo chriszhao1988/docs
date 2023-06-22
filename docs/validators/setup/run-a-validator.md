@@ -89,7 +89,7 @@ treasurenetd tx staking edit-validator
     treasurenetd query tendermint-validator-set | grep "$(treasurenetd tendermint show-address)"
 ```
 
-## FAQ:
+## Common Problems
 
 ### My validator voting power is 0.
 
