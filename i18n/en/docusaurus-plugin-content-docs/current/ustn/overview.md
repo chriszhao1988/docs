@@ -4,28 +4,28 @@ sidebar_position: 1
 
 # Introduction
 
-## 什么是USTN？
+## What is USTN?
 
-USTN是Treasurenet的稳定币，波动性最小的代币，创造之初锚定1美元，旨在为用户提供一种稳定且高效的数字货币。您可以通过购买或兑换USTN来获得稳定的数字资产，未来可将其用于加密货币交易或其他在线支付。
+USTN is Treasurenet's stablecoin, the token with the smallest volatility, originally anchored at 1 US dollar. It aims to provide users with a stable and efficient digital currency. You can obtain a stable digital asset by purchasing or exchanging USTN, which can be used for cryptocurrency trading or other online payments in the future.
 
-## 什么是USTN Finance?
+## What is USTN Finance?
 
-USTN Finance是Treasurenet围绕USTN的存取贷还，为用户打造的一款可视化系统。这个系统旨在为大家提供一种方便易用的数字资产管理方式，让所有人都能够更加高效地管理其数字资产。
+USTN Finance is a visualization system built by Treasurenet around USTN for deposit, withdrawal, and loan repayments. This system aims to provide everyone with a convenient and easy-to-use digital asset management method, allowing everyone to manage their digital assets more efficiently.
 
-在USTN Finance中，您可以通过兑换UNIT来获得USTN，也可以通过归还USTN来拿回UNIT；您也可以将USTN存入Finance中并获得相应的利息，还可以从Finance中通过抵押UNIT来贷出USTN，以满足资金需求，当然，贷款操作需要按照规定归还一定的利息，以确保系统的资金流动性。除此之外，您还可以参与竞拍，为一些被清算的贷款的抵押品进行竞拍。在这个过程中，您可以通过出价获取抵押品，从而实现价值的增值。
+In USTN Finance, you can obtain USTN by exchanging UNIT, or retrieve UNIT by returning USTN. You can also deposit USTN in Finance and earn corresponding interest. In addition, you can lend USTN from Finance by pledging UNIT to meet capital requirements. Of course, loan operations need to return a certain interest according to regulations to ensure the liquidity of the system's funds. Furthermore, you can participate in auctions and bid for collaterals from some liquidated loans. In this process, you can acquire collaterals by bidding, thus realizing value appreciation.
 
-总之，USTN Finance提供了一个多功能的数字资产管理工具，能够帮助用户便捷地进行数字资产管理，提高数字资产的价值和流动性。
+In summary, USTN Finance provides a multifunctional digital asset management tool that can help users conveniently manage digital assets and improve the value and liquidity of digital assets.
 
-## 我可以在USTN Finance中做什么？
+## What can I do in USTN Finance?
 
-您可以使用USTN在USTN Finance中进行基本的金融操作，具体包括：
+You can use USTN to perform basic financial operations in USTN Finance, which include:
 
-1. 把USTN存入Treasurenet's USTN Finance，计算利息
-2. 从USTN Finance中取出USTN
-3. 质押Unit，贷出USTN
-4. 补充贷款的抵押品
-5. 给USTN Finance归还贷出的USTN，返还用户的Unit
-6. 给您的同伴转账USTN
-7. 查询您的账户余额
+1. Deposit USTN into Treasurenet's USTN Finance and calculate interest
+2. Withdraw USTN from USTN Finance
+3. Pledge Unit and loan out USTN
+4. Supplement the collateral of the loan
+5. Return the loaned USTN to USTN Finance, and return the user's Unit
+6. Transfer USTN to your peers
+7. Check your account balance
 
-如果您想了解更多上述金融操作的具体内容请点击[这里](/docs/ustn/financial-operations)
+If you want to learn more about the specific content of the above financial operations, please click [here](/docs/ustn/financial-operations).

@@ -8,10 +8,8 @@ sidebar_position: 3
 
 ## Why we designed the Bonus Stake
 
-- 仅概述相关信息 表面优点 细节公式和方法 链接到Stake目录下
+- Only provide an overview of relevant information, surface advantages, detailed formulas and methods, and links to the Stake directory.
 
 ## How to get involved
 
-- 概述 + 一个步骤列表 link to Stake目录下
-
-
+- Provide an overview and a step-by-step list linked to the Stake directory.

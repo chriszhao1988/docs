@@ -4,67 +4,67 @@ sidebar_position: 3
 
 # Staking
 
-这是一个操作只能帮助您快速的成为delegator,但是您需要确定您是否在TreasureNet主网上是否拥有代币UNIT和TAT
+This is an operation that can only help you become a delegator quickly, but you need to make sure whether you have UNIT and TAT tokens on the TreasureNet mainnet.
 
 ### Access the dashboard
 
-  * 在钱包中(MetaMask)中选择Treasurenet主网。
+- Select the Treasurenet mainnet in your wallet (MetaMask).
 
-  ![Staking_MetaMask](/img/docs/metamask.jpg)
+![Staking_MetaMask](/img/docs/metamask.jpg)
 
-  * 访问[官网](https://124.70.23.119:3007/Stake/profile),选择合适的Active Validator
+- Visit the [official website](https://124.70.23.119:3007/Stake/profile) and choose an appropriate Active Validator.
 
-  ![Staking_Active_Validator](/img/docs/Staking_Active_Validator.png)
+![Staking_Active_Validator](/img/docs/Staking_Active_Validator.png)
 
 ### Delegate to a Validator
 
-  * 选择好合适的Active Validator后点击stake开始进行委托
+- After selecting an appropriate Active Validator, click on "stake" to initiate the delegation process.
 
-  ![Staking_Stake](/img/docs/Staking_tanchuang.png)
+![Staking_Stake](/img/docs/Staking_tanchuang.png)
 
-  :::note
-    点击stake后弹出弹框会发现详细信息
-      * My Staked : 您委托的代币总量(在这个Active Validator中)
-      * Stake Amount : 需要质押多少代币
-      * Wallet Blance : 您自己账户下的代币总量
-  :::
-  :::caution
-    您质押的代币不能超过自己账户下的代币总量，也就是Stake Amount　<　Wallet Blance。
-  :::
+:::note
+After clicking on "stake," a pop-up window will appear with detailed information:
+_ My Staked: The total amount of tokens you have delegated (in this Active Validator).
+_ Stake Amount: The amount of tokens you need to stake. \* Wallet Balance: The total amount of tokens in your own account.
+:::
+:::caution
+The amount of tokens you stake cannot exceed the total amount of tokens in your account, i.e., Stake Amount < Wallet Balance.
+:::
 
-  * 委托成功
+- Successful delegation
 
-  ![Staking_Successful](/img/docs/successful.png)
+![Staking_Successful](/img/docs/successful.png)
 
-  * 解除委托绑定
+- Unbonding delegation
 
-  ![unstake](/img/docs/unstake.png)
+![unstake](/img/docs/unstake.png)
 
-  :::caution
-    解除委托绑定后，您在这个Active Validator中所分配到的区块奖励将自动给您发送到账户中。(在不解除绑定的情况下，奖励分配都是被动奖励分发，您可以参考[奖励分发机制](../../protocolDevelopers/modules/distribution.md))
-  :::
+:::caution
+After unbonding delegation, the block rewards allocated to you in this Active Validator will be automatically sent to your account. (Without unbonding, the reward distribution is passive. You can refer to the [reward distribution mechanism](../../protocolDevelopers/modules/distribution.md)).
 
 ### Stake Statistics
 
-  * 查看具体的质押情况，可以查看自己总的stake情况和分配的奖励
-  
-  ![Stake_Profile](/img/docs/Stake_Profile.png)
+- To view the specific staking situation, you can check your total stake and allocated rewards.
 
-  :::note
-      * Total Staked : 您所有Active Validator 委托的代币总量
-      * Total Rewards : 您分配到的所有奖励
-  :::
+![Stake_Profile](/img/docs/Stake_Profile.png)
 
-  * 取回自己的区块奖励
+:::note
+_ Total Staked: The total amount of tokens staked by all your Active Validators
+_ Total Rewards: All the rewards allocated to you
 
-  在TreasureNet中采取了另外一种策略，我们称为被动奖励分发，即区块奖励不会主动转入目标账户，validator运营方或者委托人想要提取奖励时，需要主动发起提现交易。
+:::
 
-  ![Withdraw_Rewards](/img/docs/Withdraw_Rewards.png)
+- Retrieve your block rewards
 
-  :::caution
-    这里需要注意的是，当我们链上某一个validator的权重发生改变的时候(重新委托或者撤回委托等操作)，区块奖励会自动的分发下去。
-  :::
+In TreasureNet, we have adopted a different strategy known as passive reward distribution, where block rewards are not automatically transferred to the target account. When validator operators or delegators want to withdraw their rewards, they need to initiate a withdrawal transaction actively.
+
+![Withdraw_Rewards](/img/docs/Withdraw_Rewards.png)
+
+:::caution
+It should be noted that when the weight of a validator on the chain changes (due to actions such as redelegation or undelegation), block rewards will be automatically distributed.
+
+:::
 
 :::info
-  🚧 Documentation is in progress.
+🚧 Documentation is in progress.
 :::

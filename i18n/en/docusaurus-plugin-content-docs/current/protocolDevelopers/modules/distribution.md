@@ -6,67 +6,70 @@ sidebar_position: 8
 
 ## Introduction
 
-distribution负责将奖励分配给验证者和委托者。
+distribution is responsible for allocating rewards to validators and delegators.
 
-([mint模块](./mint.md))铸造的链上资产与区块交易费一起作为区块奖励，在活跃验证者之间按照各自的投票权重按比例分发，分到奖励的验证者再根据当前每个委托人的份额将奖励分给委托人。在以太坊中区块奖励会通过一笔交易(Coinbase交易)直接转入目标账户。在TreasureNet中采取了另外一种策略，我们称为被动奖励分发，即区块奖励不会主动转入目标账户，validator运营方或者委托人想要提取奖励时，需要主动发起提现交易。
-这里需要注意的是，当我们链上某一个validator的权重发生改变的时候(重新委托或者撤回委托等操作)，区块奖励会自动的分发下去。
+The on-chain assets minted by the [mint module](./mint.md) are distributed as block rewards along with transaction fees. These rewards are proportionally distributed among active validators based on their respective voting weights. Validators who receive rewards then distribute them to delegators according to each delegator's share. In Ethereum, block rewards are directly transferred to the target account through a transaction (Coinbase transaction). However, in TreasureNet, a different approach called passive reward distribution is implemented. In this approach, block rewards are not automatically transferred to the target account. Instead, validator operators or delegators need to initiate withdrawal transactions when they want to claim their rewards.
+It is important to note that when the weight of a validator on the chain changes (due to operations such as re-delegation or delegation withdrawal), the block rewards will be automatically redistributed.
 
-distribution奖励分发过程:
-* 在活跃验证者之间按照投票权重分发区块奖励。
-* 从所有的区块奖励中按照参数CommunityTax(默认为2%)抽取固定比例作为社区税，存放在我们的社区池中，用于后面我们的社区建设，可以通过gov的方式来讲这部分token奖励给对社区做出过贡献的。
-* 区块提案者获得当前奖励的固定比例(由参数BaseProposerReward默认为1%,TatReward默认为80%)。
-* 根据区块中包含的投票信息，给区块提案者分配额外奖励。
-  - 区块中包含的投票信息与参数BonusProposerReward(默认为4%)决定了额外奖励的比例。
-  - 当所有活跃验证者都进行了投票并且所有投票都被打包进区块时区块提案者可以得到的额外奖励比例增大，比例由BonusProposerReward指定。
-  - 当验证者有TAT进行了委托，提案者获取的额外奖励比例增大，比例为TatReward(默认为80%)。
-* 扣除社区税、扣除区块提案者的基础奖励和额外奖励之后，剩余的区块奖励在所有的活跃验证者(包含区块提案者)之间按照投票权重进行分发。
-* 验证者抽取整体收益的一定比例作为自己的佣金(commission)，这个比例由Validator中Commission指定。
-* 扣除佣金之后的收益，按照抵押份额在验证者的委托人之间进行分发，验证者自抵押部分也在这一步中参与分成。
+The process of reward distribution is as follows:
+
+- Block rewards are distributed among active validators based on their voting weights.
+- A fixed percentage of the total block rewards, defined by the CommunityTax parameter (default 2%), is allocated as community tax and stored in our community pool. These funds are used for community development and can be distributed to contributors through governance.
+- The proposer of the block receives a fixed percentage of the current reward, determined by the BaseProposerReward parameter (default 1%) and TatReward parameter (default 80%).
+- Additional rewards are allocated to the block proposer based on the voting information included in the block.
+  - The proportion of additional rewards is determined by the voting information in the block and the BonusProposerReward parameter (default 4%).
+  - When all active validators have voted and all votes are included in the block, the additional reward percentage for the block proposer increases and is specified by the BonusProposerReward parameter.
+  - If a validator has received delegations of TAT, the additional reward percentage for the proposer increases to TatReward (default 80%).
+- After deducting the community tax, base proposer reward, and additional rewards, the remaining block rewards are distributed among all active validators (including the block proposer) based on their voting weights.
+- Validators deduct a certain percentage of the overall earnings as their commission, which is specified by the Commission parameter in the Validator.
+- After deducting the commission, the remaining earnings are distributed among the validator's delegators based on their stake, including the validator's self-delegation.
 
 ```golang
 type Validator struct {
-	OperatorAddress string                                  //验证者节点地址
-	ConsensusPubkey *types1.Any                             //验证者的共识公钥
-	Jailed bool                                             //验证者是否处于监禁惩罚
-	Status BondStatus                                       //验证者状态
-	Tokens github_com_cosmos_cosmos_sdk_types.Int           //质押链上资产数量
-	DelegatorShares github_com_cosmos_cosmos_sdk_types.Dec  //分配给验证者的委托人份额总量
-	Description Description                                 //验证者描述信息
-	UnbondingHeight int64                                   //验证者开始解绑周期的区块高度
-	UnbondingTime time.Time                                 //验证者完成解绑周期的最早时间
-	Commission Commission                                   //验证者的佣金
-	MinSelfDelegation github_com_cosmos_cosmos_sdk_types.Int//验证者声明的最小自抵押量
-	TatTokens github_com_cosmos_cosmos_sdk_types.Int        //质押TAT的链上资产
-	NewTokens github_com_cosmos_cosmos_sdk_types.Int        //验证者TAT和UNIT的资产总量
-	TatPower github_com_cosmos_cosmos_sdk_types.Int         //分配给验证者TAT的委托人份额总量
-	NewUnitPower github_com_cosmos_cosmos_sdk_types.Int     //分配给验证者(TAT+UNIT)的委托人份额总量
+	  OperatorAddress    string                                                      // Validator node address
+	  ConsensusPubkey    *types1.Any                                                 // Validator's consensus public key
+	  Jailed             bool                                                        // Whether the validator is jailed or not
+	  Status             BondStatus                                                  // Validator status
+	  Tokens             github_com_cosmos_cosmos_sdk_types.Int                       // Amount of on-chain assets staked by the validator
+	  DelegatorShares    github_com_cosmos_cosmos_sdk_types.Dec                       // Total shares allocated to the validator by delegators
+	  Description        Description                                                  // Validator description
+	  UnbondingHeight    int64                                                       // Block height at which the validator began the unbonding period
+	  UnbondingTime      time.Time                                                    // Earliest time at which the validator completes the unbonding period
+  	Commission         Commission                                                  // Validator's commission
+  	MinSelfDelegation  github_com_cosmos_cosmos_sdk_types.Int                       // Minimum self-delegation amount declared by the validator
+	  TatTokens          github_com_cosmos_cosmos_sdk_types.Int                       // On-chain assets staked in TAT
+	  NewTokens          github_com_cosmos_cosmos_sdk_types.Int                       // Total assets of the validator in TAT and UNIT
+	  TatPower           github_com_cosmos_cosmos_sdk_types.Int                       // Total shares allocated to the validator for TAT
+	  NewUnitPower       github_com_cosmos_cosmos_sdk_types.Int                       // Total shares allocated to the validator for (TAT+UNIT)
 }
 ```
 
-区块提案者的基础奖励比例固定，但额外奖励比例是浮动的，计算方式为:
+The base reward ratio for block proposers is fixed, but the additional reward ratio is variable, calculated as follows:
+
 ```sh
 BaseProposerReward + BonusProposerReward * (sumPrecommitPower / totalPower)
 ```
-其中totalPower代表当前活跃验证者集合的投票权重之和，而sumPrecommitPower代表区块中所包含的投票权重之和。
 
-活跃验证者的运营方可以获得的奖励包括自抵押收益和佣金收益，委托人可以获得的奖励只有抵押收益。委托人通过发送消息MsgWithdrawDelegatorReward可以取回自己抵押的链上资产所累积的收益(验证者的运营方也是通过发送该消息取回自抵押部分的收益),同时验证者运营方还可以通过发送消息MsgWithdrawValidatorCommission取回佣金收益。收益默认会转到最初发送委托操作的账户地址中,也可以重新设定接受收益的账户地址。
+Among them, totalPower represents the sum of voting weights of the current set of active validators, while sumPrecommitPower represents the sum of voting weights included in the block.
 
-## 网络参数
+The rewards that the operator of active validators can receive include self-delegation rewards and commission rewards. Delegators can only receive delegation rewards. Delegators can withdraw the accumulated rewards of their staked assets on the chain by sending the message MsgWithdrawDelegatorReward (the operator of the validator also withdraws a portion of the self-delegation rewards by sending this message). At the same time, the operator of the validator can also withdraw commission rewards by sending the message MsgWithdrawValidatorCommission. The rewards are by default transferred to the account address that initially sent the delegation operation, but the receiving account address can also be reset.
 
-以下是模块的所有网络参数distribution：
+## Network Parameters
 
-* community_tax - 社区税率；
-* base_proposer_reward - 在有效区块中收取的交易费用的基本奖金比例；
-* bonus_proposer_reward - 有效区块中收取的交易费用的最大奖励比例；
-* tat_reward - 获取tat奖励的比例；
-* withdraw_addr_enabled - 委托人是否可以设置不同地址提取奖励。
+The following is the distribution of all network parameters for the module:
+
+- community_tax - Community tax rate;
+- base_proposer_reward - The base reward percentage for transaction fees charged in valid blocks;
+- bonus_proposer_reward - The maximum reward percentage for transaction fees charged in valid blocks;
+- tat_reward - The percentage for obtaining TAT rewards;
+- withdraw_addr_enabled - Whether delegators can set different addresses for withdrawing rewards.
 
 ## Transactions and Queries
 
 ### Transactions
 
-   > treasurenetd tx distribution withdraw-all-rewards -  Withdraw all delegations rewards for a delegator
-委托人可以一次性从他们委托给的验证人那里收回他们的奖励。
+> treasurenetd tx distribution withdraw-all-rewards - Withdraw all delegations rewards for a delegator
+> The principal can withdraw their rewards from the validator they entrusted with all at once.
 
 ```sh
 $ treasurenetd tx distribution withdraw-all-rewards \
@@ -83,16 +86,16 @@ $ treasurenetd tx distribution withdraw-all-rewards \
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
-   > treasurenetd tx distribution withdraw-rewards [validator_address] - 从给定的验证者地址提取奖励
-委托人可以从特定的验证者那里提取奖励
+> treasurenetd tx distribution withdraw-rewards [validator_address] - 从给定的验证者地址提取奖励
+> The principal can withdraw rewards from specific validators.
 
-   > 验证者可以通过添加 commission flag来提取除奖励之外的佣金 --commission
+> Validators can extract commissions by adding the commission flag, in addition to rewards --commission
 
-   > treasurenetd tx distribution withdraw-rewards [validator_address] --from [name_of_your_key] --commission
+> treasurenetd tx distribution withdraw-rewards [validator_address] --from [name_of_your_key] --commission
 
-   > 验证者可以通过添加 commission flag来提取通过质押tat来获取的奖励 --tatreward
+> Validators can extract rewards obtained through staking TAT by adding the commission flag --tatreward
 
-   > treasurenetd tx distribution withdraw-rewards [validator_address] --from [name_of_your_key] --tatreward
+> treasurenetd tx distribution withdraw-rewards [validator_address] --from [name_of_your_key] --tatreward
 
 ```sh
 treasurenetd tx distribution withdraw-rewards treasurenetvaloper1gghjut3ccd8ay0zduzj64hwre2fxs9ldmqhffj
@@ -109,16 +112,18 @@ treasurenetd tx distribution withdraw-rewards treasurenetvaloper1gghjut3ccd8ay0z
 
 confirm transaction before signing and broadcasting [y/N]: y
 ```
-   > treasurenetd tx distribution set-withdraw-addr [withdraw-addr] - 更改与地址关联的奖励的默认提款地址
-委托人可以设置不同的地址来提取他们的奖励
 
-   > treasurenetd tx distribution fund-community-pool [amount]- 以指定金额为社区资金池提供资金
-用户可以为社区池做出一定数量的贡献
+> treasurenetd tx distribution set-withdraw-addr [withdraw-addr] - Change the default withdrawal address associated with rewards related to the address.
+> The principal can set different addresses to claim their rewards
+
+> treasurenetd tx distribution fund-community-pool [amount]- To provide funds for the community pool with a specified amount.
+> Users can make a certain amount of contributions to the community pool.
 
 ### Queries
 
-   > treasurenetd query distribution commission [validator_address] --home --output json | jq - 查询分配验证者佣金
-我们可以检查特定验证器的佣金
+> treasurenetd query distribution commission [validator_address] --home --output json | jq - Query Validator Commission Allocation.
+> We can check the commission of a specific validator
+
 ```json
 {
   "commission": [
@@ -130,8 +135,9 @@ confirm transaction before signing and broadcasting [y/N]: y
 }
 ```
 
-   > treasurenetd query distribution tatreward [validator_address] --home --output json | jq - 查询分配验证者TaT奖励
-我们可以检查质押tat后获取的tat奖励
+> treasurenetd query distribution tatreward [validator_address] --home --output json | jq - Querying allocation verifier TaT rewards
+> We can check the rewards obtained after pledging tat.
+
 ```json
 {
   "tatreward": [
@@ -143,8 +149,9 @@ confirm transaction before signing and broadcasting [y/N]: y
 }
 ```
 
-   > treasurenetd query distribution community-pool --home --output json | jq - 查询社区池中的硬币数量
-我们可以查看社区池的余额
+> treasurenetd query distribution community-pool --home --output json | jq - Query the number of coins in the community pool.
+> We can check the balance of the community pool
+
 ```json
 {
   "pool": [
@@ -156,8 +163,9 @@ confirm transaction before signing and broadcasting [y/N]: y
 }
 ```
 
-   > treasurenetd query distribution rewards [delegator-addr] [validator-addr] --home --output json | jq - 查询所有分配委托人的奖励或来自特定验证者的奖励
-我们可以检查特定验证器上委托的当前奖励。
+> treasurenetd query distribution rewards [delegator-addr] [validator-addr] --home --output json | jq - Query all rewards allocated to delegators or rewards from specific validators
+> We can check the current reward delegated to a specific validator
+
 ```json
 {
   "rewards": [
@@ -168,8 +176,10 @@ confirm transaction before signing and broadcasting [y/N]: y
   ]
 }
 ```
-   > treasurenetd query distribution validator-outstanding-rewards [validator_address] --home --output json | jq - 查询验证者及其所有委托的未分配奖励
-我们可以检查验证者及其所有委托的未分配（未提取）奖励。
+
+> treasurenetd query distribution validator-outstanding-rewards [validator_address] --home --output json | jq - Querying validators and their unallocated rewards for all delegations.
+> We can check the unallocated (unclaimed) rewards of the validator and all its delegates
+
 ```json
 {
   "rewards": [

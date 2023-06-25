@@ -6,26 +6,31 @@ sidebar_position: 6
 
 ## Introduction
 
-slashing 是惩罚模块分为主动作恶处罚和被动作恶处罚。验证者负责在每一轮共识中签署或提议一个区块。应该对验证者的不当行为施加惩罚以强化这一点
+slashing is a punishment module that is divided into active slashing and passive slashing. Validators are responsible for signing or proposing a block in each round of consensus. Punishments should be imposed on validators for improper behavior to reinforce this.
 
-具体来说，slashing旨在抑制网络可观察行为（例如错误验证）的功能。处罚可能包括失去一定数量的股份、在一段时间内失去执行网络功能的能力、获得奖励等。
+Specifically, slashing aims to suppress observable behaviors on the network, such as faulty validations. Punishments may include loss of a certain amount of stake, temporary loss of the ability to perform network functions, or obtaining rewards.
 
-被动作恶是指活跃验证者节点的可用性差，具体来说是指在一定的时间窗口内，活跃验证者签署的区块个数低于某个阈值。
-主动作恶则是指活跃验证者偏离共识协议规定，比如在同一个区块高度违反共识协议对不同的区块进行投票(签名)。
+Passive slashing refers to the poor availability of active validator nodes, specifically when the number of blocks signed by active validators falls below a certain threshold within a given time window.
 
-### 被动惩罚
-Tendermint构建的区块中的Commit类型的指针包含对上一个区块的投票信息
+Active slashing refers to active validators deviating from the consensus protocol, such as voting (signing) for different blocks at the same block height in violation of the consensus protocol.
+
+### Passive Punishment
+
+The pointer of the Commit type in the blocks built by Tendermint contains voting information for the previous block.
+
 ```golang
 type Commit struct {
-	Height     int64       `json:"height"`     //去块高度
-	Round      int32       `json:"round"`      //表示第几轮达成的共识
-	BlockID    BlockID     `json:"block_id"`   //区块标识
-	Signatures []CommitSig `json:"signatures"` //活跃验证者集合的投票信息包含在signatures
-	hash     tmbytes.HexBytes
-	bitArray *bits.BitArray
+	Height     int64       `json:"height"`     // Block height
+	Round      int32       `json:"round"`      // Indicates the round in which consensus was reached
+	BlockID    BlockID     `json:"block_id"`   // Block identifier
+	Signatures []CommitSig `json:"signatures"` // Voting information of the active validator set is included in signatures
+	hash       tmbytes.HexBytes
+	bitArray   *bits.BitArray
 }
+
 ```
-由于可能存在网络延时等问题，可能造成某个活跃验证者未能及时收到标识为BlockID的区块，或者构建该区块的提案者没有收集到针对该区块的所有投票，共识协议允许活跃验证者对空值而非对某个具体的区块投票，因此需要区分活跃验证者投票给真正的区块，投票给空值以及没有投票3中情况。
+
+Due to possible network delays and other issues, it is possible that a certain active validator fails to receive a block identified as BlockID in a timely manner, or the proposer constructing that block fails to collect all the votes for that block. The consensus protocol allows active validators to vote for an empty value instead of a specific block. Therefore, it is necessary to distinguish among three situations: active validators voting for the actual block, voting for an empty value, and not voting at all.
 
 ```golang
 type CommitSig struct {
@@ -35,46 +40,50 @@ type CommitSig struct {
 	Signature        []byte      `json:"signature"`
 }
 ```
-CommitSig中通过BlockIDFlag字段对情况进行区分。
-Commit结构体中的bitArray根据CommitSig中的BlockIDFlag的值，以bit的形式标记了有哪些活跃验证者在参与对上一个区块投票的过程中被打包到了区块中:只要Signature中包含一个活跃验证者的投票，bitArray中对应的位就被设置。
 
-当前的TreasureNet网络中阈值设定为5%，也就是说再固定的时间窗口内只要错过的区块不超过95%就不会被slashing模块惩罚
+CommitSig distinguishes the situation through the BlockIDFlag field.
+The bitArray in the Commit structure marks, in the form of bits, which active validators were included in the block during the voting process for the previous block, based on the value of BlockIDFlag in CommitSig: whenever a vote from an active validator is included in the Signature, the corresponding bit in the bitArray is set.
 
-在监狱禁闭时间结束以后，需要验证者主动申请释放易重新参与活跃验证者的竞争，这是因为当出现被动作恶可能是由于节点运营出现了问题，修复时间是不可知的，如果主动释放后节点运营没有得到解决会继续被动惩罚，导致因同样的问题遭受多次惩罚。
+In the current TreasureNet network, the threshold is set at 5%, which means that as long as the missed blocks within a fixed time window are less than 95%, the slashing module will not impose any punishment.
 
-### 主动作恶
+After the end of the prison confinement period, validators need to actively apply for release in order to participate again as active validators. This is because when there is passive misbehavior, it may be due to operational issues with the node, and the time required for repairs is unknown. If the release is initiated but the node's operations are not resolved, it will continue to face passive punishments, resulting in multiple punishments for the same issue.
 
-活跃验证者可以通过多种方式进行主动作恶，如恶意偏离共识协议约定并发送多种消息，双签作恶的监狱禁闭时间为永久，由于validator的信息不会在链上删除，因此关于该恶意验证者的永久监狱禁闭记录会一直留存在链上，所以该validator的地址会永久作废。所以运营方只能通过重新创建新的验证者(使用新的共识秘钥对和地址)才可以重新参与投票权重竞争。在此之前需要等待一个完整的解绑周期才能取回自己在作恶验证者处抵押的链上资产。主动惩罚比例由参数slash_fraction_double_sign指定，默认为5%。
+### Active Misbehavior
 
+Active validators can engage in misbehavior in various ways, such as maliciously deviating from the consensus protocol and sending multiple messages. The prison confinement time for double-sign misbehavior is permanent. Since the information of the validator is not deleted on the chain, the permanent prison record regarding this malicious validator will remain on the chain, rendering the validator's address permanently invalid. Therefore, the operator can only participate in voting power competition again by recreating a new validator (using new consensus keys and address). Prior to that, a complete unbonding period is required to retrieve the on-chain assets staked with the misbehaving validator. The active punishment ratio is specified by the parameter slash_fraction_double_sign, with a default value of 5%.
 
-3中主动作恶的情况
-1. 执行BeginBlocker()时，发现验证者的可用性差，会罚掉一小部分的链上资产，将validator的jailed字段设置为true。
-2. 执行BeginBlocker()时，发现验证者的有效双签举证信息，罚掉客观比例的链上资产，将validator的Jailed字段设置为true。
-3. 验证者运营方发起的撤回委托或者重新委托操作导致自抵押链上资产数量不足。
+Three scenarios of active misbehavior:
 
-## 网络参数
-以下是用于配置验证者惩罚行为的所有网络参数。所有这些参数的详细信息及其对验证者惩罚行为的影响将在本文档后面讨论。
+1. When executing BeginBlocker(), if the availability of a validator is poor, a small portion of the on-chain assets will be penalized, and the validator's "jailed" field will be set to true.
+2. When executing BeginBlocker(), if evidence of valid double-signing by a validator is found, a proportionate amount of on-chain assets will be penalized, and the validator's "Jailed" field will be set to true.
+3. Withdrawal or redelegation actions initiated by the validator operator result in insufficient on-chain assets for self-delegation.
+
+## Network Parameters
+
+The following are all the network parameters used to configure validator punishment behavior. Detailed information about all these parameters and their impact on validator punishment behavior will be discussed later in this document.
 
 ```json
-signed_blocks_window：为正常运行时间跟踪计算活跃度的块数；
-min_signed_per_window：最后一个帐户允许的错误/错过验证的块的最大百分比；signed_blocks_window在停用之前阻塞；
-downtime_jail_duration:监禁时间；
-slash_fraction_double_sign：当验证者出现拜占庭错误时被削减的资金百分比;
-slash_fraction_downtime：当验证者不活跃时被削减的资金百分比。
+signed_blocks_window: The number of blocks used to track activity for calculating uptime.
+min_signed_per_window: The maximum percentage of blocks allowed to be signed/missed by the last account before blocking the signed_blocks_window.
+downtime_jail_duration: Duration of the jail time.
+slash_fraction_double_sign: The percentage of funds reduced when a validator commits a Byzantine error.
+slash_fraction_downtime: The percentage of funds reduced when a validator is inactive.
 ```
 
 ## Transactions and Queries
 
 ### Transactions
 
-   > treasurenetd tx slashing unjail - 释放验证器
-可以先通过treasurenetd query staking validator [validator-address] --home --output json | jq 查看validator的状态
+> treasurenetd tx slashing unjail - 释放验证器
+> 可以先通过 treasurenetd query staking validator [validator-address] --home --output json | jq 查看 validator 的状态
+
 ```sh
 $ treasurenetd query staking validator \
 --from=[name_of_your_key] \
 --keyring-backend test
 --output json | jq
 ```
+
 ```json
 {
   "operator_address": "treasurenetvaloper1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2gzs46zq",
@@ -87,14 +96,15 @@ $ treasurenetd query staking validator \
   .......
 }
 ```
-如果validator中jailed的状态为true，说明该validator处于监禁状态，监禁期过后可以进行释放
+
+If the "jailed" status in the validator is true, it indicates that the validator is in a jailed state. After the jail term, the validator can be released.
 
 ```sh
 treasurenetd tx slashing unjail
---from treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg 
---home (defaule:"/root/.treasurenet/")  
+--from treasurenet1wf78qmzhfsjndy3v6wsdxjfqnmwnyy2grwxmrg
+--home (defaule:"/root/.treasurenet/")
 --chain-id
---fees 1unit 
+--fees 1unit
 --gas auto
 --keyring-backend test
 
@@ -106,7 +116,7 @@ confirm transaction before signing and broadcasting [y/N]: y
 
 ### Queries
 
-   > treasurenetd query slashing params --home --output json | jq - 查询惩罚参数
+> treasurenetd query slashing params --home --output json | jq - 查询惩罚参数
 
 ```json
 {

@@ -6,50 +6,41 @@ sidebar_position: 1
 
 ## Introduction
 
-TN gateway 是TreasureNet 区块链公链中的一个重要的组成部分（组件）, 它为Treasurenet的其他周边工具、网站以及Dapp 通过Restful API接口提供数据支持, 通过交互认证(OAuth2), 确保服务调用方的身份可信. TN-Gateway 中的数据来源自 DataProvider Module . 这个模块通过事件监听、区块链查询操作、以及从其他周边服务(例如区块浏览器)发掘并整理数据, 最终存储于数据库集群服务器之中.TN Gateway 对外提供的数据,包括USTN Finance的相关交易记录、staking相关记录、生产商信息、矿产信息、产量数据、token的交易记录、用户信息等数据, 并提供常见的索引、统计、排序服务. 周边服务的开发者、Dapp的开发者可以在获得许可后, 根据API说明文档中指定的调用规则获取这些内容.
+TN-Gateway is an important component of the TreasureNet blockchain. It provides data support to other peripheral tools, websites, and Dapps in TreasureNet through a Restful API interface. It ensures the credibility of the service caller's identity through interactive authentication (OAuth2). The data in the TN-Gateway comes from the DataProvider Module. This module collects and organizes data through event listening, blockchain query operations, and from other peripheral services (like blockchain explorers), and ultimately stores it in a database cluster server. The data provided by the TN Gateway includes related transaction records of USTN Finance, staking records, producer information, mining information, production data, token transaction records, user information, etc. It also offers common index, statistics, and sorting services. Peripheral service developers and Dapp developers can obtain these contents in accordance with the calling rules specified in the API documentation after obtaining permission.
 
-## 谁可以使用它
+## Who can use it?
 
-TN-Gateway将在不久之后开发API接口使用的申请。通过简单的注册和审核，任何人都可以使用它。
+TN-Gateway will soon open applications for the use of its API interface. Through simple registration and review, anyone can use it.
 
-## 使用它能做什么？
+## What can it be used for?
 
-TN-Gateway 可以为您一站式的提供链上数据的查询，甚至数据分析。当然，TN-Gateway也在不断升级，来提供更多的查询信息，更便利的查询方式。
+TN-Gateway can provide you with a one-stop solution for querying on-chain data and even data analysis. Of course, TN-Gateway is continuously upgrading to provide more query information and more convenient query methods.
 
-您可以尝试使用TN-Gateway
+You can try using TN-Gateway to:
 
-- 查证一个匿名油井的产量变化曲线
-
-- 为矿产挖掘做调研分析
-
-- 查询交易规模 洞悉趋势
-
+- Verify the production change curve of an anonymous oil well
+- Conduct research and analysis for mining
+- Query transaction sizes to understand trends
 - etc.
 
-## 如何保证TN-Gateway是安全的
+## How is TN-Gateway secured?
 
-#### 对于敏感数据的加密保护
+#### Encryption protection for sensitive data
 
-我们通过不可逆的算法隐匿了关键信息，这是非常必要的。因为不是所有的信息都可以毫无条件的公开。
+We use irreversible algorithms to conceal key information, which is very necessary because not all information can be disclosed unconditionally.
 
-#### 准入及访问权限控制
+#### Admission and access control
 
-系统会根据您的不同用途对于访问权限进行控制，这将使得不同的用户需求得到满足的同时确保信息的安全，同时也避免遭受攻击或者因为数据不加限制的流动而被讹诈。
+The system will control access rights according to your different uses. This will ensure the security of the information while satisfying different user needs, and also avoid attacks or extortion due to unrestricted data flow.
 
-## 为什么TN-Gateway的数据是可信的
+## Why is the data from TN-Gateway trustworthy?
 
-#### 数据来源可信
+#### Reliable data source
 
-TN-Gateway的数据来源大部分来自于TreasureNet区块链网络的事件监听模块(dataProvider),这最大限度的保证了数据来源的可靠，因为只有交易被正常执行时事件才会被抛出 
+Most of the data from the TN-Gateway comes from the event listening module (DataProvider) of the TreasureNet blockchain network, which ensures the reliability of the data source to the maximum extent because events are only thrown when transactions are executed normally.
 
-#### TN-Gateway是开源的
+#### TN-Gateway is open-source
 
-您可以在[github](http://www.google.com)上查看TN-Gateway的全部代码，他们最初由TreasureNet Foundation发起，之后由网友贡献而来，这几乎没有作弊的可能。
+You can view all the code of the TN-Gateway on [github](https://github.com/treasurenetprotocol). It was originally initiated by the TreasureNet Foundation and later contributed by netizens, which leaves almost no possibility of cheating.
 
-我们欢迎所有对TreasureNet感兴趣的开发者为此贡献代码。
-
-
-
-
-
-
+We welcome all developers interested in TreasureNet to contribute code for this.

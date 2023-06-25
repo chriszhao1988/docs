@@ -4,16 +4,16 @@ sidebar_position: 5
 
 # Privacy Protection
 
-## Treasurenet中，有哪些隐私数据
-在Treasurenet中，我们将生产商在现实世界中的一些关键信息定义为隐私数据，例如生产商名称、地址、联系方式、资产来源的具体编号、现实生活中官方颁发的一些许可证书等等。
+## What constitutes private data in Treasurenet
 
-这些信息，在生产商入驻Treasurenet的时候是很有必要的，因为我们需要核实生产商在现实生活中是否真的具备资产的开采、生产甚至经营能力，这对所有参与或加入Treasurenet平台中的用户来说很重要，如果不对生产商的相关信息加以审核，一旦平台中混入以次充好的生产商或者资产，对整个平台及所有用户都没有利处。
+In Treasurenet, we define some key information of the manufacturers in the real world as private data, such as manufacturer name, address, contact information, specific identification numbers of asset sources, and some licenses issued by the official authorities in real life, etc.
 
-而当Treasurenet平台审核过生产商的信息，并确认他们自身及资产都是真实、安全的之后，这些信息对平台中其余功能来说便已经没有更多用处了，因此我们将这些信息定义为隐私数据。
+This information is essential when the manufacturers join Treasurenet because we need to verify whether the manufacturers truly possess the ability to mine, produce, or even operate assets in real life. This is very important to all users who participate or join the Treasurenet platform. If we do not review the relevant information of the manufacturers, the presence of substandard manufacturers or assets would bring no benefit to the entire platform and all users.
 
-## 为什么要保护这些隐私
+Once the Treasurenet platform has reviewed the information of the manufacturers and confirmed that they and their assets are genuine and safe, this information no longer has any more use for other functions in the platform. Therefore, we define this information as private data.
 
+## Why we need to protect this privacy
 
-## 怎样保护隐私数据
-在Treasurenet平台中，所有需要生产商提供现实世界中信息的环节，在通过平台验证后，都对这些数据做了哈希或删除处理。
+## How to protect private data
 
+In the Treasurenet platform, all steps that require manufacturers to provide real-world information have hash or deletion processing for these data after platform verification.
