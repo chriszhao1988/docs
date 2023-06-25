@@ -2,16 +2,14 @@
 sidebar_position: 3
 ---
 
-# Stake and Bonus Stake
+# 质押和奖励质押
 
-## What is Bonus Stake
+## 什么是奖励质押
 
-## Why we designed the Bonus Stake
+## 奖励质押设计的初衷
 
-- 仅概述相关信息 表面优点 细节公式和方法 链接到Stake目录下
+- 仅概述相关信息 表面优点 细节公式和方法 链接到质押目录下
 
-## How to get involved
+## 怎样参与质押
 
-- 概述 + 一个步骤列表 link to Stake目录下
-
-
+- 概述 + 一个步骤列表 link to Stake 目录下

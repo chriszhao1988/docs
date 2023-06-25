@@ -2,8 +2,8 @@
 sidebar_position: 3
 ---
 
-# Keplr
+# Keplr 钱包
 
 :::info
-  🚧 Documentation is in progress.
+🚧 Documentation is in progress.
 :::

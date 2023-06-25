@@ -2,20 +2,21 @@
 sidebar_position: 2
 ---
 
-# Foundation Manager
+# 基金会经理
 
-## 1. Home Page
-FoundationManager登录成功后进入HomePage页面。
+## 1. 主页
+
+基金会经理登录成功后进入主页页面。
 
 ![Home_page](/img/docs/Home_page.png)
 
-## 2. Approval of New Well
+## 2. 新建油井批准
 
-* 在本页面查看新提交的新建油井申请信息，并进行审核。
+- 在本页面查看新提交的新建油井申请信息，并进行审核。
 
 ![Approval_of_New_Well](/img/docs/Approval_of_New_Well.png)
 
-* 点击'Review'对新油井进行审批，可以选择'Approval'或者'Reject'。
+- 点击'Review'对新油井进行审批，可以选择'Approval'或者'Reject'。
 
 ![Review](/img/docs/Review.png)
 
@@ -25,19 +26,19 @@ FoundationManager登录成功后进入HomePage页面。
 
 ## 3. Annual Review
 
-* 在本页面查看需要进行油质年审的的矿井信息。
+- 在本页面查看需要进行油质年审的的矿井信息。
 
 ![Annual_Review](/img/docs/Annual_Review.png)
 
-* 点击'Examine'进入审核页面，点击'Approval'通过审核，点击'Reject'不通过审核。
+- 点击'Examine'进入审核页面，点击'Approval'通过审核，点击'Reject'不通过审核。
 
 ## 4. Messages
 
-* 点击Messages，进入发送站内信的页面。在右上方可以隐藏已读的信息，也可以将所有信息标为已读。
+- 点击 Messages，进入发送站内信的页面。在右上方可以隐藏已读的信息，也可以将所有信息标为已读。
 
 ![Messages](/img/docs/Messages.png)
 
-* 点击右上角'Send to Producer'，跳转到信息填写界面，进行站内信的发送。
+- 点击右上角'Send to Producer'，跳转到信息填写界面，进行站内信的发送。
 
 ![Send_Messages](/img/docs/Send_Messages.png)
 

@@ -1,11 +1,11 @@
-# Production data upload software
+# 生产数据上传软件
 
 :::info
 Waiting for development to be completed
 :::
 
-## Oil/Gas Production Data Database
+## 油气生产数据数据库
 
-## Configration
+## 配置
 
-## Start upload data.
+## 开始上传数据

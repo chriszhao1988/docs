@@ -2,11 +2,11 @@
 sidebar_position: 1
 ---
 
-# Transactions
+# 交易
 
 交易是指由账户发起的改变区块链状态的行为。为了有效地执行状态更改，每笔交易都会广播到整个网络。任何节点都可以广播请求在区块链状态机上执行的交易；发生这种情况后，验证器将验证、执行交易并将产生的状态更改传播到网络的其余部分。
 
-为了处理每笔交易，网络上的计算资源都会被消耗。因此，“gas”的概念是作为验证者处理交易所需的计算的参考而出现的。用户必须为此计算付费，所有交易都需要相关费用。该费用是根据执行交易所需的 gas 和 gas 价格计算的。
+为了处理每笔交易，网络上的计算资源都会被消耗。因此，“gas”的概念是作为验证者处理交易所需的计算的参考而出现的。用户必须为此计算付费，所有交易都需要相关费用。该费用是根据执行交易所需的燃料费和燃料费价格计算的。
 
 此外，交易需要使用发送方的私钥进行签名。这证明交易只能来自发件人，而不是欺诈性发送。
 
@@ -20,46 +20,44 @@ sidebar_position: 1
 
 交易可能因各种原因而失败。例如，提供的 gas 或费用可能不足。此外，交易验证可能会失败。每笔交易都有特定的条件，必须满足这些条件才能被视为有效。一个广泛的验证是发送者是交易签名者。在这种情况下，如果您在发件人地址与签名者地址不同的地方发送交易，即使费用足够，交易也会失败。
 
-## Cosmos Transactions
+## Cosmos 交易
 
-On Cosmos chains, transactions are comprised of metadata held in contexts and sdk.Msgs that trigger state changes within a module through the module's Protobuf Msg service.
+在 Cosmos 链上，交易由存储在上下文和 sdk.Msg 中的元数据组成，这些元数据通过模块的 Protobuf Msg 服务触发模块内的状态更改。
 
-When users want to interact with an application and make state changes (e.g. sending coins), they create transactions. Cosmos transactions can have multiple sdk.Msgs. Each of these must be signed using the private key associated with the appropriate account(s), before the transaction is broadcasted to the network.
+当用户想要与应用程序交互并进行状态更改（例如发送代币）时，他们创建交易。Cosmos 交易可以包含多个 sdk.Msgs。在交易广播到网络之前，每个 sdk.Msg 都必须使用与相应账户关联的私钥进行签名。
 
 Cosmos 交易包括以下信息：
 
 - Msgs：消息数组（sdk.Msg）
-- GasLimit：用户选择的选项，用于计算他们需要支付多少 gas
+- GasLimit：用户选择的选项，用于计算他们需要支付多少燃料费
 - FeeAmount：用户愿意支付的最大费用
 - TimeoutHeight：交易有效的区块高度
-- Signatures: 来自 tx 所有签名者的签名数组
+- Signatures: 来自交易所有签名者的签名数组
 - Memo: 随交易发送的注释或评论
 
-To submit a Cosmos transaction, users must use one of the provided clients.
+要提交 Cosmos 交易，用户必须使用提供的客户端之一。
 
-## Etherenum Transactions
+## 以太坊交易
 
-Ethereum transactions refer to actions initiated by EOAs (externally-owned accounts, managed by humans), rather than internal smart contract calls. Ethereum transactions transform the state of the EVM and therefore must be broadcasted to the entire network.
+以太坊交易是指由人类管理的 EOA（外部拥有账户）发起的操作，而不是内部智能合约调用。以太坊交易会改变 EVM 的状态，因此必须广播到整个网络。
 
-Ethereum transactions also require a fee, known as gas. (EIP-1559) introduced the idea of a base fee, along with a priority fee which serves as an incentive for miners to include specific transactions in blocks.
+以太坊交易还需要支付一定的费用，称为燃料费（gas）。EIP-1559 引入了基础费用的概念，以及优先费用作为矿工将特定交易包含在区块中的激励。
 
-There are several categories of Ethereum transactions:
+以太坊交易可以分为以下几类：
 
-- regular transactions: transactions from one account to another
-- contract deployment transactions: transactions without a to address, where the contract code is sent in the data field
-- execution of a contract: transactions that interact with a deployed smart contract, where the to address is the smart contract address
+- 常规交易：从一个账户向另一个账户的交易。
+- 合约部署交易：没有 to 地址的交易，合约代码被发送到数据字段中。
+- 执行合约交易：与已部署的智能合约进行交互的交易，to 地址为智能合约地址。
 
-An Ethereum transaction 包括以下信息：
+一个以太坊交易包括以下信息：
 
 - recipient: 接收者地址
 - signature: 发送者签名
-- nonce: 来自account的 tx 编号的计数器
+- nonce: 交易编号计数器
 - value: 要转账的代币数量
 - data: 包括任意数据。 在部署智能合约或进行智能合约方法调用时使用
-- gasLimit: 要消耗的最大gas量
-- maxPriorityFeePerGas: mas gas to be included as tip to validators
+- gasLimit: 要消耗的最大燃气费用
+- maxPriorityFeePerGas: 包括在向验证器支付小费的最高每单位燃气费用
 - maxFeePerGas: 为 tx 支付的最大 gas 量
 
-Treasurenet supports the following Ethereum transactions.
-
-
+Treasurenet 支持以下以太坊交易。

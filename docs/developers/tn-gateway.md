@@ -2,32 +2,35 @@
 sidebar_position: 3
 ---
 
-
 # TN-Gateway
 
+TN Gateway 在 Treasurenet 区块链公链中起着至关重要的作用。它通过其 Restful API 接口，作为 Treasurenet 生态系统内各种外围工具、网站和 Dapps 的数据提供者。TN Gateway 通过使用 OAuth2 进行交互式认证，确保服务调用者身份的可信度。
 
-TN gateway 是TreasureNet 区块链公链中的一个重要的组成部分（组件）, 它为Treasurenet的其他周边工具、网站以及Dapp 通过Restful API接口提供数据支持, 通过交互认证(OAuth2), 确保服务调用方的身份可信. TN-Gateway 中的数据来源自 DataProvider Module . 这个模块通过事件监听、区块链查询操作、以及从其他周边服务(例如区块浏览器)发掘并整理数据, 最终存储于数据库集群服务器之中.TN Gateway 对外提供的数据,包括USTN Finance的相关交易记录、staking相关记录、生产商信息、矿产信息、产量数据、token的交易记录、用户信息等数据, 并提供常见的索引、统计、排序服务. 周边服务的开发者、Dapp的开发者可以在获得许可后, 根据API说明文档中指定的调用规则获取这些内容.
+TN-Gateway 内的数据来自 DataProvider 模块。该模块通过监控事件、进行区块链查询和利用外围服务如区块浏览器来提取和组织数据。然后将收集的数据存储在服务器的数据库集群中。TN-Gateway 提供广泛的数据，包括与 USTN Finance 相关的交易记录、质押活动、制造商和矿物信息、生产数据、代币交易记录、用户信息以及其他相关数据。它还为排序提供通用索引和统计服务。
 
+外围服务和 DApps 的开发者可以通过遵循 API 文档中概述的指定调用规则来访问这些内容，一旦他们获得了必要的权限。
 
 ## 如何连接 TN-Gateway
 
 :::caution
-TN-Gateway 公开连接尚未开启。
+TN-Gateway 公共连接尚未开放
 :::
 
-首先您需要获得client_id和client_secret,以供您通过TN-gateway的Oauth2认证，这是最开始的一步。
+从 TN-Gateway 获取数据：
 
-接下来您需要查阅[API](https://),寻找您拥有权限并想要获取的数据，并发起RestfulAPI请求。
+1. 获取 client_id 和 client_secret 以通过 OAuth2 身份验证。
+2. 查阅 API 文档以找到所需数据和端点。
+3. 使用所需的参数发出 Restful API 请求。
+4. 收到包含所请求数据的响应。
 
-系统会根据实际情况在data中返回您的结果
-
+系统将根据实际情况返回数据形式的结果。
 
 ## 常见错误
 
-|code|description|solution|
-|--|--|--|
-|-1|system error|Contact us via social media|
-|-2|common error|Determining error conditions from error messages|
-|-3|Params error|Incorrect parameters, you may need to check the API description to ensure that the number and type of parameters are correct.|
-|-4|Permission error|Please check whether your account has permission for this interface.|
-|-5|authorized error|Authentication failed, or authentication error. You need to check whether the access_token exists and whether it has expired. You can try to obtain the token again and initiate the query again.|
+| 代码 | 描述     | 解决方案                                                                                               |
+| ---- | -------- | ------------------------------------------------------------------------------------------------------ |
+| -1   | 系统错误 | 通过社交媒体联系我们                                                                                   |
+| -2   | 常见错误 | 从错误消息中确定错误条件                                                                               |
+| -3   | 参数错误 | 参数不正确，您可能需要检查 API 描述以确保参数的数量和类型是正确的。                                    |
+| -4   | 权限错误 | 请检查您的账户是否具有此接口的权限。                                                                   |
+| -5   | 授权错误 | 认证失败，或者认证错误。您需要检查 access_token 是否存在以及是否已过期。您可以尝试再次获取令牌并再次发 |

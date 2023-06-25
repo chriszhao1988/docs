@@ -2,28 +2,26 @@
 sidebar_position: 2
 ---
 
-# Third-Party Tokens
+# 第三方代币
 
-## 非官方Token
+## 非官方代币
 
-### Cosmos Token
+### Cosmos 代币
 
-由非官方的Dapp发行的所有基于Cosmos swam 发行的代币，用于与其他Cosmos操作或者交易。
+由非官方的 Dapp 发行的所有基于 Cosmos swam 发行的代币，用于与其他 Cosmos 操作或者交易。
 
-目前发行在TN上的Cosmos Token列表
+目前发行在 TN 上的 Cosmos 代币列表
 
-| Token Logo | Token Name | Issuer | Token Unit | Descrption |
-|--|--|--|--|--|
-||||||
+| 代币标志 | 代币名称 | 发行方 | 代币单位 | 描述 |
+| -------- | -------- | ------ | -------- | ---- |
+|          |          |        |          |      |
 
-### EVM Token
+### EVM 代币
 
-TreasureNet 与 EVM 原生支持的ERC20代币和其他NFT代币标准（比如 ERC721、ERC1155）相兼容。
+Treasurenet 与 EVM 原生支持的 ERC20 代币和其他 NFT 代币标准（比如 ERC721、ERC1155）相兼容。
 
-目前发行在TN上的EVM Token列表
+目前发行在 TN 上的 EVM 代币列表
 
-| Token Logo | Token Name | Issuer | Token Unit | Descrption |
-|--|--|--|--|--|
-||||||
-
-
+| 代币标志 | 代币名称 | 发行方 | 代币单位 | 描述 |
+| -------- | -------- | ------ | -------- | ---- |
+|          |          |        |          |      |

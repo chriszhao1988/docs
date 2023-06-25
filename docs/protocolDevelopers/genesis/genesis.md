@@ -2,13 +2,14 @@
 sidebar_position: 1
 ---
 
-# Genesis.json
+# Genesis.json 文件
 
-该genesis.json文件位于数据目录(default ```"/root/.treasurenetd"```).在标准的tendermint 创世纪格式之上，我们定制了我们自己的创世文件，其中包含不同的模块并促进了treasurenet 链的特殊功能。
+该 genesis.json 文件位于数据目录(default `"/root/.treasurenetd"`)。在标准的 tendermint 创世纪格式之上，我们定制了我们自己的创世文件，其中包含不同的模块并促进了 treasurenet 链的特殊功能。
 
-## Fields in genesis
+## 创世纪文件配置
 
 具体来说，创世文件包括以下字段：
+
 ```json
 {
   "genesis_time": "2023-02-02T10:48:47.611931848Z",
@@ -26,9 +27,7 @@ sidebar_position: 1
       "max_bytes": "1048576"
     },
     "validator": {
-      "pub_key_types": [
-        "ed25519"
-      ]
+      "pub_key_types": ["ed25519"]
     },
     "version": {}
   },
@@ -432,10 +431,7 @@ sidebar_position: 1
         "clients_consensus": [],
         "clients_metadata": [],
         "params": {
-          "allowed_clients": [
-            "06-solomachine",
-            "07-tendermint"
-          ]
+          "allowed_clients": ["06-solomachine", "07-tendermint"]
         },
         "create_localhost": false,
         "next_client_sequence": "0"
@@ -525,109 +521,111 @@ sidebar_position: 1
   }
 }
 ```
-## introduce
-* "genesis_time": 区块链开始的时间。
-* "genutil"：用于使用的各种创世实用程序功能，包括创世交易创建（gentx）和创世文件验证命令以及 Tendermint 相关初始化。
-* "ibc"：跨不同链的区块链间通信。
-* "chain_id"：区块链的唯一标识符。有关更多详细信息，请参阅此。
-* "initial_height": 区块链的初始高度。
-* "consensus_params: 创世文件中定义的共识参数。
+
+## 介绍
+
+- "genesis_time": 区块链开始的时间。
+- "genutil"：用于使用的各种创世实用程序功能，包括创世交易创建（gentx）和创世文件验证命令以及 Tendermint 相关初始化。
+- "ibc"：跨不同链的区块链间通信。
+- "chain_id"：区块链的唯一标识符。有关更多详细信息，请参阅此。
+- "initial_height": 区块链的初始高度。
+- "consensus_params: 创世文件中定义的共识参数。
   - "block":
-   * "max_bytes"：块的最大大小（以字节为单位）。
-   * "max_gas"：每个区块的gas limit，默认值为“-1”，即不强制执行有关gas的规则。
-   * "time_iota_ms"：连续块之间的最小时间增量，以毫秒为单位。
+  * "max_bytes"：块的最大大小（以字节为单位）。
+  * "max_gas"：每个区块的 gas limit，默认值为“-1”，即不强制执行有关 gas 的规则。
+  * "time_iota_ms"：连续块之间的最小时间增量，以毫秒为单位。
   - "evidence"：使用证据反应器进行证据存储处理和区块提议检测。
-   * "max_age_num_blocks":该字段将被弃用。
-   * "max_age_duration": 证据的最大年龄。任何早于此的证据都将被拒绝。
-   * "max_num"：证据的最大年龄（块数）。
+  * "max_age_num_blocks":该字段将被弃用。
+  * "max_age_duration": 证据的最大年龄。任何早于此的证据都将被拒绝。
+  * "max_num"：证据的最大年龄（块数）。
   - "validator":
-   * "pub_key_types": 支持的验证器公钥类型。
-* "app_hash"：创世块中定义的初始应用程序状态。
-* "auth"
+  * "pub_key_types": 支持的验证器公钥类型。
+- "app_hash"：创世块中定义的初始应用程序状态。
+- "auth"
   - "params": 创世文件中定义的 auth 模块的参数。
-   * "max_memo_characters": 交易备忘录中的最大字符数。
-   * "tx_sig_limit"：交易的最大签名者数量。
-   * "tx_size_cost_per_byte"：交易每字节消耗的气体量。
-   * "sig_verify_cost_ed25519"edd2519:签名验证的 Gas 成本。
-   * "sig_verify_cost_secp256k1"secp256k1:签名验证的 Gas 成本。
+  * "max_memo_characters": 交易备忘录中的最大字符数。
+  * "tx_sig_limit"：交易的最大签名者数量。
+  * "tx_size_cost_per_byte"：交易每字节消耗的气体量。
+  * "sig_verify_cost_ed25519"edd2519:签名验证的 Gas 成本。
+  * "sig_verify_cost_secp256k1"secp256k1:签名验证的 Gas 成本。
   - "accounts"：创世账户，它定义了代币的初始分配。
-   * "@type"： 帐户类型。
-   * "address": 创世账户的地址。
-   * "pub_key"：创世账户的公钥。
-   * "account_number"：状态下账户的账号。
-   * "sequence"：用于统计该账户发送的交易数量。每次将事务包含在块中时它都会递增，并用于防止重放攻击。
-   * "base_vesting_account":
-    * "original_vesting"：特殊类型的记账，代币需要归属一段时间才能转移。代币可以在归属期内被委托。
-    * "denom"：令牌的面额。
-    * "amount"：归属账户中的总金额。
-    * "delegated_free"：授予后可以转让的委托代币数量。
-    * "delegated_vesting"：仍在授予中的委托代币数量。
-    * "endtime": 归属结束时间。
-* "bank"bank 模块处理令牌。
+  * "@type"： 帐户类型。
+  * "address": 创世账户的地址。
+  * "pub_key"：创世账户的公钥。
+  * "account_number"：状态下账户的账号。
+  * "sequence"：用于统计该账户发送的交易数量。每次将事务包含在块中时它都会递增，并用于防止重放攻击。
+  * "base_vesting_account":
+  * "original_vesting"：特殊类型的记账，代币需要归属一段时间才能转移。代币可以在归属期内被委托。
+  * "denom"：令牌的面额。
+  * "amount"：归属账户中的总金额。
+  * "delegated_free"：授予后可以转让的委托代币数量。
+  * "delegated_vesting"：仍在授予中的委托代币数量。
+  * "endtime": 归属结束时间。
+- "bank"bank 模块处理令牌。
   - "params"：创世文件中定义的银行模块的参数。
-   * "send_enabled": 创世纪中的传输能力。
-   * "default_send_enabled"：“send_enabled”值的默认值控制发送传输能力。
-* "distribution"：处理分配块逻辑和向验证者和委托者收费的模块。
+  * "send_enabled": 创世纪中的传输能力。
+  * "default_send_enabled"：“send_enabled”值的默认值控制发送传输能力。
+- "distribution"：处理分配块逻辑和向验证者和委托者收费的模块。
   - "delegator_starting_infos":
   - "delegator_withdraw_infos": 委托人提币地址列表。
   - "fee_pool":
-   * "community_pool"：在社区池中分配资金（如果有）。
+  * "community_pool"：在社区池中分配资金（如果有）。
   - "outstanding_rewards"：未领取的奖励，如果有的话。
   - "params": 创世文件中定义的分发模块的参数。
-   * "base_proposer_reward"：基于有效区块中收取的交易费用的基本奖金。
-   * "bonus_proposer_reward"：在有效区块中收取的交易费用的最大奖金。
-   * "community_tax": 社区税率。
-   * "withdraw_addr_enabled"：委托人是否可以设置不同地址提取奖励。
+  * "base_proposer_reward"：基于有效区块中收取的交易费用的基本奖金。
+  * "bonus_proposer_reward"：在有效区块中收取的交易费用的最大奖金。
+  * "community_tax": 社区税率。
+  * "withdraw_addr_enabled"：委托人是否可以设置不同地址提取奖励。
   - "previous_proposer": 前一个区块的提议者，如果有的话。
   - "validator_accumulated_commissions"：未收取的验证者佣金，如果有的话。
   - "validator_current_rewards"：与验证者当前奖励相关的信息（如果有）。
   - "validator_historical_rewards"：与验证者的历史奖励相关的信息（如果有）。
   - "validator_slash_events"：与验证者历史削减事件相关的信息（如果有）。
-* "gov": 治理模块。
+- "gov": 治理模块。
   - "deposit_params"：治理提案所需保证金参数。
-   * "max_deposit_period"：治理提案的最长存放期限。
-   * "min_deposit"：治理提案所需的最低保证金。
+  * "max_deposit_period"：治理提案的最长存放期限。
+  * "min_deposit"：治理提案所需的最低保证金。
   - "deposits"：每个提案 ID 的存款列表，如果有的话。
   - "proposals"：提案清单，如果有的话。
   - "starting_proposal_id": 初始提案 id，从"1"
   - "tally_params"：理货参数。
-   * "quorum"：需要投票才能使结果有效的绑定质押代币的最小百分比。
-   * "threshold"YES: 使结果有效所需的最小投票百分比。
-   * "veto_threshold"NO_WITH_VETO：结果有效的最大票数百分比。
+  * "quorum"：需要投票才能使结果有效的绑定质押代币的最小百分比。
+  * "threshold"YES: 使结果有效所需的最小投票百分比。
+  * "veto_threshold"NO_WITH_VETO：结果有效的最大票数百分比。
   - "votes"：每个提案 ID 的投票列表（如果有）。
   - "voting_params"：投票参数。
-   * "voting_period": 治理提案的投票期。
-* "mint": 用于令牌铸造的铸造模块。
+  * "voting_period": 治理提案的投票期。
+- "mint": 用于令牌铸造的铸造模块。
   - "minter":
-   * "annual_provisions"：年度预期拨备（在创世纪中设置为零）。
-   * "inflation"：目标年通货膨胀率，每周复利。
+  * "annual_provisions"：年度预期拨备（在创世纪中设置为零）。
+  * "inflation"：目标年通货膨胀率，每周复利。
   - "params":创世文件中定义的 mint 模块的参数。
-   * "blocks_per_year"：预计每年生产的区块数量。
-   * "goal_bonded"：以百分比表示的目标绑定令牌。
-   * "inflation_max": 最大通货膨胀率。
-   * "inflation_min": 最低通货膨胀率。
-   * "inflation_rate_change": 通货膨胀率的最大年度变化。
-   * "mint_denom"：正在铸造的令牌类型。
-* "slashing": 罚没模块，用于惩罚验证者的不当行为。
+  * "blocks_per_year"：预计每年生产的区块数量。
+  * "goal_bonded"：以百分比表示的目标绑定令牌。
+  * "inflation_max": 最大通货膨胀率。
+  * "inflation_min": 最低通货膨胀率。
+  * "inflation_rate_change": 通货膨胀率的最大年度变化。
+  * "mint_denom"：正在铸造的令牌类型。
+- "slashing": 罚没模块，用于惩罚验证者的不当行为。
   - "missed_blocks"：与验证者错过的区块相关的信息，如果有的话。
   - "params": 创世文件中定义的 slashing 模块的参数。
-   * "downtime_jail_duration"：低可用性验证器的监禁时间。
-   * "min_signed_per_window"：总错过块的阈值，以百分比表示。
-   * "signed_blocks_window": 计​​算验证者活跃度的窗口。
-   * "slash_fraction_double_sign"：拜占庭验证者减少股权的最大百分比。
-   * "slash_fraction_downtime": 可用性低的验证者减少权益的最大百分比。
-  - * "signing_infos"：与罚没模块的每个验证器相关的信息（如果有）。
-* "staking"：处理权益证明相关逻辑的权益模块。
+  * "downtime_jail_duration"：低可用性验证器的监禁时间。
+  * "min_signed_per_window"：总错过块的阈值，以百分比表示。
+  * "signed_blocks_window": 计 ​​ 算验证者活跃度的窗口。
+  * "slash_fraction_double_sign"：拜占庭验证者减少股权的最大百分比。
+  * "slash_fraction_downtime": 可用性低的验证者减少权益的最大百分比。
+  - - "signing_infos"：与罚没模块的每个验证器相关的信息（如果有）。
+- "staking"：处理权益证明相关逻辑的权益模块。
   - "delegations"：与验证器的委托状态相关的信息（如果有）。
   - "exported": 这个创世文件是否是通过导出以前的状态生成的。
   - "last_total_power"：创世记中的总投票权，如果有的话。
   - "last_validator_powers"：每个验证者在最后已知状态下的投票权，如果有的话。
   - "params": 创世文件中定义的质押模块的参数。
-   * "bond_denom": 用于质押的硬币面额。
-   * "historical_entries"：要保留的历史条目数。
-   * "max_entries"：解除绑定委托或重新委托的最大条目数。
-   * "max_validators": 验证器的最大数量。
-   * "unbonding_time"：解除绑定的持续时间。
+  * "bond_denom": 用于质押的硬币面额。
+  * "historical_entries"：要保留的历史条目数。
+  * "max_entries"：解除绑定委托或重新委托的最大条目数。
+  * "max_validators": 验证器的最大数量。
+  * "unbonding_time"：解除绑定的持续时间。
   - "redelegations"：验证者的重新委托列表，如果有的话。
   - "unbonding_delegations"：验证者的解除绑定委托列表，如果有的话。
   - "validators"：现有验证器列表，如果有的话。
