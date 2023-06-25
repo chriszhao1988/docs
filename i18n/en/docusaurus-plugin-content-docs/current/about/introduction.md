@@ -3,28 +3,33 @@ sidebar_position: 1
 ---
 
 # Introduction
-Treasurenet 是一种区块链协议，旨在通过映射现实世界矿产资源的开采行为，建设线上的数字经济体系，从而创建一套现实经济与数字经济共同发展的生态系统。
 
-Treasurenet 建立之初，将以石油和天然气这两种矿产资源，作为可以在Treasurenet 上产生价值的矿产资源类型。随着线下开采矿产资源总价值的不断提高，Treasurenet 的区块奖励也将不断增加，不仅促进了Treasurenet 线上经济体系的不断发展，也为线下开采矿产提供了动力。由此，与Treasurenet 相关的线上、线下经济体将通过不断正向影响、互相带动，形成一套完整且稳定的经济生态闭环。
+Treasurenet is a blockchain protocol that aims to construct an online digital economic system by mapping the real-world mining activities of mineral resources, thereby creating an ecosystem where the real economy and the digital economy can develop together.
 
-## Treasurenet 的特点
-##### 1. 由真实资产驱动代币供应
-将加密货币与实物资产关联，这意味着我们的代币是有资产担保的，相对更真实
+At its inception, Treasurenet will regard petroleum and natural gas as the two types of mineral resources that can generate value on Treasurenet. With the continuous increase in the total value of offline mining resources, the block rewards of Treasurenet will also keep increasing. This not only promotes the continuous development of Treasurenet's online economic system, but also provides motivation for offline mining. As a result, the online and offline economies related to Treasurenet will constantly influence each other positively and drive each other, forming a complete and stable economic ecological cycle.
 
-真实资产的价值，在Treasurenet中没有通货膨胀的担忧
+## Features
 
+##### 1. Token supply driven by real assets
 
-##### 2. 两层代币系统
-TAT token，作为基于资产生产商的资产创造和提供的奖励，也就是说，Treasurenet中真实的资产活动越活跃，TAT的产量就越多
+The association of cryptocurrency with physical assets means that our tokens are asset-backed, making them more authentic.
 
-UNIT token，由TAT的产量决定UNIT的供应量，即更多的现实资产活动将生产更多的UNIT
+The value of real assets is in Treasurenet, there is no worry about inflation.
 
-##### 3. POS共识机制
-减少了对GPU或ASIC计算设备的依赖，消耗更少的资源，缩短了共识达成的时间
+##### 2. Two-layer token system
 
+TAT token, as a reward for asset creation and provision based on asset producers, that is, the more active the real asset activities in Treasurenet, the more TAT is produced.
 
-## 如何运行
-Treasurenet 将石油和天然气及其他稀有资产的生产与其记账代币 TAT 的生产联系起来。 然后使用 TAT 代币生成 Treasurenet 的基本价值代币 UNIT……
+UNIT token, the supply of UNIT is determined by the production of TAT, that is, more real asset activities will produce more UNIT.
 
-## 如何连接到 Treasurenet
-商品生产商可以链接到 Treasurenet 协议并开始生产经过验证的 TAT。 这可以通过物联网接口、经审计的生产文件来完成……（继续
+##### 3. POS consensus mechanism
+
+Reduces reliance on GPU or ASIC computing devices, consumes less resources, and shortens the time to reach consensus.
+
+## How it works
+
+Treasurenet links the production of oil, natural gas, and other rare assets with the production of its ledger token, TAT. Then, TAT tokens are used to generate Treasurenet's basic value token, UNIT......
+
+## How to connect to Treasurenet
+
+Commodity producers can link to the Treasurenet protocol and start producing verified TAT. This can be done through IoT interfaces, audited production documents......(To be continued)

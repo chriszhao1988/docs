@@ -4,9 +4,9 @@ sidebar_position: 1
 
 # Introduction
 
-TreasureNet 具有链上治理机制，用于发起文本提案、更改链参数、修改内置合约参数以及从社区池中支出资金。
+TreasureNet has an on-chain governance mechanism for initiating text proposals, changing chain parameters, modifying built-in contract parameters, and spending funds from the community pool.
 
-## 链上链下治理机制
+## On-chain and Off-chain Governance Mechanism
 
 ### DAO Website
 
@@ -16,21 +16,21 @@ TreasureNet 具有链上治理机制，用于发起文本提案、更改链参�
 **Website interview here. connect to dao-website.md and mainnet dao website's url.**
 :::
 
-### 决策和沟通讨论渠道
+### Decision-making and Communication Discussion Channels
 
-沟通渠道涉及不同程度的社区成员，个人通常在生态系统中扮演多个不同的角色（validator，user，developer或者TN团队核心成员 等等）。技术方面的沟通和方向的制定几乎总是公开的，成员的变动也是完全有迹可循的。
+Communication channels involve community members at different levels, and individuals often play multiple different roles in the ecosystem (such as validator, user, developer, or core member of the TN team, etc.). Communication and direction setting in terms of technology are almost always open, and changes in members are completely traceable.
 
 - [TN Discord](https://discord.com/channels/990530508834340905/990530510746964004)
-  - 讨论提案、升级的相关事宜
-  - 和TN团队的核心成员就关键技术进行交流
-  - 获得TN即将进行的升级，及相关细节信息
+  - Discuss proposals and related issues of upgrades
+  - Communicate with core members of the TN team on key technologies
+  - Get information about the upcoming upgrades of TN and the related details
 - [DAO Website](https://splatform.treasurenet.io/Governance/pool)
-  - TN 提案列表
-  - 一站式讨论、投票、发表您对于提案的看法。
+  - TN proposal list
+  - One-stop discussion, voting, and expressing your views on proposals
 - [Telegram](https://t.me/+hN6G5mGAlD8xMmI5)
-  - TN 官方Telegram群组
+  - TN official Telegram group
 - [Twitter](https://twitter.com/treasurenet_io)
-  - TN 官方社交账号
+  - TN official social account
 
 ## Governance Process
 

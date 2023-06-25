@@ -4,29 +4,32 @@ sidebar_position: 4
 
 # Decentralized Audit
 
-## 什么是审计
-在Treasurenet中，审计是特指对能够铸造出TAT token的资产的产量进行验证和校对的过程。
+## What is an Audit
 
-- 验证产量，指生产商上传到Treasurenet中的产量，不会直接被铸造为TAT token，首先需要与官方的产量数据做比对，验证生产商上传的产量数据是真实且无偏差的；
+In Treasurenet, auditing specifically refers to the process of verifying and correcting the output of assets that can be minted into TAT tokens.
 
-- 校对产量，是指如果在验证产量时，发现生产商上传的产量数据与官方的产量数据有过大偏差，我们将对产量数据进行调整，校对后的产量才能用于铸造TAT token。
+- Verifying output means that the output uploaded to Treasurenet by producers will not be directly minted into TAT tokens. First, it needs to be compared with the official output data to verify that the output data uploaded by the producer is real and unbiased;
 
-## 什么是去中心化审计
-在上述对审计的描述中，我们知道审计过后的资产产量将用于铸造TAT token，因此审计后的资产产量的多少十分重要，这意味着审计后的产量多，能够造出的TAT token就会变多，审计后的产量少，能够造出的TAT token数量就少。
+- Correcting output refers to when a significant discrepancy is found between the producer's uploaded output data and the official output data during the verification process. We will adjust the output data; only the corrected output can be used for minting TAT tokens.
 
-因此，谁来审计、怎么审计、审计结果是否公平公正公开就很重要。所以，我们需要保证铸造出的TAT token数量不是由任何人或组织随意决定的，而是经过一套相对客观的不被任何人为因素干扰的规则决定的。我们将这一套规则写入合约中，任何人力或组织都无法直接更改这套审计规则。因此，这一套规则就是去中心化审计。
+## What is a Decentralized Audit
 
-## 怎样进行去中心化审计
-我们用石油这种资产铸造TAT token的过程，举例去中心化审计：
+From the above description of auditing, we know that the output of assets after auditing will be used to mint TAT tokens. Therefore, the amount of asset output after auditing is very important. This means that the more output after auditing, the more TAT tokens can be minted, and the fewer outputs after auditing, the fewer TAT tokens can be minted.
 
-1. 某位石油生产商，将自己的石油产量上传至Treasurenet；
+Therefore, who audits, how to audit, and whether the audit results are fair, just, and open are all very important. So, we need to ensure that the number of TAT tokens minted is not arbitrarily determined by anyone or any organization, but is determined by a set of relatively objective rules that are not interfered with by any human factors. We write these rules into the contract, and no individual or organization can directly change this set of audit rules. Therefore, this set of rules is decentralized auditing.
 
-2. 每个月的固定时间，我们都会从官方数据获取该生产商传至官方的产量数据；
+## How to conduct a Decentralized Audit
 
-3. 生产商自行触发铸造TAT token的操作，该操作首先会触发合约进行产量审计，审计完成后再进行TAT的铸造操作；
+We use the process of minting TAT tokens with an asset like oil as an example of decentralized auditing:
+
+An oil producer uploads their oil output to Treasurenet;
+
+At a fixed time each month, we will obtain the output data that the producer submitted to the official data source;
+
+The producer initiates the operation to mint TAT tokens on their own. This operation will first trigger the contract to audit the output. After the audit is completed, the operation to mint TAT tokens is performed;
 
 :::note
-   产量审计，将根据合约规则，对两处产量数据进行对比、校对，如偏差较大，需要扣除一定的保证金，具体的校对规则详见[此处](/).
+The output audit, according to the contract rules, will compare and correct the output data from both sources. If there is a significant deviation, a certain amount of margin will need to be deducted. The specific correction rules can be seen [here](/).
 :::
 
-当然，铸造TAT token不仅需要校对后的资产产量数据，还需要资产的价格数据，此处不做赘述，关于TAT 的铸造，详见[此处](/).
+Of course, minting TAT tokens not only requires the corrected asset output data but also the price data of the asset. This will not be elaborated here. For details on the minting of TAT, see [here](/).

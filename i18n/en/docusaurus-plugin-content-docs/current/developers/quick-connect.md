@@ -4,17 +4,17 @@ sidebar_position: 2
 
 # Quick Connect
 
-## 公开的可用节点
+## Publicly Available Nodes
 
-**🥺待汇总**
+**🥺 To be collected**
 
-|URL|Description|Status|Maintainer|
-|--|--|--|--|
-|||||
+| URL | Description | Status | Maintainer |
+| --- | ----------- | ------ | ---------- |
+|     |             |        |            |
 
 ## Cosmos gRPC
 
-TreasureNet 为所有集成的 Cosmos SDK 模块公开 gRPC 端点。 这使得钱包和区块浏览器更容易与权益证明逻辑和原生 Cosmos 交易和查询进行交互。
+TreasureNet exposes gRPC endpoints for all integrated Cosmos SDK modules. This facilitates interaction with Proof-of-Stake logic and native Cosmos transactions and queries, making it easier for wallets and block explorers to connect.
 
 ### Cosmos gRPC-Gateway(HTTP REST)
 

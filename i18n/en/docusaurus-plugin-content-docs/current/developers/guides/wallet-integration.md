@@ -2,41 +2,43 @@
 sidebar_position: 1
 ---
 
-
 # Wallet Intergation
 
-📋 想了解更多关于钱包集成的信息吗？ 查看 [MetaMask 钱包文档](https://docs.metamask.io/guide/)和 [Keplr 钱包文档](https://docs.keplr.app/)。
+📋 Want to learn more about wallet integration? Check out the [MetaMask Wallet Documentation](https://docs.metamask.io/guide/) and [Keplr Wallet Documentation](https://docs.keplr.app/).
 
-## 实施清单
+## Implementation Checklist
 
-dApp开发人员的集成实施清单包括三类
-1. 前端功能
-2. 交易和钱包的交互
-3. 客户端的provider
+The integration implementation checklist for dApp developers consists of three categories:
 
-## 前端
+1. Front-end functionality
+2. Interaction with transactions and wallets
+3. Client's provider
 
-确保在应用程序的前端页面上为metamask、coinbase或者keplr创建一个钱包链接的按钮
+## Front-end
 
-## 交易
-在其 dApp 上启用交易的开发人员必须确定用户的钱包类型，创建交易，从相应的钱包请求签名，最后将交易广播到网络。
+Ensure the creation of a wallet linking button for Metamask, Coinbase, or Keplr on the front-end pages of the application.
 
-## 确定钱包类型
-开发人员应确定用户使用的是 Keplr 还是 MetaMask。 用户设备上是否安装了 MetaMask 或 Keplr 可以通过检查相应的 window.ethereum 或 window.keplr 值来确定。
+## Transactions
+
+Developers enabling transactions on their dApp must identify the user's wallet type, create transactions, request signatures from the respective wallet, and finally broadcast the transaction to the network.
+
+## Identify Wallet Type
+
+Developers should determine whether the user is using Keplr or MetaMask. The presence of MetaMask or Keplr on the user's device can be determined by checking the corresponding values of window.ethereum or window.keplr.
 
 ```javascript
 await window.ethereum.enable(chainId); //For MetaMask/coninbase
 await window.keplr.enable(chainId); //For Keplr
 ```
 
-如果 window.ethereum 或 window.keplr 在 document.load 之后返回 undefined，则 MetaMask/Coinbase（或相应的 Keplr）未安装。 
-有几种方法可以等待加载事件检查状态：例如，开发人员可以将函数注册到 window.onload，或者他们可以通过文档事件侦听器跟踪文档的就绪状态。
+If window.ethereum or window.keplr returns undefined after document.load, it means that MetaMask/Coinbase (or the respective Keplr) is not installed.
+There are several methods to wait for the loading event and check the status. For example, developers can register a function to window.onload, or they can track the document's ready state through a document event listener.
 
-确定用户的钱包类型后，开发人员可以继续创建、签名和发送交易。
+Once the user's wallet type is determined, developers can proceed with creating, signing, and sending transactions.
 
-## 创建交易
+## Create Transaction
 
-开发者可以通过treasurenet的js library的msgSend函数创建交易
+Developers can create transactions using the msgSend function from the TreasureNet JavaScript library.
 
 ```javascript
 import { createMessageSend } from @treasurenet/transactions
@@ -75,50 +77,62 @@ const msg = createMessageSend(chain, sender, fee, memo, params)
 
 ```
 
+## Sign and Broadcast Transaction
 
-## 签名并广播交易
+After creating a transaction, developers need to send the payload to the corresponding wallet for signing (msg.signDirect is the transaction in Keplr format, msg.eipToSign is the data to be signed in EIP712 format).
 
-创建交易后，开发人员需要将payload发送到相应的钱包进行签名（msg.signDirect 是 Keplr 格式的交易，msg.eipToSign 是 EIP712 要签名的数据）。
-
-使用签名，我们将 Web3Extension 添加到交易并将其广播到 TreasureNet 节点。
+With the signature, we add the Web3Extension to the transaction and broadcast it to the TreasureNet nodes.
 
 ```javascript
 // Note that this example is for MetaMask, using treasurenetjs
 
 // Follow the previous code block to generate the msg object
-import { treasurenetToEth } from '@treasurenet/address-converter'
-import { generateEndpointBroadcast, generatePostBodyBroadcast } from '@treasurenet/provider'
-import { createTxRawEIP712, signatureToWeb3Extension } from '@treasurenet/transactions'
+import { treasurenetToEth } from "@treasurenet/address-converter";
+import {
+  generateEndpointBroadcast,
+  generatePostBodyBroadcast,
+} from "@treasurenet/provider";
+import {
+  createTxRawEIP712,
+  signatureToWeb3Extension,
+} from "@treasurenet/transactions";
 
 // Init Metamask
 await window.ethereum.enable();
 
 // Request the signature
 let signature = await window.ethereum.request({
-    method: 'eth_signTypedData_v4',
-    params: [treasurenetToEth(sender.accountAddress), JSON.stringify(msg.eipToSign)],
+  method: "eth_signTypedData_v4",
+  params: [
+    treasurenetToEth(sender.accountAddress),
+    JSON.stringify(msg.eipToSign),
+  ],
 });
 
 // The chain and sender objects are the same as the previous example
-let extension = signatureToWeb3Extension(chain, sender, signature)
+let extension = signatureToWeb3Extension(chain, sender, signature);
 
 // Create the txRaw
-let rawTx = createTxRawEIP712(msg.legacyAmino.body, msg.legacyAmino.authInfo, extension)
+let rawTx = createTxRawEIP712(
+  msg.legacyAmino.body,
+  msg.legacyAmino.authInfo,
+  extension
+);
 
 // Broadcast it
 const postOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: generatePostBodyBroadcast(rawTx),
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: generatePostBodyBroadcast(rawTx),
 };
 
 let broadcastPost = await fetch(
-    `https://node1.treasurenet.io:8545${generateEndpointBroadcast()}`,
-    postOptions
+  `https://node1.treasurenet.io:8545${generateEndpointBroadcast()}`,
+  postOptions
 );
 let response = await broadcastPost.json();
-
 ```
 
-## 连接
-对于 Ethereum RPC、Treasurenet gRPC 和/或 REST 查询，dApp 开发人员应在客户端实现提供程序，并将 RPC 详细信息作为机密存储在环境变量中。
+## Connection
+
+For Ethereum RPC, Treasurenet gRPC, and/or REST queries, dApp developers should implement the providers on the client-side and store the RPC details as confidential information in environment variables.

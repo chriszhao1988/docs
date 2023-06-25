@@ -1,15 +1,14 @@
 # Assets
 
-## 官方资产
+## Official Assets
 
-|Name|Descrption|Maintainer|Status|
-|--|--|--|--|
-|Canadian Petroleum Minerals||Treasurenet Foundation|Live|
+| Name                        | Descrption | Maintainer             | Status |
+| --------------------------- | ---------- | ---------------------- | ------ |
+| Canadian Petroleum Minerals |            | Treasurenet Foundation | Live   |
 
-## 非官方
+## Unofficial Assets
 
-|Name|Descrption|Maintainer|Status|
-|--|--|--|--|
+| Name | Descrption | Maintainer | Status |
+| ---- | ---------- | ---------- | ------ |
 
 ## Canadian Petroleum Minerals
-

@@ -2,11 +2,11 @@
 
 ## Keyring
 
-Keyring 包含用于与节点交互的公私钥对。例如，需要在运行节点之前设置一个Validator Key用以正确签署区块。私钥可以存放在不同的位置，称为"[Keyring Backends](/)"，例如文件系统或者操作系统自己的密钥存储。
+Keyring contains public-private key pairs used for interacting with nodes. For example, a Validator Key needs to be set up before running a node to correctly sign blocks. The private key can be stored in different locations, known as "Keyring Backends," such as the file system or the operating system's native key storage.
 
 ### Add Keys
 
-您可以分别使用以下命令来获取有关keys命令的帮助，来获取更多信息
+You can use the following commands separately to obtain help regarding the "keys" command and to get more information.
 
 ```shell
   treasurenetd keys
@@ -16,15 +16,15 @@ Keyring 包含用于与节点交互的公私钥对。例如，需要在运行节
   treasurenetd keys [command] --help
 ```
 
-要在Keyring中创建新的密钥，请运行带有<key_name>参数的add子命令。您必须为新生成的密钥提供密码。
+To create a new key in Keyring, run the 'add' subcommand with the `<key_name>` parameter. You must provide a password for the newly generated key.
 
 ```shell
   treasurenetd keys add mykey
 ```
 
-该命令生成一个新的 24 词助记词，将其持久化到相关后端，并输出有关密钥对的信息。 如果此密钥对将用于保存具有价值的令牌，请务必在安全的地方写下助记词！
+The command generates a new 24-word mnemonic, persists it to the relevant backend, and outputs information about the key pair. If this key pair will be used to store valuable tokens, be sure to write down the mnemonic in a secure place!
 
-默认情况下，密钥环会生成一个 eth_secp256k1 密钥。 密钥环还支持 ed25519 密钥，可以通过传递 --algo 标志来创建。 钥匙圈当然可以同时持有两种类型的钥匙。
+By default, the keyring generates an eth_secp256k1 key. The keyring also supports ed25519 keys, which can be created by passing the --algo flag. The keyring can, of course, hold both types of keys simultaneously.
 
 ```shell
 treasurenetd keys add mykey
@@ -49,9 +49,9 @@ height donkey nasty surface catch effort frog birth fortune december aspect glim
 
 ### OS
 
-os 是默认选项，因为操作系统的默认凭据管理器旨在满足用户最常见的需求，并在不影响安全性的情况下为他们提供舒适的体验。
+os is the default option because the default credential manager of the operating system is designed to meet the most common needs of users and provide them with a comfortable experience without compromising security.
 
-os 后端依赖于操作系统特定的默认值来安全地处理密钥存储。 通常，操作系统的凭证子系统根据用户的密码策略处理密码提示、私钥存储和用户会话。 以下是最流行的操作系统及其各自的密码管理器的列表：
+The os backend relies on operating system-specific defaults to securely handle key storage. Typically, the credential subsystem of the operating system handles password prompts, private key storage, and user sessions based on the user's password policy. Here is a list of the most popular operating systems and their respective password managers:
 
 - macOS (since Mac OS 8.6): [Keychain](https://support.apple.com/en-gb/guide/keychain-access/welcome/mac)
 - Windows: [Credentials Management API](https://docs.microsoft.com/en-us/windows/win32/secauthn/credentials-management)
@@ -59,17 +59,17 @@ os 后端依赖于操作系统特定的默认值来安全地处理密钥存储�
   - [libsecret](https://gitlab.gnome.org/GNOME/libsecret)
   - [kwallet](https://api.kde.org/frameworks/kwallet/html/index.html)
 
-使用 GNOME 作为默认桌面环境的 GNU/Linux 发行版通常附带 [Seahorse](https://wiki.gnome.org/Apps/Seahorse)。 基于 KDE 的发行版的用户通常使用 [KDE Wallet Manager](https://userbase.kde.org/KDE_Wallet_Manager)。 虽然前者实际上是一个 libsecret 方便的前端，但后者是一个 kwallet 客户端。
+GNU/Linux distributions that use GNOME as the default desktop environment usually come with [Seahorse](https://wiki.gnome.org/Apps/Seahorse). Users of KDE-based distributions typically use [KDE Wallet Manager](https://userbase.kde.org/KDE_Wallet_Manager). Although the former is actually a convenient frontend for libsecret, the latter is a kwallet client.
 
 ### File
 
-该文件将加密的密钥环存储在应用程序的配置目录中。 此密钥环在每次访问时都会要求输入密码，这可能会在单个命令中出现多次，从而导致重复的密码提示。
+The file stores an encrypted keychain in the application's configuration directory. This keychain prompts for a password each time it is accessed, which may result in repetitive password prompts within a single command.
 
 ### Password Store
 
-通行证后端使用[pass](https://www.passwordstore.org/)实用程序来管理密钥敏感数据和元数据的磁盘加密。 密钥存储在应用程序特定目录中的 gpg 加密文件中。 pass 适用于最流行的 UNIX 操作系统以及 GNU/Linux 发行版。 
+The passport backend utilizes the [pass](https://www.passwordstore.org/) utility to manage disk encryption of key-sensitive data and metadata. The keys are stored in GPG-encrypted files in an application-specific directory. Pass is compatible with the most popular UNIX operating systems and GNU/Linux distributions.
 
-密码存储必须在首次使用前设置：
+The password store must be set up before the initial use:
 
 ```shell
   pass init <GPG_KEY_ID>
@@ -77,8 +77,8 @@ os 后端依赖于操作系统特定的默认值来安全地处理密钥存储�
 
 ### KDE Wallet Manager
 
-kwallet 后端使用 KDE Wallet Manager，它默认安装在将 KDE 作为默认桌面环境的 GNU/Linux 发行版上。 请参阅 [KWallet Handbook](https://docs.kde.org/stable5/en/kwalletmanager/kwallet5/) 了解更多信息。
+The kwallet backend utilizes the KDE Wallet Manager, which is installed by default on GNU/Linux distributions that have KDE as the default desktop environment. Please refer to the [KWallet Handbook](https://docs.kde.org/stable5/en/kwalletmanager/kwallet5/) for more information.
 
 ### In Memory
 
-内存后端将密钥存储在内存中。 程序退出后立即删除密钥。
+The in-memory backend stores the keys in memory. The keys are immediately deleted when the program exits.

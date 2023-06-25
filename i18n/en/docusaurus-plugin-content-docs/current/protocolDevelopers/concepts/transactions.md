@@ -4,21 +4,21 @@ sidebar_position: 1
 
 # Transactions
 
-交易是指由账户发起的改变区块链状态的行为。为了有效地执行状态更改，每笔交易都会广播到整个网络。任何节点都可以广播请求在区块链状态机上执行的交易；发生这种情况后，验证器将验证、执行交易并将产生的状态更改传播到网络的其余部分。
+Transactions refer to actions initiated by an account that change the state of a blockchain. To effectively execute state changes, each transaction is broadcasted to the entire network. Any node can broadcast a request to execute a transaction on the blockchain state machine. Once this happens, validators will verify, execute the transaction, and propagate the resulting state changes to the rest of the network.
 
-为了处理每笔交易，网络上的计算资源都会被消耗。因此，“gas”的概念是作为验证者处理交易所需的计算的参考而出现的。用户必须为此计算付费，所有交易都需要相关费用。该费用是根据执行交易所需的 gas 和 gas 价格计算的。
+Computational resources on the network are consumed to process each transaction. Therefore, the concept of "gas" emerged as a reference for the computational cost required by validators to process transactions. Users must pay for this computation, and all transactions incur associated fees. The fees are calculated based on the gas consumed and the gas price required to execute the transaction.
 
-此外，交易需要使用发送方的私钥进行签名。这证明交易只能来自发件人，而不是欺诈性发送。
+Additionally, transactions need to be signed using the sender's private key. This proves that the transaction can only come from the sender and not from fraudulent sources.
 
-简而言之，将签名交易提交到网络后的交易生命周期如下：
+In summary, the lifecycle of a transaction after submitting a signed transaction to the network is as follows:
 
-- 交易哈希是加密生成的。
-- 该交易被广播到网络并添加到由所有其他未决网络交易组成的交易池中。
-- 验证者必须选择你的交易并将其包含在一个块中，以验证交易并认为它“成功”。
+- The transaction hash is generated through encryption.
+- The transaction is broadcasted to the network and added to a transaction pool consisting of all other pending network transactions.
+- Validators must select your transaction and include it in a block to validate and deem it "successful."
 
-交易哈希是一个唯一标识符，可用于检查交易信息，例如，发出的事件是否成功。
+The transaction hash serves as a unique identifier that can be used to check transaction details, such as whether the intended action was successful.
 
-交易可能因各种原因而失败。例如，提供的 gas 或费用可能不足。此外，交易验证可能会失败。每笔交易都有特定的条件，必须满足这些条件才能被视为有效。一个广泛的验证是发送者是交易签名者。在这种情况下，如果您在发件人地址与签名者地址不同的地方发送交易，即使费用足够，交易也会失败。
+Transactions can fail for various reasons. For example, insufficient gas or fees may be provided. Additionally, transaction validation may fail. Each transaction has specific conditions that must be met for it to be considered valid. A common validation is that the sender is the signer of the transaction. In this case, if you send a transaction from a different address than the signer's address, the transaction will fail, even if the fees are sufficient.
 
 ## Cosmos Transactions
 
@@ -26,14 +26,14 @@ On Cosmos chains, transactions are comprised of metadata held in contexts and sd
 
 When users want to interact with an application and make state changes (e.g. sending coins), they create transactions. Cosmos transactions can have multiple sdk.Msgs. Each of these must be signed using the private key associated with the appropriate account(s), before the transaction is broadcasted to the network.
 
-Cosmos 交易包括以下信息：
+Cosmos transactions include the following information:
 
-- Msgs：消息数组（sdk.Msg）
-- GasLimit：用户选择的选项，用于计算他们需要支付多少 gas
-- FeeAmount：用户愿意支付的最大费用
-- TimeoutHeight：交易有效的区块高度
-- Signatures: 来自 tx 所有签名者的签名数组
-- Memo: 随交易发送的注释或评论
+- Msgs: an array of messages (sdk.Msg)
+- GasLimit: an option chosen by the user to calculate how much gas they need to pay
+- FeeAmount: the maximum fee the user is willing to pay
+- TimeoutHeight: the block height at which the transaction is valid
+- Signatures: an array of signatures from all signers of the transaction (tx)
+- Memo: a comment or note sent along with the transaction
 
 To submit a Cosmos transaction, users must use one of the provided clients.
 
@@ -49,17 +49,15 @@ There are several categories of Ethereum transactions:
 - contract deployment transactions: transactions without a to address, where the contract code is sent in the data field
 - execution of a contract: transactions that interact with a deployed smart contract, where the to address is the smart contract address
 
-An Ethereum transaction 包括以下信息：
+An Ethereum transaction includes the following information:
 
-- recipient: 接收者地址
-- signature: 发送者签名
-- nonce: 来自account的 tx 编号的计数器
-- value: 要转账的代币数量
-- data: 包括任意数据。 在部署智能合约或进行智能合约方法调用时使用
-- gasLimit: 要消耗的最大gas量
-- maxPriorityFeePerGas: mas gas to be included as tip to validators
-- maxFeePerGas: 为 tx 支付的最大 gas 量
+- recipient: recipient's address
+- signature: sender's signature
+- nonce: counter of transaction numbers from the account
+- value: the amount of tokens to be transferred
+- data: includes arbitrary data, used for deploying smart contracts or invoking smart contract methods
+- gasLimit: the maximum amount of gas to be consumed
+- maxPriorityFeePerGas: max gas to be included as tip to validators
+- maxFeePerGas: the maximum amount of gas to be paid for the transaction
 
 Treasurenet supports the following Ethereum transactions.
-
-
