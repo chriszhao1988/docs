@@ -4,23 +4,23 @@ sidebar_position: 2
 
 # Clients
 
-TreasureNet支持Cosmos和Ethereum的客户端发送交易和查询信息
+Treasurenet supports both Cosmos and Ethereum clients for sending transactions and performing queries.
 
-<font color="red">待核对</font>
+:::caution
+To be verified
+:::
 
-
-||Description|Default Port|
-|--|--|--|
-|Cosmos gRPC|Query or send transactions using gRPC|9090|
-|Cosmos REST(gRPC-Gateway|Query or send transactions using an HTTP RESTful API|9091|
-|Ethereum JSON-RPC|Query Ethereum-formatted transactions and blocks or send Ethereum txs using JSON-RPC|8545|
-|Ethereum Websocket|Subscribe to Ethereum logs and event emitted in smart contracts|8546|
-|Command Line Interface|Query or send Treasurenet transactions useing your console|N/A|
-
+|                          | Description                                                                          | Default Port |
+| ------------------------ | ------------------------------------------------------------------------------------ | ------------ |
+| Cosmos gRPC              | Query or send transactions using gRPC                                                | 9090         |
+| Cosmos REST(gRPC-Gateway | Query or send transactions using an HTTP RESTful API                                 | 9091         |
+| Ethereum JSON-RPC        | Query Ethereum-formatted transactions and blocks or send Ethereum txs using JSON-RPC | 8545         |
+| Ethereum Websocket       | Subscribe to Ethereum logs and event emitted in smart contracts                      | 8546         |
+| Command Line Interface   | Query or send Treasurenet transactions useing your console                           | N/A          |
 
 ## Cosmos gRPC
 
-TreasureNet exposes gRPC endpoints for all the integrated Cosmos SDK modules. 
+TreasureNet exposes gRPC endpoints for all the integrated Cosmos SDK modules.
 This makes it easier for wallets and block explorers to interact with the Proof-of-Stake logic and native Cosmos transactions and queries.
 
 ## Cosmos gRPC-Gateway (HTTP REST)
@@ -29,6 +29,7 @@ gRPC-Gateway reads a gRPC service definition and generates a reverse-proxy serve
 See the list of supported gRPC-Gateway API endpoints for the Treasurenet testnet here
 
 ## Ethereum JSON-RPC
+
 TreasureNet supports most of the standard [JSON-RPC APIs](https://) to connect with existing Ethereum-compatible web3 tooling.
 
 ## Ethereum Websocket
@@ -78,7 +79,7 @@ Available Commands:
 - **Queries**: treasurenetd query
 
 The list of available commands
- 
+
 ```shell
 Available Commands:
   account                  Query for account by address

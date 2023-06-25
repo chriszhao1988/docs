@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Genesis.json
+# Genesis.json 文件
 
 该 genesis.json 文件位于数据目录(default `"/root/.treasurenetd"`)。在标准的 tendermint 创世纪格式之上，我们定制了我们自己的创世文件，其中包含不同的模块并促进了 treasurenet 链的特殊功能。
 

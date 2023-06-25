@@ -40,14 +40,12 @@ func (g txConfig) TxEncoder() sdk.TxEncoder {
 func (g txConfig) TxDecoder() sdk.TxDecoder {
     return func(txBytes []byte) (sdk.Tx, error) {
       tx := &ethtypes.Transaction{}
-
       err := tx.UnmarshalBinary(txBytes)
       if err == nil {
         msg := &evmtypes.MsgEthereumTx{}
         msg.FromEthereumTx(tx)
         return msg, nil
       }
-
       return g.TxConfig.TxDecoder()(txBytes)
     }
 }

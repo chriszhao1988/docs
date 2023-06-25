@@ -2,10 +2,35 @@
 sidebar_position: 3
 ---
 
-
 # TN-Gateway
 
+TN Gateway plays a crucial role in the Treasurenet blockchain public chain. It serves as a data provider for various peripheral tools, websites, and Dapps within the Treasurenet ecosystem through its Restful API interface. TN Gateway ensures the trustworthiness of the service caller's identity through interactive authentication using OAuth2.
 
-TN gateway 是TreasureNet 区块链公链中的一个重要的组成部分（组件）, 它为Treasurenet的其他周边工具、网站以及Dapp 通过Restful API接口提供数据支持, 通过交互认证(OAuth2), 确保服务调用方的身份可信. TN-Gateway 中的数据来源自 DataProvider Module . 这个模块通过事件监听、区块链查询操作、以及从其他周边服务(例如区块浏览器)发掘并整理数据, 最终存储于数据库集群服务器之中.TN Gateway 对外提供的数据,包括USTN Finance的相关交易记录、staking相关记录、生产商信息、矿产信息、产量数据、token的交易记录、用户信息等数据, 并提供常见的索引、统计、排序服务. 周边服务的开发者、Dapp的开发者可以在获得许可后, 根据API说明文档中指定的调用规则获取这些内容.
+The data within TN-Gateway is sourced from the DataProvider Module. This module extracts and organizes data by monitoring events, conducting blockchain queries, and utilizing peripheral services like block browsers. The collected data is then stored in a database cluster on the server. TN-Gateway provides a wide range of data, including transaction records related to USTN Finance, staking activities, manufacturer and mineral information, production data, token transaction records, user information, and other relevant data. It also offers common indexes and statistical services for sorting.
 
+Developers of peripheral services and DApps can access these contents by following the specified calling rules outlined in the API documentation, once they have obtained the necessary permissions.
 
+## How to connect to TN-Gateway ?
+
+:::caution
+TN-Gateway public connection is not yet open
+:::
+
+To retrieve data from TN-Gateway:
+
+1. Obtain the `client_id` and `client_secret` to pass the OAuth2 authentication.
+2. Consult the API documentation to find the desired data and endpoints.
+3. Make a Restful API request with the required parameters.
+4. Receive the response containing the requested data.
+
+The system will return your results in data according to the actual situation.
+
+## Common errors.
+
+| code | description      | solution                                                                                                                                                                                          |
+| ---- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -1   | system error     | Contact us via social media                                                                                                                                                                       |
+| -2   | common error     | Determining error conditions from error messages                                                                                                                                                  |
+| -3   | Params error     | Incorrect parameters, you may need to check the API description to ensure that the number and type of parameters are correct.                                                                     |
+| -4   | Permission error | Please check whether your account has permission for this interface.                                                                                                                              |
+| -5   | authorized error | Authentication failed, or authentication error. You need to check whether the access_token exists and whether it has expired. You can try to obtain the token again and initiate the query again. |

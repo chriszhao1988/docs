@@ -1,11 +1,11 @@
 # Hardhat: Deploying a Smart Contract
 
-[Hardhat](https://hardhat.org/) is a flexible development environment for building Ethereum-based smart contracts. It is designed with integrations and extensibility in mind.
+[Hardhat](https://hardhat.org/) is a versatile development environment specifically created for building smart contracts on the Ethereum network. It offers flexibility, allowing developers to easily integrate and extend its functionalities.
 
 ## Install Dependencies
 
 :::info
-Before proceeding, you need to install Node.js (we'll use v16.x) and the npm package manager. 
+Before proceeding, you need to install Node.js (we'll use v16.x) and the npm package manager.
 :::
 
 ## Create Hardhat Project
@@ -34,7 +34,7 @@ $ npx hardhat
   Quit
 ```
 
-Following the prompts should create a new project structure in your directory. Consult the [Hardhat config page ](https://hardhat.org/config/)for a list of configuration options to specify in hardhat.config.js. Most importantly, you should set the defaultNetwork entry to point to your desired JSON-RPC network:
+By following the prompts, you will be able to create a new project structure in your chosen directory. To configure your Hardhat project, you can refer to the Hardhat config page, which provides a list of configuration options that can be specified in the `hardhat.config.js` file. One crucial configuration is setting the `defaultNetwork` entry to point to your desired JSON-RPC network.
 
 ```shell
 module.exports = {
@@ -46,8 +46,7 @@ module.exports = {
       url: "https://node1.testnet.treasurenet.io:8545",
       accounts: [privateKey1, privateKey2, ...]
     }
-  },
-  ...
+  }
 }
 ```
 
@@ -56,12 +55,11 @@ To ensure you are targeting the correct network, you can query for a list of acc
 ```shell
 $ npx hardhat accounts
 0xf39Fd6e51aad88F6F4ce6aB88273c5d6ba293358
-...
 ```
 
 ## Deploying a Smart Contract
 
-You will see that a default smart contract, written in Solidity, has already been provided under contracts/Greeter.sol:
+A default smart contract, written in Solidity, has already been provided under `contracts/Greeter.sol`:
 
 ```solidity
 pragma solidity ^0.8.0;
@@ -88,14 +86,15 @@ contract Greeter {
 
 ```
 
+This contract allows you to set and query a string greeting.
 
-This contract allows you to set and query a string greeting. Hardhat also provides a script to deploy smart contracts to a target network; this can be invoked via the following command, targeting your default network:
+Hardhat also provides a script to deploy smart contracts to a target network; this can be invoked via the following command, targeting your default network:
 
 ```shell
 npx hardhat run scripts/deploy.js
 ```
 
-Hardhat also lets you manually specify a target network via the --network \<your-network\> flag:
+Hardhat also lets you manually specify a target network via the --network your-network flag:
 
 ```shell
 npx hardhat run --network {{ $themeConfig.project.rpc_url_testnet }} scripts/deploy.js

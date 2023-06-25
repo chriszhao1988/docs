@@ -34,91 +34,123 @@ const sidebars = {
             type: 'category',
             label: 'About TN',
             items: [
-                {
-                    type: 'doc',
-                    id: 'about/introduction', // 文档 ID
-                    label: 'About TreasureNet', // 侧边栏标签
-                },
+                'about/introduction'
             ]
         },
         {
             type: 'category',
-            label: 'Users',
+            label: 'Assets Production',
+            items: [
+                'assets/overview',
+                {
+                    type: 'category',
+                    label: 'Core Concepts',
+                    items: [
+                        'assets/basic-concepts/producer',
+                        'assets/basic-concepts/stake',
+                        'assets/basic-concepts/decentralized-audit',
+                        'assets/basic-concepts/privacy-protection',
+                    ]
+                },
+                'assets/tngateway'
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Fundamentals',
             items: [
                 {
                     type: 'category',
-                    label: 'Basic Concepts',
+                    label: 'Tokens',
                     items: [
-                        'users/concepts/transactions',
-                        'users/concepts/tokens',
-                        'users/concepts/gas-and-fees',
-                        'users/concepts/smart-contract'
+                        'fundamentals/tokens/official-tokens',
+                        'fundamentals/tokens/third-party-tokens',
                     ]
                 },
                 {
                     type: 'category',
                     label: 'Digital Wallets',
                     items: [
-                        'users/wallets/metamask',
-                        'users/wallets/coinbase',
-                        'users/wallets/keplr',
-                        'users/wallets/ledger',
+                        'fundamentals/wallets/metamask',
+                        'fundamentals/wallets/coinbase',
+                        'fundamentals/wallets/keplr',
                     ]
                 },
-                'users/accounts',
+                'fundamentals/transfer-tokens',
+            ]
+        },
+        {
+            type: 'category',
+            label: 'USTN Finance Platform',
+            items: [
+                'ustn/overview',
+                'ustn/financial-operations',
+                'ustn/qa'
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Governance',
+            items: [
+                'governance/overview',
+                'governance/dao-website',
+                'governance/community-pool',
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Producer & TAT',
+            items: [
+                'producers/introduction',
+                'producers/rules',
+                'producers/assets',
+                'producers/new-assets',
                 {
                     type: 'category',
-                    label: 'TN Governance',
+                    label: 'Operation Guide',
                     items: [
-                        'users/governance/overview',
-                        'users/governance/dao-website',
-                        'users/governance/chain-parameters',
-                        'users/governance/community-pool',
-                    ]
-                },
-                {
-                    type: 'category',
-                    label: 'USTN Finance Sys.',
-                    items: [
-                        'users/ustn/overview',
-                        'users/ustn/financial-operations',
-                        'users/ustn/financial-logic',
-                        'users/ustn/qa'
-                    ]
-                },
+                        'producers/operation-guide/production-data-upload',
+                        {
+                            type: 'category',
+                            label: 'Producer Guide',
+                            items: [
+                                'producers/operation-guide/producer/registration',
+                                'producers/operation-guide/producer/wellmanagement',
+                                'producers/operation-guide/producer/expense',
+                                'producers/operation-guide/producer/mint',
+                                'producers/operation-guide/producer/messages',
+                            ],
 
+                        },
+                        'producers/operation-guide/foundationmanager',
+                        'producers/operation-guide/getinfo'
+                    ],
+
+                },
+                'producers/qa'
             ]
         },
         {
             type: 'category',
-            label: 'Producers',
+            label: 'For Delegaters',
             items: [
-                'producers/basic-concepts',
-                'producers/producer-registration',
+                'staking/introduction',
                 {
                     type: 'category',
-                    label: 'Production Data',
+                    label: 'Operation Guide',
                     items: [
-                        'producers/production-data/canadian-petroleum-minerals',
-                        'producers/production-data/digital-minerals',
-                    ]
+                        'staking/operation-guide/staking',
+                        'staking/operation-guide/stakeboosting',
+                    ],
+
                 },
-                'producers/producer-tools',
+                'staking/best-practices',
+                'staking/qa',
             ]
         },
         {
             type: 'category',
-            label: 'Stakers',
-            items: [
-                'stakers/basic-concepts',
-                'stakers/rule',
-                'stakers/operation-guide',
-                'stakers/qa',
-            ]
-        },
-        {
-            type: 'category',
-            label: 'Validators',
+            label: 'For Validators',
             items: [
                 'validators/overview',
                 {
@@ -127,7 +159,6 @@ const sidebars = {
                     items: [
                         'validators/concepts/validator-delegator',
                         'validators/concepts/becoming-a-validator',
-                        'validators/concepts/bonus-stake',
                         'validators/concepts/incentives',
                     ],
                 },
@@ -138,7 +169,7 @@ const sidebars = {
                         'validators/quickStart/installation',
                         'validators/quickStart/treasurenetd',
                         'validators/quickStart/run-a-node',
-
+                        'validators/quickStart/init',
                     ],
                 },
                 {
@@ -151,14 +182,13 @@ const sidebars = {
                 },
                 'validators/join-testnet',
                 'validators/join-mainnet',
-                'validators/about-bonus-stake',
+                'validators/faq',
             ]
         },
         {
             type: 'category',
-            label: 'Dapp Devs',
+            label: 'For Dapp Devs',
             items: [
-                'developers/overview',
                 'developers/quick-connect',
                 'developers/tn-gateway',
                 'developers/clients',
@@ -169,8 +199,7 @@ const sidebars = {
                         'developers/guides/wallet-integration',
                         'developers/guides/erc20',
                         'developers/guides/trace-transactions',
-                        'developers/guides/query-balances',
-                        'developers/guides/new-assets'
+                        'developers/guides/query-balances'
                     ]
                 },
                 {
@@ -191,7 +220,7 @@ const sidebars = {
                 },
                 {
                     type: 'category',
-                    label: 'Ethereum Tooling ',
+                    label: 'TreasureNet EVM Tooling ',
                     items: [
                         'developers/ethereum-tooling/remix',
                         'developers/ethereum-tooling/hardhat',
@@ -202,7 +231,7 @@ const sidebars = {
                     type: 'category',
                     label: 'Client Libraries',
                     items: [
-                        'developers/client-libraries/treasurenet-js',
+                        'developers/client-libraries/address-converter'
                     ]
                 },
                 {
@@ -217,13 +246,47 @@ const sidebars = {
                     label: 'Cosmos gRPC & REST',
                     href: 'https://www.google.com'
                 },
+                'developers/faq'
             ]
         },
         {
             type: 'category',
-            label: 'Protocol Devs',
+            label: 'For Protocol Devs',
             items: [
                 'protocolDevelopers/overview',
+                {
+                    type: 'category',
+                    label: 'Basic Concepts',
+                    items: [
+                        'protocolDevelopers/concepts/accounts',
+                        'protocolDevelopers/concepts/transactions',
+                        'protocolDevelopers/concepts/encoding',
+                        'protocolDevelopers/concepts/gas-and-fees',
+                        'protocolDevelopers/concepts/multisig',
+                    ]
+                },
+                {
+                    type: 'category',
+                    label: 'Modules',
+                    items: [
+                        'protocolDevelopers/modules/overview',
+                        'protocolDevelopers/modules/auth',
+                        'protocolDevelopers/modules/bank',
+                        'protocolDevelopers/modules/mint',
+                        'protocolDevelopers/modules/staking',
+                        'protocolDevelopers/modules/slashing',
+                        'protocolDevelopers/modules/gov',
+                        'protocolDevelopers/modules/distribution'
+
+                    ]
+                },
+                {
+                    type: 'category',
+                    label: 'Genesis File',
+                    items: [
+                        'protocolDevelopers/genesis/genesis',
+                    ]
+                },
             ]
         },
         {

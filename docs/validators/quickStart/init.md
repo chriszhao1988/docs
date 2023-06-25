@@ -34,11 +34,11 @@ sidebar_position: 4
   GAIA_HOME="--home /root/.treasurenetd"
   ARGS="$GAIA_HOME --keyring-backend test"
   ```
-- validate dependencies are installed
+- 确认依赖已安装
   - `command -v jq > /dev/null 2>&1 || { echo >&2 "jq not installed. More info: https://stedolan.github.io/jq/download/"; exit 1; }`
-- remove existing daemon and client
+- 删除现有的守护程序和客户端
   - `rm -rf ~/.treasurenet*`
-- make install
+- 安装守护程序和客户端
 
 ```shell
 command -v jq > /dev/null 2>&1 || { echo >&2 "jq not installed. More info: https://stedolan.github.io/jq/download/"; exit 1; }
@@ -70,26 +70,26 @@ make install
   $BIN init $MONIKER --chain-id $CHAINID
   ```
 
-- Change parameter token denominations to aunit
+- 将参数代币面额更改为 `aunit`
   ```shell
   cat $HOME/.treasurenetd/config/genesis.json | jq '.app_state["staking"]["params"]["bond_denom"]="aunit"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
   cat $HOME/.treasurenetd/config/genesis.json | jq '.app_state["crisis"]["constant_fee"]["denom"]="aunit"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
   cat $HOME/.treasurenetd/config/genesis.json | jq '.app_state["gov"]["deposit_params"]["min_deposit"][0]["denom"]="aunit"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
   cat $HOME/.treasurenetd/config/genesis.json | jq '.app_state["mint"]["params"]["mint_denom"]="aunit"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
   ```
-- increase block time (?)
+- 增加区块时间
 
   ```shell
   cat $HOME/.treasurenetd/config/genesis.json | jq '.consensus_params["block"]["time_iota_ms"]="1000"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
   ```
 
-- Set gas limit in genesis
+- 设置创世区块的燃气限制
 
   ```shell
   cat $HOME/.treasurenetd/config/genesis.json | jq '.consensus_params["block"]["max_gas"]="10000000"' > $HOME/.treasurenetd/config/tmp_genesis.json && mv $HOME/.treasurenetd/config/tmp_genesis.json $HOME/.treasurenetd/config/genesis.json
   ```
 
-- disable produce empty block
+- 禁用产生空块
 
   ```shell
   if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -99,19 +99,19 @@ make install
   fi
   ```
 
-- add in denom metadata for both native tokens
+- 添加本地代币的面值元数据
 
   ```shell
   jq '.app_state.bank.denom_metadata += [{"name": "Foo Token", "symbol": "FOO", "base": "footoken", display: "mfootoken", "description": "A non-staking test token", "denom_units": [{"denom": "footoken", "exponent": 0}, {"denom": "mfootoken", "exponent": 6}]},{"name": "Stake Token", "symbol": "STEAK", "base": "aunit", display: "unit", "description": "A staking test token", "denom_units": [{"denom": "aunit", "exponent": 0}, {"denom": "unit", "exponent": 18}]}]' /root/.treasurenetd/config/genesis.json > /treasurenet-footoken2-genesis.json
   jq '.app_state.bank.denom_metadata += [{"name": "Foo Token2", "symbol": "F20", "base": "footoken2", display: "mfootoken2", "description": "A second non-staking test token", "denom_units": [{"denom": "footoken2", "exponent": 0}, {"denom": "mfootoken2", "exponent": 6}]}]' /treasurenet-footoken2-genesis.json > /treasurenet-bech32ibc-genesis.json
   ```
 
-- Set the chain's native bech32 prefix
+- 设置链的本地 bech32 前缀
   ```shell
   jq '.app_state.bech32ibc.nativeHRP = "treasurenet"' /treasurenet-bech32ibc-genesis.json > /gov-genesis.json
   mv /gov-genesis.json /root/.treasurenetd/config/genesis.json
   ```
-- Allocate genesis accounts (treasurenet formatted addresses)
+- 分配初始账户（以 TreasureNet 格式的地址）
 
   - `VALIDATOR_KEY=$($BIN keys show validator -a $ARGS)`
   - `ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)`
@@ -125,16 +125,16 @@ make install
   $BIN add-genesis-account $ARGS $ORCHESTRATOR_KEY $ALLOCATION
   ```
 
-- Sign genesis transaction
+- 签署创世交易
   - `ORCHESTRATOR_KEY=$($BIN keys show orchestrator -a $ARGS)`
   - `ETHEREUM_KEY=$(grep address /validator-eth-keys | sed -n "1"p | sed 's/.*://')`
   - 创建了一个 gentx 目的是为了 1:将您创建的账户注册 validator 为验证器操作员的账户；2：自行委托提供 unit 质押的代币；3：将操作员账户与将用于签署区块的 Treasurenet 节点公钥链接
   * `$BIN gentx $ARGS --moniker $MONIKER --chain-id=$CHAIN_ID validator 258000000000000000000aunit $ETHEREUM_KEY $ORCHESTRATOR_KEY`
-- Collect genesis tx
+- 收集创世交易
   - `$BIN collect-gentxs` : 将 gentx 添加到 genesis 文件中
-- Run this to ensure everything worked and that the genesis file is setup correctly
+- 请运行以下命令以确保一切正常，并且创世文件设置正确
   - `$BIN validate-genesis`
-- Start the node (remove the --pruning=nothing flag if historical queries are not needed)
+- 启动节点（如果不需要历史查询，请删除 `--pruning=nothing` 标志）
   - `$BIN start --pruning=nothing --log_level $LOGLEVEL --json-rpc.api eth,txpool,personal,net,debug,web3,miner --trace --json-rpc.address 0.0.0.0:8555`
 
 ```shell
