@@ -10,7 +10,7 @@ const config = {
     tagline: 'Treasurenet Built on Real-World Rare Assets.',
     url: 'https://docs.treasurenet.io',
     baseUrl: '/',
-    onBrokenLinks: 'throw',
+    onBrokenLinks: 'ignore',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
 
