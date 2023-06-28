@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-a test
+this is a fucking test
 
 # 介绍
 
